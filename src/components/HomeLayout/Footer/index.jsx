@@ -2,7 +2,16 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className='bg-[#00B4F1] py-4'>
+      <div className='container mx-auto flex justify-between'>
+        <div className='text-[14px] font-[500] text-[#fff]'>
+        CAUTION - Investigational device. Limited by federal (or United States) law to investigational use.
+        </div>
+        <div className='text-[14px] font-[500] text-[#fff]'>
+        © Copyright 2025 ReGelTec, Inc.
+        </div>
+      </div>
+    </div>
   )
 }
 
