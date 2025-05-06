@@ -4,6 +4,7 @@ import mvpIcon from "../../../assets/images/mvp-icon.png";
 import prescreenIcon from "../../../assets/images/prescreen-icon.png";
 import refferalIcon from "../../../assets/images/refferal-icon.png";
 import statesIcon from "../../../assets/images/states-icon.png";
+// import { useSelector } from "react-redux";
 
 const totalCards = [
   {
@@ -111,25 +112,25 @@ const Dashboard = () => {
                 <div className="flex justify-between items-center mb-4">
                   <div className="text-[20px] font-[400] text-[#000]">
                     {item?.title}
-                  </div> 
+                  </div>
                   <a href="javasscript:void(0)" className="text-[14px] font-[400] text-[#00B4F1]">
                     {item?.action}
                   </a>
                 </div>
-              {item?.data?.map((item, i) => {
-                return (
-                  <>
-                  <div className="flex items-center justify-between mb-3">
-                  <div className="text-[16px] font-[400] text-[#00000099]">
-                    {item?.label}
-                  </div>
-                  <div className="text-[16px] font-[400] text-[#000000]">
-                  {item?.value}
-                  </div>
-                </div>
-                  </>
-                )
-              })  }
+                {item?.data?.map((item, i) => {
+                  return (
+                    <>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="text-[16px] font-[400] text-[#00000099]">
+                          {item?.label}
+                        </div>
+                        <div className="text-[16px] font-[400] text-[#000000]">
+                          {item?.value}
+                        </div>
+                      </div>
+                    </>
+                  )
+                })}
               </div>
             </>
           );
