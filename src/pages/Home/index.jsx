@@ -8,6 +8,7 @@ import map from "../../assets/images/map.svg";
 import refresh from "../../assets/images/refresh.svg";
 import FaqSection from "./FaqSection";
 import { useNavigate } from "react-router-dom";
+import MyMapWithSearch from "../../components/MyMapWithSearch";
 
 const Home = () => {
   const mapRef = useRef(null);
@@ -436,7 +437,7 @@ const Home = () => {
         </div>
 
         {/* Study Location Section */}
-        <div className="bg-[#e5f7fe] py-12">
+        <div className="bg-[#e5f7fe] pt-12 h-[900px]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
               <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
@@ -462,15 +463,17 @@ const Home = () => {
             {/* Map Section */}
             <div className="rounded-lg overflow-hidden shadow-md mb-16 relative">
               {/* US Map */}
-              <div className="relative h-96">
-                <div className="h-[500px] w-full rounded-xl overflow-hidden">
+              <div className="relative ">
+                <div className=" w-full rounded-xl overflow-hidden">
+
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
-                    <img
+                    <MyMapWithSearch />
+                    {/* <img
                       src={map}
                       alt="Map"
                       className="w-full h-full object-cover"
-                    />
+                    /> */}
                     {/* {!window.google && (
                       <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center p-4">
                         <p className="text-gray-700 text-lg mb-4 text-center">
@@ -640,7 +643,7 @@ const Home = () => {
           <div className="container mx-auto px-4">
             <h3 className="text-xl font-bold text-[#00b4f1] mb-4">FAQS</h3>
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
-            Frequently Asked Question
+              Frequently Asked Question
             </h2>
             {/* FAQ content would go here */}
             <FaqSection />

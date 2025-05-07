@@ -8,6 +8,7 @@ import { useLoginMutation } from '../../api/apiSlice';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../features/authSlice';
+import Loader from '../../components/Loader';
 
 
 const Login = () => {

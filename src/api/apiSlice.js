@@ -14,7 +14,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["studyCenter"],
+  tagTypes: ["studyCenter", "allQuestions"],
   endpoints: (builder) => ({
     //////////////////////////// auth
     login: builder.mutation({
@@ -47,7 +47,7 @@ export const api = createApi({
     //////////////////////////// study center
     getAllStudyCenter: builder.query({
       query: ({ status, page, limit }) => ({
-        url: `studyCenter`,
+        url: `/studyCenter`,
         method: "GET",
         params: {
           status,
@@ -65,6 +65,29 @@ export const api = createApi({
       }),
       invalidatesTags: ["studyCenter"],
     }),
+
+    //////////////////////////// pre screener
+
+    getAllQuestions: builder.query({
+      query: () => ({
+        url: `/question`,
+        method: "GET",
+        // params: {
+        //   status,
+        //   page,
+        //   limit,
+        // },
+      }),
+      providesTags: ["allQuestions"],
+    }),
+    addSectionsQuestions: builder.mutation({
+      query: (payload) => ({
+        url: "/question/create",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["allQuestions"],
+    }),
   }),
 });
 export const {
@@ -74,4 +97,6 @@ export const {
   useUpdatePasswordMutation,
   useGetAllStudyCenterQuery,
   useAddStudyCenterMutation,
+  useGetAllQuestionsQuery,
+  useAddSectionsQuestionsMutation,
 } = api;

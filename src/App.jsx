@@ -6,6 +6,7 @@ import { AddPrescreener, Dashboard, MvpsList, PreScreenerList, StudyCenter } fro
 import { Login, ForgotPassword, ChangePassword } from "./pages/AuthPages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AddPreScreenerQuestions from "./pages/AdminPages/AddPreScreenerQuestions";
 
 function App() {
   // Define router with createBrowserRouter
@@ -58,7 +59,10 @@ function App() {
         },
         {
           path: "add-prescreener",
-          element: <AddPrescreener />
+          // element: <AddPrescreener />
+          element: <AddPreScreenerQuestions />
+
+
         },
         {
           path: "mvps",

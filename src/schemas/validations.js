@@ -32,3 +32,33 @@ export const addStudyCenterValidation = Yup.object({
   searchRadius: Yup.string().required("Search Radius is required"),
   status: Yup.boolean().required("Status is required"),
 });
+export const addQuestionValidation = Yup.object().shape({
+  payload: Yup.array()
+    .of(
+      Yup.object().shape({
+        title: Yup.string()
+          .required("Section title is required")
+          .max(100, "Section title must be less than 100 characters"),
+        order: Yup.number().required("Order is required"),
+        questions: Yup.array()
+          .of(
+            Yup.object().shape({
+              title: Yup.string()
+                .required("Question title is required")
+                .max(200, "Question must be less than 200 characters"),
+              type: Yup.string().required("Question type is required"),
+              // .oneOf(questionTypes, 'Invalid question type'),
+              order: Yup.number().required("Order is required"),
+              meta: Yup.object().shape({
+                placeholder: Yup.string().max(
+                  100,
+                  "Placeholder must be less than 100 characters"
+                ),
+              }),
+            })
+          )
+          .min(1, "At least one question is required"),
+      })
+    )
+    .min(1, "At least one section is required"),
+});
