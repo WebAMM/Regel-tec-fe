@@ -4,7 +4,6 @@ import backpain from "../../assets/images/backpain.svg";
 import growing from "../../assets/images/growing.svg";
 import injection from "../../assets/images/injection.svg";
 import lab from "../../assets/images/lab.svg";
-import map from "../../assets/images/map.svg";
 import refresh from "../../assets/images/refresh.svg";
 import FaqSection from "./FaqSection";
 import { useNavigate } from "react-router-dom";
@@ -464,7 +463,7 @@ const Home = () => {
             <div className="rounded-lg overflow-hidden shadow-md mb-16 relative">
               {/* US Map */}
               <div className="relative ">
-                <div className=" w-full rounded-xl overflow-hidden">
+                <div className="h-[600px] w-full rounded-xl overflow-hidden">
 
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
@@ -480,43 +479,7 @@ const Home = () => {
                           Map loading failed. Please ensure you have a valid
                           Google Maps API key configured.
                         </p>
-                        <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-                          <h3 className="font-bold text-gray-800 mb-2">
-                            Local Study Center Example
-                          </h3>
-                          <p className="text-gray-600 mb-1">
-                            Clinical Investigations
-                          </p>
-                          <p className="text-gray-700 mb-3">
-                            Edmond, Oklahoma, 73103
-                          </p>
-                          <div className="flex items-center text-gray-600 mb-4">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5 mr-2"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                            </svg>
-                            <span>2.5 miles away</span>
-                          </div>
-                          <button className="w-full bg-cyan-500 text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-medium">
-                            Select This Location
-                          </button>
-                        </div>
+                       
                       </div>
                     )} */}
                   </div>
@@ -613,18 +576,7 @@ const Home = () => {
                     />
                   </svg>
                   <span className="text-gray-500">Select a location...</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-400 ml-auto"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+
                 </div>
               </div>
 

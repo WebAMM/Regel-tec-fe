@@ -7,6 +7,7 @@ import { Login, ForgotPassword, ChangePassword } from "./pages/AuthPages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddPreScreenerQuestions from "./pages/AdminPages/AddPreScreenerQuestions";
+import SampleScreener from "./pages/Prescreener/SampleScreener";
 
 function App() {
   // Define router with createBrowserRouter
@@ -23,7 +24,9 @@ function App() {
     },
     {
       path: "/prescreen",
-      element: <Prescreener />
+      // element: <Prescreener />
+      element: <SampleScreener />
+
     },
     {
       path: "/contact",
@@ -56,6 +59,7 @@ function App() {
         {
           path: "prescreener",
           element: <PreScreenerList />
+
         },
         {
           path: "add-prescreener",

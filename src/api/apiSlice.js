@@ -4,8 +4,9 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://regel-medical-be.vercel.app/api",
 
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState, endpoint }) => {
       const token = getState().auth.token;
+      // console.log(endpoint, "endpoint");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -57,6 +58,12 @@ export const api = createApi({
       }),
       providesTags: ["studyCenter"],
     }),
+    getRadiusBasedStudyCenter: builder.query({
+      query: (zipVCode) => ({
+        url: `/studyCenter/get-nearest/${zipVCode}`,
+        method: "GET",
+      }),
+    }),
     addStudyCenter: builder.mutation({
       query: (payload) => ({
         url: "/studyCenter",
@@ -80,6 +87,14 @@ export const api = createApi({
       }),
       providesTags: ["allQuestions"],
     }),
+    getAllQuestionsForWebView: builder.query({
+      query: () => ({
+        url: `/question/getAllQuestions`,
+        method: "GET",
+      }),
+      providesTags: ["allQuestions"],
+    }),
+
     addSectionsQuestions: builder.mutation({
       query: (payload) => ({
         url: "/question/create",
@@ -99,4 +114,6 @@ export const {
   useAddStudyCenterMutation,
   useGetAllQuestionsQuery,
   useAddSectionsQuestionsMutation,
+  useLazyGetRadiusBasedStudyCenterQuery,
+  useGetAllQuestionsForWebViewQuery,
 } = api;
