@@ -94,6 +94,12 @@ export const api = createApi({
       }),
       providesTags: ["allQuestions"],
     }),
+      getLatestBatchNo: builder.query({
+      query: () => ({
+        url: `/answer/getLatestBatch`,
+        method: "GET",
+      }),
+    }),
 
     addSectionsQuestions: builder.mutation({
       query: (payload) => ({
@@ -102,6 +108,20 @@ export const api = createApi({
         body: payload,
       }),
       invalidatesTags: ["allQuestions"],
+    }),
+     addAnswersOfSections: builder.mutation({
+      query: (payload) => ({
+        url: "/answer/add-answers",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+      evaluateAnswers: builder.mutation({
+      query: (payload) => ({
+        url: "/answer/evaluate-answers",
+        method: "POST",
+        body: payload,
+      }),
     }),
   }),
 });
@@ -116,4 +136,7 @@ export const {
   useAddSectionsQuestionsMutation,
   useLazyGetRadiusBasedStudyCenterQuery,
   useGetAllQuestionsForWebViewQuery,
+  useGetLatestBatchNoQuery,
+  useAddAnswersOfSectionsMutation,
+  useEvaluateAnswersMutation
 } = api;

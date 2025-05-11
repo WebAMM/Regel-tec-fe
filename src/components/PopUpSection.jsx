@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const PopUpSection = ({ center }) => {
     const navigate = useNavigate()
 
-    console.log(center, 'center')
+    // console.log(center, 'center')
 
 
     const handleCenter = (item) => {
