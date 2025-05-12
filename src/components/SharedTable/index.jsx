@@ -15,7 +15,7 @@ const SharedTable = ({
   page = 1,
   pageSize = 5,
   total = 0,
-  onPageChange = () => {},
+  onPageChange = () => { },
 }) => {
   return (
     <div className="overflow-x-auto shadow-md rounded-xl border border-gray-200">
@@ -35,9 +35,8 @@ const SharedTable = ({
                 <td key={col.key} className="px-4 py-3 whitespace-nowrap">
                   {col.key === "status" ? (
                     <Chip
-                      value={row[col.key]}
-                      color={row[col.key] === "Active" ? "green" : "gray"}
-                      size="sm"
+                      value={row[col.key] === true ? "Active" : "Inactive"}
+                      className={row[col.key] === true ? "text-green-400" : "text-gray-400"}
                     />
                   ) : (
                     row[col.key]
@@ -79,9 +78,8 @@ const SharedTable = ({
           {[1, 2, 3, 4].map((p) => (
             <button
               key={p}
-              className={`w-8 h-8 rounded-full text-sm border ${
-                p === page ? "bg-blue-500 text-white" : "text-gray-700"
-              }`}
+              className={`w-8 h-8 rounded-full text-sm border ${p === page ? "bg-blue-500 text-white" : "text-gray-700"
+                }`}
               onClick={() => onPageChange(p)}
             >
               {p}
