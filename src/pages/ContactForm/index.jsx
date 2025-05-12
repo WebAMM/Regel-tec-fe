@@ -10,12 +10,17 @@ import {
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import circleCheck from "../../assets/images/check-circle.png";
+import { useLocation } from "react-router-dom";
+import { CgLayoutGrid } from "react-icons/cg";
 
 const COUNTRIES = ["France (+33)", "Germany (+49)", "Spain (+34)", "USA (+1)"];
 const CODES = ["+33", "+49", "+34", "+1"];
 const ContactForm = () => {
   const [country, setCountry] = useState(0);
   const [finish, isFinish] = useState(false);
+
+  const {state} = useLocation()
+  console.log(state?.reportId,'pathname')
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
       <div className="container mx-auto">
