@@ -36,7 +36,7 @@ const SampleScreener = () => {
     const [evaluateAnswersData, setEvaluateAnswersData] = useState({
         answers: [],
         userZipcode: state?.center?.zipCode,
-        studyCenterId: state?.center?.id,
+        studyCenterId: state?.center?.id || state?.center,
         bmi: null, // Initialize as null
     });
 
@@ -47,21 +47,34 @@ const SampleScreener = () => {
 
     // Calculate BMI when section 5 is completed
     const calculateBMI = () => {
+
         const heightQuestion = groupedData.data.find(q => q.questionId === sectionQuestions?.data?.sections[bmiQuestions.QUESTION_SECTION - 1]?.questions.find(q => q.title === bmiQuestions.HEIGHT)?.questionId);
         const weightQuestion = groupedData.data.find(q => q.questionId === sectionQuestions?.data?.sections[bmiQuestions.QUESTION_SECTION - 1]?.questions.find(q => q.title === bmiQuestions.WEIGHT)?.questionId);
 
         if (heightQuestion && weightQuestion) {
+
             const height = parseFloat(heightQuestion.answer);
             const weight = parseFloat(weightQuestion.answer);
 
+
+
             if (!isNaN(height) && !isNaN(weight) && height > 0) {
+
                 // BMI calculation: (weight in pounds / (height in inches)^2) * 703
                 const bmi = (weight / (height * height)) * 703;
-                
+
                 setEvaluateAnswersData(prev => ({
                     ...prev,
-                    bmi: Number(bmi.toFixed(1)) // Round to 1 decimal place
+                    bmi: Number(bmi.toFixed(1))
                 }));
+
+                setGroupedData(prev => ({
+                    ...prev,
+                    bmi: Number(bmi.toFixed(1)) // Add BMI to groupedData
+                }));
+
+                console.log(groupedData, 'groupedData in BMI')
+
             }
         }
     };
@@ -112,11 +125,12 @@ const SampleScreener = () => {
     const handleNext = async (e) => {
         try {
             e.preventDefault();
-
             // Validate all fields are completed before proceeding
             if (!validateCurrentSection()) {
                 return [];
             }
+
+
 
             // If this is the BMI section, calculate BMI
             if (currentStep === bmiQuestions.QUESTION_SECTION) {
@@ -261,8 +275,38 @@ const SampleScreener = () => {
             }));
         }
     }, [latesBatchNo]);
-    if (isLoading || BatchNoLoader) return <div>loading...</div>;
+    // useEffect(() => {
+    //     if (groupedData.bmi !== null && groupedData.bmi !== undefined) {
+    //         // Proceed to the next step or call the API
+    //         const proceedWithApiCall = async () => {
+    //             const response = await addAnswersOfSections(groupedData).unwrap();
+    //             const currentAnswers = Array.isArray(evaluateAnswersData.answers) ? evaluateAnswersData.answers : [];
+    //             const responseData = Array.isArray(response?.data) ? response.data : [];
 
+    //             const updatedAnswers = [...currentAnswers, ...responseData];
+
+    //             setEvaluateAnswersData((prev) => ({
+    //                 ...prev,
+    //                 answers: updatedAnswers
+    //             }));
+
+    //             setGroupedData({
+    //                 sectionId: "",
+    //                 data: [],
+    //                 batchNo: batchNumber
+    //             });
+
+    //             if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
+    //             else {
+    //                 setSubmitForm(true);
+    //             }
+    //         };
+
+    //         proceedWithApiCall();
+    //     }
+    // }, [groupedData.bmi, addAnswersOfSections, batchNumber, currentStep, evaluateAnswersData, groupedData, totalSteps6]);
+    if (isLoading || BatchNoLoader) return <div>loading...</div>;
+    // console.log(groupedData, 'groupedData')
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
             <div className="container mx-auto">
@@ -315,16 +359,16 @@ const SampleScreener = () => {
                                 </form>
                             </>
                         ) : (
-                        
-                                 qualificationStatus !== null && (
-                                <QualificationResult 
+
+                            qualificationStatus !== null && (
+                                <QualificationResult
                                     isQualified={qualificationStatus?.data?.preScreenerResult?.isAnswersPassed}
-                                    isStudyCenterInRadius={qualificationStatus?.data?.preScreenerResult?.isUserZipcodeInRadius} 
+                                    isStudyCenterInRadius={qualificationStatus?.data?.preScreenerResult?.isUserZipcodeInRadius}
                                     reportId={qualificationStatus?.data?.reportId}
                                     studyName="HYDRAFIL-D"
                                 />
                             )
-                            
+
                         )}
                     </div>
                 </div>

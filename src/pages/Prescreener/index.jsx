@@ -143,7 +143,7 @@ const Prescreener = () => {
             <ProgressStepper />
             {!submitForm ? (
               <>
-                {" "}
+
                 <div className="flex items-center justify-between">
                   <Typography variant="small" className="text-gray-700">
                     Progress

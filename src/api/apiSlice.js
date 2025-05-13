@@ -58,6 +58,13 @@ export const api = createApi({
       }),
       providesTags: ["studyCenter"],
     }),
+    getAllStudyCenterWithOutPagination: builder.query({
+      query: () => ({
+        url: `/studyCenter/get-all`,
+        method: "GET",
+      }),
+      providesTags: ["studyCenter"],
+    }),
     getRadiusBasedStudyCenter: builder.query({
       query: (zipVCode) => ({
         url: `/studyCenter/get-nearest/${zipVCode}`,
@@ -94,7 +101,7 @@ export const api = createApi({
       }),
       providesTags: ["allQuestions"],
     }),
-      getLatestBatchNo: builder.query({
+    getLatestBatchNo: builder.query({
       query: () => ({
         url: `/answer/getLatestBatch`,
         method: "GET",
@@ -109,16 +116,25 @@ export const api = createApi({
       }),
       invalidatesTags: ["allQuestions"],
     }),
-     addAnswersOfSections: builder.mutation({
+    addAnswersOfSections: builder.mutation({
       query: (payload) => ({
         url: "/answer/add-answers",
         method: "POST",
         body: payload,
       }),
     }),
-      evaluateAnswers: builder.mutation({
+    evaluateAnswers: builder.mutation({
       query: (payload) => ({
         url: "/answer/evaluate-answers",
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+    //////////////////////////// pre screener
+    addNewMvp: builder.mutation({
+      query: (payload) => ({
+        url: "/mvp",
         method: "POST",
         body: payload,
       }),
@@ -138,5 +154,7 @@ export const {
   useGetAllQuestionsForWebViewQuery,
   useGetLatestBatchNoQuery,
   useAddAnswersOfSectionsMutation,
-  useEvaluateAnswersMutation
+  useEvaluateAnswersMutation,
+  useAddNewMvpMutation,
+  useGetAllStudyCenterWithOutPaginationQuery,
 } = api;
