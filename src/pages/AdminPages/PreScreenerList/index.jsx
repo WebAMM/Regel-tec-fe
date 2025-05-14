@@ -7,21 +7,33 @@ import { SharedTable } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { useGetAllQuestionsQuery } from "../../../api/apiSlice";
 import Loader from "../../../components/Loader";
+import ReusableTable from "../../../components/ReusableTable";
+import Pagination from "../../../components/Pagination";
 
-const questionColumns = [
-  { key: "sectionId", label: "Section ID" },
-  { key: "questionTitle", label: "Question" },
-  { key: "questionType", label: "Type" },
-  { key: "status", label: "Status" },
+
+const columns = [
+  { accessor: "sectionOrder", header: "Section ID" },
+  { accessor: "questionTitle", header: "Question" },
+  { accessor: "questionType", header: "Type" },
+  {
+    accessor: "questionStatus", header: "Status", render: ({ questionStatus }) => {
+      return (
+
+        <div className="flex items-center justify-center border rounded-sm border-gray-300">
+          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+          <p className="text-base text-gray-800">{questionStatus ? "Assined" : 'unAssined'}</p>
+        </div>
+      )
+    }
+  },
 ];
 
 
 const PreScreenerList = () => {
   const { data: allQuestions, isLoading } = useGetAllQuestionsQuery()
-  console.log(allQuestions?.data?.latestSectionOrder, 'allQuestions')
   const navigate = useNavigate()
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <div>Loading...</div>
   return (
     <>
       <div className="flex items-center justify-between mb-5">
@@ -51,7 +63,8 @@ const PreScreenerList = () => {
         </Button>
       </div>
 
-      <SharedTable columns={questionColumns} data={allQuestions?.data?.data} total={allQuestions?.data?.totalCount} page={allQuestions?.data?.currentPage} />
+      <ReusableTable columns={columns} data={allQuestions?.data?.data} total={60} />
+      <Pagination />
     </>
   );
 };

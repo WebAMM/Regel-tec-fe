@@ -41,7 +41,7 @@ const navItems = [
   {
     label: "Referral Emails",
     icon: <EnvelopeIcon className="h-5 w-5 text-gray-600" />,
-    path: "/referral-emails",
+    path: "/admin/referral-emails",
   },
   {
     label: "Reports",
@@ -67,8 +67,7 @@ export default function Sidebar() {
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `block rounded-md mb-2 ${
-                isActive ? "bg-[#00B4F1] text-white" : "text-gray-900"
+              `block rounded-md mb-2 ${isActive ? "bg-[#00B4F1] text-white" : "text-gray-900"
               }`
             }
           >

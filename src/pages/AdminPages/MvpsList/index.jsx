@@ -2,104 +2,59 @@ import { Button } from "@material-tailwind/react";
 import React from "react";
 import { LuSearch } from "react-icons/lu";
 import filterIcon from "../../../assets/images/filter.png";
-import { MdOutlineFileDownload } from "react-icons/md";
+import { MdOutlineFileDownload, MdOutlineRemoveRedEye } from "react-icons/md";
 import { SharedTable } from "../../../components";
+import { useGetAllMvpListQuery } from "../../../api/apiSlice";
+import ReusableTable from "../../../components/ReusableTable";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import Pagination from "../../../components/Pagination";
+import { useNavigate } from "react-router-dom";
 
-const mvpColumns = [
-    { key: "mvpId", label: "MVP ID" },
-    { key: "name", label: "Name" },
-    { key: "contact", label: "Contact Number" },
-    { key: "email", label: "Email" },
-    { key: "zip", label: "Zip Code" },
-    { key: "submittedDate", label: "Submitted Date" },
-    { key: "studyCenter", label: "Study Center" },
-  ];
-  
-const mvpData = [
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Awaiting",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Awaiting",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Awaiting",
-    },
-    {
-      mvpId: "345",
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "johndoe@gmail.com",
-      zip: "10001",
-      submittedDate: "Jan 15, 2024",
-      studyCenter: "Assigned",
-    },
-  ];
-  
+
+
+
+
 const MvpsList = () => {
+  const { data: mvpList, isLoading } = useGetAllMvpListQuery({ page: 1, limit: 10 })
+  const navigate = useNavigate()
+
+  const handleDetail = (row) => {
+    console.log(row, 'row')
+    navigate('/admin/mvp/detail', { state: { data: row } })
+  }
+
+  const mvpColumns = [
+    { accessor: "mvp_id", header: "MVP ID" },
+    { accessor: "name", header: "Name" },
+    { accessor: "contactNumber", header: "Contact Number" },
+    { accessor: "email", header: "Email" },
+    { accessor: "zipCode", header: "Zip Code" },
+    { accessor: "submittedDate", header: "Submitted Date" },
+    { accessor: "studyCenter", header: "Study Center" },
+    {
+      accessor: "", header: "Action", render: (row) => {
+        return (
+          <div className='flex gap-2'>
+            <button
+              type='button'
+              className=' rounded-[99px] bg-[#f2f9ff] text-blue-500 text-[18px] flex items-center justify-center cursor-pointer hover:shadow-lg'
+              onClick={() => handleDetail(row)}
+            >
+              <MdOutlineRemoveRedEye color="gray" size={18} />
+            </button>
+
+
+
+          </div>
+        )
+      }
+    },
+
+  ];
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
   return (
     <>
       <div className="flex items-center justify-between mb-5">
@@ -119,14 +74,14 @@ const MvpsList = () => {
             <img src={filterIcon} alt="" />
             Filter
           </Button>
-          <Button className="bg-[#A2A1A833] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-[#000000] rounded-[12px] rounded-[12px] flex items-center gap-2">
+          <Button className="bg-[#A2A1A833] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-[#000000]  rounded-[12px] flex items-center gap-2">
             <MdOutlineFileDownload />
             Export
           </Button>
         </div>
       </div>
-      <SharedTable columns={mvpColumns} data={mvpData} total={60} />
-
+      <ReusableTable columns={mvpColumns} data={mvpList?.data?.data} total={60} />
+      <Pagination />
     </>
   );
 };

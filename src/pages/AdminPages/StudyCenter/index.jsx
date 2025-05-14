@@ -1,27 +1,39 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
-import { LuSearch } from "react-icons/lu";
-import filterIcon from "../../../assets/images/filter.png";
+import { useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
-import { SharedTable } from "../../../components";
-import AddStudyCenterModal from "./AddStudyCenterModal";
+import { LuSearch } from "react-icons/lu";
 import { useGetAllStudyCenterQuery } from "../../../api/apiSlice";
+import filterIcon from "../../../assets/images/filter.png";
+import Pagination from "../../../components/Pagination";
+import ReusableTable from "../../../components/ReusableTable";
+import AddStudyCenterModal from "./AddStudyCenterModal";
+
 const columns = [
-  { key: "name", label: "Study Center Name" },
-  { key: "address", label: "Address" },
-  { key: "email", label: "Email" },
-  { key: "contactNumber", label: "Contact Number" },
-  { key: "mvp_sent", label: "MVPs Sent" },
+  { accessor: "name", header: "Study Center Name" },
+  { accessor: "address", header: "Address" },
+  { accessor: "email", header: "Email" },
+  { accessor: "contactNumber", header: "Contact Number" },
+  { accessor: "mvp_sent", header: "MVPs Sent" },
   {
-    key: "status", label: "Status"
+    accessor: "status", header: "Status", render: ({ status }) => {
+      return (
+        <div>
+          <div className="flex items-center justify-center border rounded-sm border-gray-300">
+            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+            <p className="text-base text-gray-800">{status ? "Assined" : 'unAssined'}</p>
+          </div>
+
+        </div>
+      )
+    }
   },
+
 ];
 
 
 const StudyCenter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: studyCenter, isLoading } = useGetAllStudyCenterQuery({ status: '', page: 1, limit: 10 })
-  // console.log(studyCenter?.data?.data, 'studycenter')
   if (isLoading) return <div>Loading...</div>
   return (
     <>
@@ -48,8 +60,8 @@ const StudyCenter = () => {
           Add New Study Center
         </Button>
       </div>
-      <SharedTable columns={columns} data={studyCenter?.data?.data} total={60} />
-
+      <ReusableTable columns={columns} data={studyCenter?.data?.data} total={60} />
+      <Pagination />
       <AddStudyCenterModal open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
