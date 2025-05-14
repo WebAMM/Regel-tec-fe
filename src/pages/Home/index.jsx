@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import asset from "../../assets/images/asset.svg";
 import backpain from "../../assets/images/backpain.svg";
 import growing from "../../assets/images/growing.svg";
@@ -8,10 +8,13 @@ import refresh from "../../assets/images/refresh.svg";
 import FaqSection from "./FaqSection";
 import { useNavigate } from "react-router-dom";
 import MyMapWithSearch from "../../components/MyMapWithSearch";
+import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
 
 const Home = () => {
   const mapRef = useRef(null);
   const navigate = useNavigate()
+  const [selectLocation, setSelectLocation] = useState(null)
+  const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery()
 
   const featureItems = [
     { text: "Local study center" },
@@ -69,7 +72,7 @@ const Home = () => {
       });
     }
   }, []);
-
+  console.log(selectLocation, 'selectLocation')
   return (
     <>
       <div className="px-[200px]">
@@ -562,27 +565,21 @@ const Home = () => {
 
               {/* Location Dropdown */}
               <div className="mb-8">
-                <div className="flex items-center border rounded-md p-3 text-left">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-400 mr-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-gray-500">Select a location...</span>
+                <div className="">
+                  <select name="cars" id="cars" className="flex w-full items-center border rounded-md p-3 text-left" onChange={(e) => setSelectLocation(e.target.value)}>
+                    <option value="">Select Location</option>
+                    {allStudyCenter?.data.map((center) => (<option key={center?.id} value={center?.id}>{center?.name}</option>))}
 
+                  </select>
                 </div>
               </div>
 
               {/* Continue Button */}
               <div className="text-left">
-                <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium" onClick={() => navigate("/prescreen")}>
+                <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                  onClick={() => navigate("/prescreen", { state: { center: selectLocation } })}
+                  disabled={!selectLocation}
+                >
                   Continue To Pre-Screener
                 </button>
               </div>
