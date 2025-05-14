@@ -4,81 +4,88 @@ import mvpIcon from "../../../assets/images/mvp-icon.png";
 import prescreenIcon from "../../../assets/images/prescreen-icon.png";
 import refferalIcon from "../../../assets/images/refferal-icon.png";
 import statesIcon from "../../../assets/images/states-icon.png";
+import { useGetDashboardReportQuery } from "../../../api/apiSlice";
 // import { useSelector } from "react-redux";
 
-const totalCards = [
-  {
-    icon: studyIcon,
-    number: "24",
-    name: "Total Study Centers",
-  },
-  {
-    icon: mvpIcon,
-    number: "1,284",
-    name: "Registered MVPs",
-  },
-  {
-    icon: prescreenIcon,
-    number: "1,284",
-    name: "Pre-Screeners Submitted",
-  },
-  {
-    icon: refferalIcon,
-    number: "45",
-    name: "Total Referral Emails Sent",
-  },
-  {
-    icon: statesIcon,
-    number: "12",
-    name: "States Covered",
-  },
-  {
-    icon: mvpIcon,
-    number: "100",
-    name: "MVPs Awaiting Local Study Center",
-  },
-];
 
-const dashboardCards = [
-  {
-    title: "Study Centers Summary",
-    action: "+Add New Study Center",
-    data: [
-      { label: "Active Study Centers", value: 18 },
-      { label: "New Study Center Added", value: 6 },
-      { label: "Recently Added", value: "NY Health Clinic" },
-    ],
-  },
-  {
-    title: "Pre-Screener Overview",
-    action: "Manage Pre-Screener",
-    data: [
-      { label: "Total Pre-Screeners Submitted", value: 1284 },
-      { label: "Newly Submitted Pre-Screeners", value: 12 },
-      { label: "Pre-Screener Questions", value: 8 },
-    ],
-  },
-  {
-    title: "MVP Management",
-    action: "+Add New User",
-    data: [
-      { label: "Total MVPs", value: 1284 },
-      { label: "New MVPs Added", value: 34 },
-      { label: "MVPs Awaiting Local Study Center", value: 23 },
-    ],
-  },
-  {
-    title: "MVPs Emails Overview",
-    action: "Manage Emails",
-    data: [
-      { label: "Total Sent", value: 45 },
-      { label: "New Sent", value: 4 },
-      { label: "MVPs Awaiting Local Study Center", value: 12 },
-    ],
-  },
-];
+
+
 
 const Dashboard = () => {
+  const { data: dashBoardData, isLoading } = useGetDashboardReportQuery()
+  console.log(dashBoardData?.data?.mvpSummary, 'dashBoard')
+  const totalCards = [
+    {
+      icon: studyIcon,
+      number: dashBoardData?.data?.totalStudyCenters,
+      name: "Total Study Centers",
+    },
+    {
+      icon: mvpIcon,
+      number: dashBoardData?.data?.registeredMVP,
+      name: "Registered MVPs",
+    },
+    {
+      icon: prescreenIcon,
+      number: dashBoardData?.data?.totalPreScreenersSubmitted,
+      name: "Pre-Screeners Submitted",
+    },
+    {
+      icon: refferalIcon,
+      number: dashBoardData?.data?.referralEmailsCount,
+      name: "Total Referral Emails Sent",
+    },
+    {
+      icon: statesIcon,
+      number: dashBoardData?.data?.totalStatesCovered,
+      name: "States Covered",
+    },
+    {
+      icon: mvpIcon,
+      number: dashBoardData?.data?.awaitingMvpCount,
+      name: "MVPs Awaiting Local Study Center",
+    },
+  ];
+  const dashboardCards = [
+    {
+      title: "Study Centers Summary",
+      action: "+Add New Study Center",
+      data: [
+        { label: "Active Study Centers", value: dashBoardData?.data?.studyCenterSummary?.activeStudyCenters },
+        { label: "New Study Center Added", value: dashBoardData?.data?.studyCenterSummary?.newStudyCentersAdded },
+        { label: "Recently Added", value: dashBoardData?.data?.studyCenterSummary?.recentlyAddedStudyCenter },
+      ],
+    },
+    {
+      title: "Pre-Screener Overview",
+      action: "Manage Pre-Screener",
+      data: [
+        { label: "Total Pre-Screeners Submitted", value: dashBoardData?.data?.preScreenerSummary?.totalPreScreenersSubmitted },
+        { label: "Newly Submitted Pre-Screeners", value: dashBoardData?.data?.preScreenerSummary?.newlySubbmitedPreScreeners },
+        { label: "Pre-Screener Questions", value: dashBoardData?.data?.preScreenerSummary?.preScreenerQuestions },
+      ],
+    },
+    {
+      title: "MVP Management",
+      action: "+Add New User",
+      data: [
+        { label: "Total MVPs", value: dashBoardData?.data?.mvpSummary?.totalMVPs },
+        { label: "New MVPs Added", value: dashBoardData?.data?.mvpSummary?.newlyAddedMVPs },
+        { label: "MVPs Awaiting Local Study Center", value: dashBoardData?.data?.mvpSummary?.mvpAwaitingLocalStudyCenter },
+      ],
+    },
+    {
+      title: "MVPs Emails Overview",
+      action: "Manage Emails",
+      data: [
+        { label: "Total Sent", value: dashBoardData?.data?.emailSummary?.totalEmailsSent },
+        { label: "Recently Sent Emails", value: dashBoardData?.data?.emailSummary?.recentlySentEmails },
+      ],
+    },
+  ];
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       <div className="text-[28px] font-[700] text-[#000]">Welcome, Admin</div>

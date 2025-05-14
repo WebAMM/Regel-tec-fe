@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddPreScreenerQuestions from "./pages/AdminPages/AddPreScreenerQuestions";
 import SampleScreener from "./pages/Prescreener/SampleScreener";
+import MvpDetail from "./pages/AdminPages/MvpDetail";
+import Emails from "./pages/Email";
 
 function App() {
   // Define router with createBrowserRouter
@@ -65,12 +67,18 @@ function App() {
           path: "add-prescreener",
           // element: <AddPrescreener />
           element: <AddPreScreenerQuestions />
-
-
         },
         {
           path: "mvps",
           element: <MvpsList />
+        },
+        {
+          path: "mvp/detail",
+          element: <MvpDetail />
+        },
+        {
+          path: "referral-emails",
+          element: <Emails />
         }
       ]
     }

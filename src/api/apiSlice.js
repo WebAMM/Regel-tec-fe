@@ -15,7 +15,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["studyCenter", "allQuestions"],
+  tagTypes: ["studyCenter", "allQuestions", "Mvps", "Emails"],
   endpoints: (builder) => ({
     //////////////////////////// auth
     login: builder.mutation({
@@ -86,14 +86,10 @@ export const api = createApi({
       query: () => ({
         url: `/question`,
         method: "GET",
-        // params: {
-        //   status,
-        //   page,
-        //   limit,
-        // },
       }),
       providesTags: ["allQuestions"],
     }),
+
     getAllQuestionsForWebView: builder.query({
       query: () => ({
         url: `/question/getAllQuestions`,
@@ -139,6 +135,46 @@ export const api = createApi({
         body: payload,
       }),
     }),
+    //////////////////////////// Report
+    getDashboardReport: builder.query({
+      query: () => ({
+        url: "/report/dashboard",
+        method: "GET",
+      }),
+    }),
+    //////////////////////////// Report
+    getAllMvpList: builder.query({
+      query: ({ page, limit, studyCenterStatus }) => ({
+        url: "/mvp",
+        method: "GET",
+        params: {
+          page,
+          limit,
+          studyCenterStatus,
+        },
+      }),
+      providesTags: ["Mvps"],
+    }),
+    getMvpDetail: builder.query({
+      query: (id) => ({
+        url: `/mvp/${id}/mvpReport`,
+        method: "GET",
+      }),
+    }),
+
+    //////////////////////////// Emails
+    getAllEmails: builder.query({
+      query: () => ({
+        url: "/email",
+        method: "GET",
+        // params: {
+        //   page,
+        //   limit,
+        //   studyCenterStatus,
+        // },
+      }),
+      providesTags: ["Emails"],
+    }),
   }),
 });
 export const {
@@ -157,4 +193,8 @@ export const {
   useEvaluateAnswersMutation,
   useAddNewMvpMutation,
   useGetAllStudyCenterWithOutPaginationQuery,
+  useGetDashboardReportQuery,
+  useGetAllMvpListQuery,
+  useGetMvpDetailQuery,
+  useGetAllEmailsQuery,
 } = api;
