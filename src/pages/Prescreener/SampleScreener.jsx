@@ -14,6 +14,7 @@ const SampleScreener = () => {
     const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] = useEvaluateAnswersMutation()
     const [qualificationStatus, setQualificationStatus] = useState(null);
 
+
     const navigate = useNavigate();
     const { state } = useLocation();
     const batchNumber = latesBatchNo?.data?.latestBatchNo + 1;
@@ -32,10 +33,15 @@ const SampleScreener = () => {
         data: [],
         batchNo: null
     });
+    const [contactData, setcontactData] = useState({
+        city: "",
+        state: "",
+        zipCode: null
+    });
 
     const [evaluateAnswersData, setEvaluateAnswersData] = useState({
         answers: [],
-        userZipcode: state?.center?.zipCode,
+        userZipcode: state?.userLocation || '',
         studyCenterId: state?.center?.id || state?.center,
         bmi: null, // Initialize as null
     });
@@ -80,10 +86,60 @@ const SampleScreener = () => {
     };
 
     // Handle input changes and update groupedData
-    const handleInputChange = (questionId, value, sectionId) => {
+    const handleInputChange = (questionId, value, sectionId, title) => {
+        // console.log(value, 'value')
+        // console.log(title, 'title')
+
+        if (!state?.userLocation && title === 'Zip Code') {
+            setEvaluateAnswersData((prev) => {
+                return {
+                    ...prev,
+                    userZipcode: value
+
+                };
+            });
+            setcontactData((prev) => {
+                return {
+                    ...prev,
+                    zipCode: value
+
+                };
+            });
+        }
+        if (title === 'City') {
+            if (state?.userLocation) {
+                setcontactData((prev) => {
+                    return {
+                        ...prev,
+                        zipCode: state?.userLocation
+
+                    };
+                });
+            }
+
+            setcontactData((prev) => {
+                return {
+                    ...prev,
+                    city: value
+
+                };
+            });
+        }
+        if (title === 'State') {
+
+            setcontactData((prev) => {
+                return {
+                    ...prev,
+                    state: value
+
+                };
+            });
+        }
+
         setValidationError(""); // Clear validation error when user makes changes
         setGroupedData((prevData) => {
             const updatedData = [...prevData.data];
+            console.log(updatedData, 'updatedata')
             const questionIndex = updatedData.findIndex(item => item.questionId === questionId);
 
             if (questionIndex !== -1) {
@@ -110,11 +166,17 @@ const SampleScreener = () => {
 
         // Check if all questions have answers
         for (const question of currentSectionQuestions) {
-            const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
+            // console.log('evaluateAnswersData.userZipcode', evaluateAnswersData.userZipcode);
+            // const questionAnswer = evaluateAnswersData.userZipcode !== '' ? groupedData.data.filter((el) => el.title === 'Zip Code').find(item => item.questionId === question.questionId) : groupedData.data.find(item => item.questionId === question.questionId);
 
+            if (question.title === 'Zip Code' && evaluateAnswersData.userZipcode !== '') {
+                continue; // Skip this iteration and move to the next question
+            }
+
+            const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
             // If answer doesn't exist or is empty string
             if (!questionAnswer || questionAnswer.answer === '') {
-                setValidationError("Please complete all questions in this section.");
+                setValidationError("Please complete all questions in this sectionmmmmmmmmmmmmm.");
                 return false;
             }
         }
@@ -172,7 +234,6 @@ const SampleScreener = () => {
 
     const handleSubmit = async (e) => {
         try {
-            // Call handleNext and get the latest answers
             const latestAnswers = await handleNext(e);
 
             if (latestAnswers && latestAnswers.length > 0) {
@@ -206,7 +267,7 @@ const SampleScreener = () => {
                                     placeholder={question.meta.placeholder}
                                     type="text"
                                     value={groupedData.data.find(item => item.questionId === question.questionId,)?.answer || ''}
-                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId)}
+                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                     className="border w-full border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                                 />
                             </div>
@@ -218,9 +279,17 @@ const SampleScreener = () => {
                                 <input
                                     placeholder={question.meta.placeholder}
                                     type="number"
-                                    value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
-                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId)}
+                                    // value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || state?.userLocation || ''}
+                                    value={
+                                        question.title === 'Zip Code'
+                                            ? (groupedData.data.find(item => item.questionId === question.questionId)?.answer || state?.userLocation || '')
+                                            : (groupedData.data.find(item => item.questionId === question.questionId)?.answer || '')
+                                    }
+
+
+                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                     className="border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
+                                    readOnly={question.title === 'Zip Code' && state?.userLocation}
                                 />
                             </div>
                         );
@@ -230,7 +299,7 @@ const SampleScreener = () => {
                                 <label className="text-sm font-normal text-gray-700 text-start mb-1">{question.title}</label>
                                 <select
                                     value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
-                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId)}
+                                    onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                     className="border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                                 >
                                     <option value="">Select an option</option>
@@ -252,7 +321,7 @@ const SampleScreener = () => {
                                             type="radio"
                                             value={option.value}
                                             checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
-                                            onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId)}
+                                            onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                         />
                                         <label>{option.label}</label>
                                     </div>
@@ -306,7 +375,9 @@ const SampleScreener = () => {
     //     }
     // }, [groupedData.bmi, addAnswersOfSections, batchNumber, currentStep, evaluateAnswersData, groupedData, totalSteps6]);
     if (isLoading || BatchNoLoader) return <div>loading...</div>;
-    // console.log(groupedData, 'groupedData')
+    // console.log(state, 'state')
+    // console.log(evaluateAnswersData, 'evaluateAnswersData')
+    // console.log(contactData, 'contactData')
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
             <div className="container mx-auto">
@@ -366,6 +437,7 @@ const SampleScreener = () => {
                                     isStudyCenterInRadius={qualificationStatus?.data?.preScreenerResult?.isUserZipcodeInRadius}
                                     reportId={qualificationStatus?.data?.reportId}
                                     studyName="HYDRAFIL-D"
+                                    contactData={contactData}
                                 />
                             )
 

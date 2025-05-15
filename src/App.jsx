@@ -10,6 +10,9 @@ import AddPreScreenerQuestions from "./pages/AdminPages/AddPreScreenerQuestions"
 import SampleScreener from "./pages/Prescreener/SampleScreener";
 import MvpDetail from "./pages/AdminPages/MvpDetail";
 import Emails from "./pages/Email";
+import Reports from "./pages/Reports";
+import PreScreeningReport from "./pages/Reports/PreScreeningReport";
+import Settings from "./pages/Settings";
 
 function App() {
   // Define router with createBrowserRouter
@@ -79,6 +82,18 @@ function App() {
         {
           path: "referral-emails",
           element: <Emails />
+        },
+        {
+          path: "reports",
+          element: <Reports />
+        },
+        {
+          path: "pre-screening-report",
+          element: <PreScreeningReport />
+        },
+        {
+          path: "settings",
+          element: <Settings />
         }
       ]
     }

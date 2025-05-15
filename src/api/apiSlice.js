@@ -142,7 +142,13 @@ export const api = createApi({
         method: "GET",
       }),
     }),
-    //////////////////////////// Report
+    getPreScreeningReport: builder.query({
+      query: () => ({
+        url: "/report",
+        method: "GET",
+      }),
+    }),
+    //////////////////////////// Mvp
     getAllMvpList: builder.query({
       query: ({ page, limit, studyCenterStatus }) => ({
         url: "/mvp",
@@ -197,4 +203,5 @@ export const {
   useGetAllMvpListQuery,
   useGetMvpDetailQuery,
   useGetAllEmailsQuery,
+  useGetPreScreeningReportQuery,
 } = api;

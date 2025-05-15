@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const PopUpSection = ({ center }) => {
+const PopUpSection = ({ center, zipcode }) => {
     const navigate = useNavigate()
 
-    // console.log(center, 'center')
+    // console.log(zipcode, 'zipcode')
 
 
     const handleCenter = (item) => {
-        navigate("/prescreen", { state: { center: item } })
+        navigate("/prescreen", { state: { center: item, userLocation: zipcode } })
     }
     return (
         <div className="bg-white p-1 rounded-lg ">

@@ -8,8 +8,9 @@ const QualificationResult = ({
     isQualified = true,
     isStudyCenterInRadius = true,
     studyName = "HYDRAFIL-D",
-    reportId=null,
-    onNext
+    reportId = null,
+    onNext,
+    contactData,
 }) => {
     const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ const QualificationResult = ({
         description: `Based on your responses to this initial questionnaire, it appears you may qualify for the ${studyName} research study. The final decision will be made by the local study doctor. Please click Next to enter your contact information so someone from the local study center can contact you.`,
         image: circleCheck,
         buttonText: "Next",
-        buttonAction: onNext || (() => navigate("/contact",{state:{reportId:reportId}}))
+        buttonAction: onNext || (() => navigate("/contact", { state: { reportId: reportId, contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius } }))
     };
 
     const nonQualifiedContent = {
@@ -26,7 +27,7 @@ const QualificationResult = ({
         description: `Thank you for your interest in the HYDRAFIL-D research study. We’re sorry, but based on your responses you do not qualify for this study.`,
         image: circleCheck,
         buttonText: "Back to Home",
-        buttonAction: onNext || (() => navigate("/",{state:{reportId:reportId}}))
+        buttonAction: onNext || (() => navigate("/", { state: { reportId: reportId } }))
     };
     const studyCenterNotFoundContent = {
         title: "We’re sorry. There is no study center close enough to you..",
@@ -34,7 +35,7 @@ const QualificationResult = ({
 Please check back to this study website regularly for updates on new study locations that may be opening in the future. You may be able to participate if a new local study center location opens near you.`,
         image: circleCheck,
         buttonText: "Back to Home",
-        buttonAction: onNext || (() => navigate("/contact"))
+        buttonAction: onNext || (() => navigate("/contact", { state: { contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius } }))
     };
 
     let content = ''
@@ -48,7 +49,7 @@ Please check back to this study website regularly for updates on new study locat
     } else {
         content = nonQualifiedContent
     }
-console.log(reportId,'reportId')
+    console.log(reportId, 'reportId')
     return (
         <div className="">
             <div className="flex justify-center">
