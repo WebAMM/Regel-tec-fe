@@ -46,12 +46,12 @@ const navItems = [
   {
     label: "Reports",
     icon: <DocumentIcon className="h-5 w-5 text-gray-600" />,
-    path: "/reports",
+    path: "/admin/reports",
   },
   {
     label: "Settings",
     icon: <Cog6ToothIcon className="h-5 w-5 text-gray-600" />,
-    path: "/settings",
+    path: "/admin/settings",
   },
 ];
 

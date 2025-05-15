@@ -28,7 +28,7 @@ const ContactForm = () => {
   const [finish, isFinish] = useState(false);
   const { state } = useLocation()
   const [addNewMvp] = useAddNewMvpMutation()
-
+  const { contactData } = state
   const ContactFormSchema = Yup.object().shape({
     mvp: Yup.object().shape({
       firstName: Yup.string().required('First name is required'),
@@ -48,9 +48,9 @@ const ContactForm = () => {
       lastName: '',
       email: '',
       phone: '',
-      city: '',
-      state: '',
-      zipCode: '',
+      city: contactData?.city || '',
+      state: contactData?.state || '',
+      zipCode: contactData?.zipCode || '',
     },
     reportId: state?.reportId
   }
@@ -66,7 +66,7 @@ const ContactForm = () => {
     }
   }
 
-
+  // console.log(state?.isStudyCenterInRadius, 'state')
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
       <div className="container mx-auto">
@@ -93,14 +93,15 @@ const ContactForm = () => {
                   Contact Information
                 </div>
                 <div className="text-[16px] font-[400] text-[#39394A] mb-8">
-                  Please enter your contact information so that someone from a
+                  {state?.isStudyCenterInRadius ? `Please enter your contact information so that someone from a
                   local study center may contact you in the future, should a
-                  local study center open in your area.
+                  local study center open in your area.` : 'Please enter your contact information so that someone from the local study center may contact you.'}
                 </div>
                 <Formik
                   initialValues={initialValues}
                   onSubmit={handleSubmit}
                   validationSchema={ContactFormSchema}
+                  enableReinitialize={true}
 
                 >
                   {({ errors, touched, isSubmitting }) => (

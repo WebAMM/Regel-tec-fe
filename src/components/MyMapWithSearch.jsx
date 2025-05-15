@@ -60,7 +60,6 @@ const MyMapWithSearch = () => {
             alert("An error occurred while searching. Please try again.");
         }
     };
-
     return (
         <div className="flex flex-col gap-5 relative">
             <div className="z-[999] absolute w-full flex items-center justify-center py-5">
@@ -103,7 +102,7 @@ const MyMapWithSearch = () => {
                         position={[center?.coordinates?.lat, center?.coordinates?.long]}
                     >
                         <Popup>
-                            <PopUpSection center={center} />
+                            <PopUpSection center={center} zipcode={zipcode} />
                         </Popup>
                     </Marker>
                 ))}
