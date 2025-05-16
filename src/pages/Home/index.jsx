@@ -24,6 +24,15 @@ const Home = () => {
   const [selectLocation, setSelectLocation] = useState(null);
   const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery();
 
+
+   const handleClickScroll = (id) => {
+		const element = document.getElementById(`${id}`);
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+
   const featureItems = [
     { text: "Local study center" },
     { text: "Local spine physician" },
@@ -142,10 +151,10 @@ const Home = () => {
 
                   {/* CTA Buttons */}
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                    <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
+                    <button type="button" onClick={() => 	handleClickScroll("nearLocation")}  className="cursor-pointer px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
                       Find A Study Location
                     </button>
-                    <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
+                    <button type="button" onClick={() => 	handleClickScroll("qualify")}  className=" cursor-pointer px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
                       See If You Qualify
                     </button>
                   </div>
@@ -157,7 +166,7 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="bg-[#E5F7FE] margin-t-[-70px] rounded-[20px]  container mx-auto py-10">
+        <div className="bg-[#E5F7FE] mt-[-70px] rounded-[20px]  container mx-auto py-10">
           <div className="mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {infoCards.map((card, index) => (
@@ -261,10 +270,10 @@ const Home = () => {
                 />
               </div>
               <div className="flex flex-col mt-8 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
+                <button onClick={() => 	handleClickScroll("nearLocation")}  className="cursor-pointer px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
                   Find A Study Location
                 </button>
-                <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
+                <button onClick={() => 	handleClickScroll("qualify")}  className=" cursor-pointer px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
                   See If You Qualify
                 </button>
               </div>
@@ -423,7 +432,7 @@ const Home = () => {
         </div>
 
         {/* Study Location Section */}
-        <div className="bg-[#e5f7fe] pt-12 h-[900px]">
+        <div className="bg-[#e5f7fe] pt-12 h-[900px]" id="nearLocation">
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
               <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
@@ -476,7 +485,7 @@ const Home = () => {
         </div>
 
         {/* Qualification Section */}
-        <div className="bg-white py-16">
+        <div className="bg-white py-16" id="qualify">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg mb-4">
               TAKE THE PRE-SCREENER

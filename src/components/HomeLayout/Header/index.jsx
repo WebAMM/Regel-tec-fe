@@ -4,6 +4,15 @@ import regel from "../../../assets/images/regel.svg";
 const Header = () => {
   const [openNav, setOpenNav] = useState(false);
 
+
+  const handleClickScroll = (id) => {
+		const element = document.getElementById(`${id}`);
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -38,7 +47,7 @@ const Header = () => {
               {link.text}
             </a>
           ))}
-          <button className="bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-medium">
+          <button onClick={() => 	handleClickScroll("qualify")}  type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-medium">
             See If You Qualify
           </button>
         </nav>
@@ -94,7 +103,7 @@ const Header = () => {
                 {link.text}
               </a>
             ))}
-            <button className="bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full">
+            <button onClick={() => 	handleClickScroll("qualify")} className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full">
               See If You Qualify
             </button>
           </nav>
