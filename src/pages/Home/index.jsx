@@ -1,20 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import asset from "../../assets/images/asset.svg";
-import backpain from "../../assets/images/backpain.svg";
+import asset from "../../assets/images/surgery.svg";
+import backpain from "../../assets/images/backpain.png";
+import lowPain from "../../assets/images/low-pain.png";
 import growing from "../../assets/images/growing.svg";
-import injection from "../../assets/images/injection.svg";
+import injection from "../../assets/images/injection.png";
 import lab from "../../assets/images/lab.svg";
 import refresh from "../../assets/images/refresh.svg";
 import FaqSection from "./FaqSection";
 import { useNavigate } from "react-router-dom";
 import MyMapWithSearch from "../../components/MyMapWithSearch";
 import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
+import bgHome from "../../assets/images/Background.png";
+import discIcon from "../../assets/images/disc.png";
+import insulinIcon from "../../assets/images/insulin.png";
+import placeIcon from "../../assets/images/place.png";
+import { FaCheck } from "react-icons/fa";
+import { Typography } from "@material-tailwind/react";
+import { LuMapPin } from "react-icons/lu";
 
 const Home = () => {
   const mapRef = useRef(null);
-  const navigate = useNavigate()
-  const [selectLocation, setSelectLocation] = useState(null)
-  const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery()
+  const navigate = useNavigate();
+  const [selectLocation, setSelectLocation] = useState(null);
+  const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery();
 
   const featureItems = [
     { text: "Local study center" },
@@ -72,82 +80,85 @@ const Home = () => {
       });
     }
   }, []);
-  console.log(selectLocation, 'selectLocation')
+  console.log(selectLocation, "selectLocation");
   return (
     <>
-      <div className="px-[200px]">
-        <div className="bg-white">
+      <div className="">
+        <div
+          className="bg-white min-h-[100vh]"
+          style={{
+            backgroundImage: `url(${bgHome})`,
+            backgroundSize: "100% 100%",
+            backgroundPosition: "100% 100%",
+          }}
+        >
           {/* Hero Section */}
-          <div className=" mx-auto px-4 py-12">
-            <div className="flex relative flex-col lg:flex-row items-center">
-              {/* Left Content */}
-              <div className="lg:w-1/2 lg:pr-12">
-                <div className="mb-6">
-                  <p className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
-                    CLINICAL RESEARCH STUDY
+          <div className="container mx-auto">
+            <div className=" mx-auto px-4 py-12 ">
+              <div className="flex relative flex-col lg:flex-row items-center">
+                {/* Left Content */}
+                <div className="lg:w-1/2 lg:pr-12">
+                  <div className="mb-6">
+                    <p className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
+                      CLINICAL RESEARCH STUDY
+                    </p>
+                  </div>
+
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+                    Investigating a New Treatment for People Suffering from
+                    Degenerative Disc Disease
+                  </h1>
+
+                  <p className="text-gray-700 mb-8 text-lg">
+                    Learn More About the HYDRAFIL-D Research Study for Patients
+                    with Chronic Low Back Pain Caused by Degenerative Disc
+                    Disease
                   </p>
-                </div>
 
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6 leading-tight">
-                  Investigating a New Treatment for People Suffering from
-                  Degenerative Disc Disease
-                </h1>
-
-                <p className="text-gray-700 mb-8 text-lg">
-                  Learn More About the HYDRAFIL-D Research Study for Patients
-                  with Chronic Low Back Pain Caused by Degenerative Disc Disease
-                </p>
-
-                {/* Features with Checkmarks */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-                  {featureItems.map((item, index) => (
-                    <div key={index} className="flex items-center">
-                      <div className="flex-shrink-0 h-6 w-6 bg-cyan-500 rounded-full flex items-center justify-center text-white">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                  {/* Features with Checkmarks */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                    {featureItems.map((item, index) => (
+                      <div key={index} className="flex items-center">
+                        <div className="flex-shrink-0 h-6 w-6 bg-cyan-500 rounded-full flex items-center justify-center text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <span className="ml-3 text-gray-700 text-lg">
+                          {item.text}
+                        </span>
                       </div>
-                      <span className="ml-3 text-gray-700 text-lg">
-                        {item.text}
-                      </span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                    <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
+                      Find A Study Location
+                    </button>
+                    <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
+                      See If You Qualify
+                    </button>
+                  </div>
                 </div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                  <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
-                    Find A Study Location
-                  </button>
-                  <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
-                    See If You Qualify
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Image */}
-              <div className="lg:w-1/2 absolute top-0 right-20 opacity-90">
-                <img
-                  src={lab}
-                  alt="Doctor explaining spinal treatment"
-                  className="w-full h-auto"
-                />
+                {/* Right Image */}
               </div>
             </div>
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="bg-blue-50 py-10">
-          <div className="container mx-auto px-4">
+        <div className="bg-[#E5F7FE] margin-t-[-70px] rounded-[20px]  container mx-auto py-10">
+          <div className="mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {infoCards.map((card, index) => (
                 <div
@@ -160,52 +171,18 @@ const Home = () => {
                   {/* Icon placeholder */}
                   <div className="flex-shrink-0 mr-4">
                     {card.icon === "person" && (
-                      <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-7 w-7 text-cyan-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                      <div className="">
+                        <img src={discIcon} alt="" />
                       </div>
                     )}
                     {card.icon === "syringe" && (
-                      <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-7 w-7 text-cyan-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                      <div className="">
+                        <img src={insulinIcon} alt="" />
                       </div>
                     )}
                     {card.icon === "location" && (
-                      <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-7 w-7 text-cyan-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                      <div className="">
+                        <img src={placeIcon} alt="" />
                       </div>
                     )}
                   </div>
@@ -223,147 +200,154 @@ const Home = () => {
           </div>
         </div>
         {/* Additional Section*/}
-        <div className="container mx-auto px-4 py-12">
-          <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg mb-6">
+        <div className="container mx-auto pt-12 pt-8 ">
+          <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
             CHRONIC LOW BACK PAIN DUE TO DDD
           </h2>
         </div>
-        <div className="flex flex-col lg:flex-row justify-between">
-          <div className="lg:w-1/2">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">
-              About Degenerative Disc Disease
-            </h2>
+        <div className="container mx-auto mb-[50px]">
+          <div className=" flex flex-col lg:flex-row justify-between">
+            <div className="lg:w-1/2">
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                About Degenerative Disc Disease
+              </h2>
 
-            <p className="text-gray-700 text-lg mb-4">
-              Low back pain is a common and debilitating condition affecting
-              adults all over the world. Chronic low back pain can have many
-              causes; for many, degenerative disc disease (DDD) is the primary
-              culprit. The lumbar spine (lower back) plays a critical role in
-              weight-bearing function and twisting movements. This makes the
-              discs in your lower back more prone to breaking down
-              (degeneration).
-            </p>
+              <p className="text-gray-700 text-lg mb-4">
+                Low back pain is a common and debilitating condition affecting
+                adults all over the world. Chronic low back pain can have many
+                causes; for many, degenerative disc disease (DDD) is the primary
+                culprit. The lumbar spine (lower back) plays a critical role in
+                weight-bearing function and twisting movements. This makes the
+                discs in your lower back more prone to breaking down
+                (degeneration).
+              </p>
 
-            <p className="text-gray-700 text-lg mb-4">
-              Wear-and-tear injuries can happen over time, along with natural
-              aging processes, where the interior of the disc – the nucleus –
-              can begin to dry up, weaken and collapse. As the nucleus
-              dehydrates and shrinks, the disc able to properly bear weight,
-              leading to tearing and further damage within and around the disc.
-            </p>
+              <p className="text-gray-700 text-lg mb-4">
+                Wear-and-tear injuries can happen over time, along with natural
+                aging processes, where the interior of the disc – the nucleus –
+                can begin to dry up, weaken and collapse. As the nucleus
+                dehydrates and shrinks, the disc able to properly bear weight,
+                leading to tearing and further damage within and around the
+                disc.
+              </p>
 
-            <p className="text-gray-700 text-lg mb-4">
-              This can cause increased pain over time and can lead to other back
-              problems including spinal stenosis or a herniated disc.
-            </p>
+              <p className="text-gray-700 text-lg mb-4">
+                This can cause increased pain over time and can lead to other
+                back problems including spinal stenosis or a herniated disc.
+              </p>
 
-            <p className="text-gray-700 text-lg mb-4">
-              Conservative care treatment options for DDD such as pain
-              medications, exercise, physical therapy, or epidural steroid
-              injections may not adequately relieve the pain for some patients.
-              When conservative care is not effective, some patients seek
-              surgical alternatives such as spinal fusion or total disc
-              replacement.
-            </p>
+              <p className="text-gray-700 text-lg mb-4">
+                Conservative care treatment options for DDD such as pain
+                medications, exercise, physical therapy, or epidural steroid
+                injections may not adequately relieve the pain for some
+                patients. When conservative care is not effective, some patients
+                seek surgical alternatives such as spinal fusion or total disc
+                replacement.
+              </p>
 
-            <p className="text-gray-700 text-lg mb-6">
-              Traditional treatments for DDD are often ineffective or come with
-              significant risks and side effects. Research is underway to find
-              different ways to treat DDD, including the HYDRAFIL-D Research
-              Study.
-            </p>
-          </div>
-          <div>
-            <div className="rounded-full ">
-              <img
-                src={backpain}
-                alt="Person with lower back pain"
-                className="w-full h-auto"
-              />
+              <p className="text-gray-700 text-lg mb-6">
+                Traditional treatments for DDD are often ineffective or come
+                with significant risks and side effects. Research is underway to
+                find different ways to treat DDD, including the HYDRAFIL-D
+                Research Study.
+              </p>
             </div>
-            <div className="flex flex-col mt-8 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-              <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
-                Find A Study Location
-              </button>
-              <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
-                See If You Qualify
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* About The HYDRAFIL-D Study Section */}
-        <div className=" py-16 mt-4">
-          <div className="bg-[#e5f7fe] mx-auto px-4 py-4">
-            <div className="flex flex-col lg:flex-row items-center gap-6">
-              {/* Left Side - Image of Device */}
-              <div>
+            <div>
+              <div className="rounded-full ">
                 <img
-                  src={injection}
-                  alt="HYDRAFIL injection device"
+                  src={backpain}
+                  alt="Person with lower back pain"
                   className="w-full h-auto"
                 />
               </div>
-
-              {/* Right Side - Text Content */}
-              <div className="lg:w-2/3 px-30">
-                <div className="mb-2">
-                  <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
-                    HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
-                  </h2>
-                </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-6">
-                  About The HYDRAFIL-D Study
-                </h2>
-
-                <p className="text-gray-700 text-lg mb-4">
-                  This research study is being sponsored by ReGelTec to evaluate
-                  the safety and effectiveness of an investigational spinal disc
-                  implant called HYDRAFIL.
-                </p>
-
-                <p className="text-gray-700 text-lg">
-                  <span className="text-cyan-500 font-bold">HYDRAFIL</span> is a
-                  hydrated polymer gel (hydrogel) that mimics the natural
-                  properties of the nucleus inside the disc, and is designed to
-                  be an injectable, soft, space-filling technology for minimally
-                  invasive treatment of chronic low back pain from degenerative
-                  disc disease (DDD). HYDRAFIL offers a novel approach to
-                  treating DDD by delivering a hydrogel implant injected
-                  directly through a needle to supplement and reinforce the
-                  interior of the degenerated disc that is causing the pain
-                  without removing any existing disc material. The intent of the
-                  treatment is to reduce pain and improve function for people
-                  with chronic low back pain due to DDD.
-                </p>
+              <div className="flex flex-col mt-8 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <button className="px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
+                  Find A Study Location
+                </button>
+                <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
+                  See If You Qualify
+                </button>
               </div>
             </div>
-            <div className="px-8">
-              <p className="text-gray-700 text-lg mb-4">
-                Approximately 225 adults with chronic low back pain will
-                participate in this research study at multiple study{" "}
-                <a href="#" className="text-cyan-500 hover:underline">
-                  site locations
-                </a>{" "}
-                (i.e., local study centers) in the United States. Adults with
-                chronic low back pain due to DDD{" "}
-                <a href="#" className="text-cyan-500 hover:underline">
-                  may qualify
-                </a>
-                .
-              </p>
+          </div>
+        </div>
 
-              <p className="text-gray-700 text-lg mb-4">
-                If you qualify and participate, you will receive study-related
-                medical care and treatment from a local spine specialist
-                physician (i.e., the local study doctor). You will be asked to
-                participate in this study for at least 24 months and up to 5
-                years.
-              </p>
+        {/* About The HYDRAFIL-D Study Section */}
+        <div className=" ">
+          <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4 py-4">
+            <div className="container mx-auto">
+              <div className="flex flex-col lg:flex-row items-center gap-6">
+                {/* Left Side - Image of Device */}
+                <div>
+                  <img
+                    src={injection}
+                    alt="HYDRAFIL injection device"
+                    className="w-full h-auto"
+                  />
+                </div>
+
+                {/* Right Side - Text Content */}
+                <div className="lg:w-2/3 px-30">
+                  <div className="mb-2">
+                    <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg">
+                      HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
+                    </h2>
+                  </div>
+                  <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                    About The HYDRAFIL-D Study
+                  </h2>
+
+                  <p className="text-gray-700 text-lg mb-4">
+                    This research study is being sponsored by ReGelTec to
+                    evaluate the safety and effectiveness of an investigational
+                    spinal disc implant called HYDRAFIL.
+                  </p>
+
+                  <p className="text-gray-700 text-lg">
+                    <span className="text-cyan-500 font-bold">HYDRAFIL</span> is
+                    a hydrated polymer gel (hydrogel) that mimics the natural
+                    properties of the nucleus inside the disc, and is designed
+                    to be an injectable, soft, space-filling technology for
+                    minimally invasive treatment of chronic low back pain from
+                    degenerative disc disease (DDD). HYDRAFIL offers a novel
+                    approach to treating DDD by delivering a hydrogel implant
+                    injected directly through a needle to supplement and
+                    reinforce the interior of the degenerated disc that is
+                    causing the pain without removing any existing disc
+                    material. The intent of the treatment is to reduce pain and
+                    improve function for people with chronic low back pain due
+                    to DDD.
+                  </p>
+                </div>
+              </div>
+              <div className="px-8">
+                <p className="text-gray-700 text-lg mb-4">
+                  Approximately 225 adults with chronic low back pain will
+                  participate in this research study at multiple study{" "}
+                  <a href="#" className="text-cyan-500 hover:underline">
+                    site locations
+                  </a>{" "}
+                  (i.e., local study centers) in the United States. Adults with
+                  chronic low back pain due to DDD{" "}
+                  <a href="#" className="text-cyan-500 hover:underline">
+                    may qualify
+                  </a>
+                  .
+                </p>
+
+                <p className="text-gray-700 text-lg mb-4">
+                  If you qualify and participate, you will receive study-related
+                  medical care and treatment from a local spine specialist
+                  physician (i.e., the local study doctor). You will be asked to
+                  participate in this study for at least 24 months and up to 5
+                  years.
+                </p>
+              </div>
             </div>
             {/* Eligibility Criteria Section */}
           </div>
           <div>
-            <div className="mt-20">
+            <div className="my-20 container mx-auto">
               <div className="text-center mb-8">
                 <h2 className="text-cyan-500 font-medium uppercase tracking-wide text-lg mb-4">
                   ELIGIBILITY CRITERIA
@@ -379,7 +363,7 @@ const Home = () => {
               {/* Eligibility Icons Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
                 {/* Icon 1 */}
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center border-r-[1px] border-r-[#00B4F1] border-dotted">
                   <div className="mb-4">
                     <img
                       src={growing}
@@ -395,10 +379,10 @@ const Home = () => {
                 </div>
 
                 {/* Icon 2 */}
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center border-r-[1px] border-r-[#00B4F1] border-dotted">
                   <div className="mb-4">
                     <img
-                      src={backpain}
+                      src={lowPain}
                       alt="Back pain"
                       className="h-20 w-auto"
                     />
@@ -411,7 +395,7 @@ const Home = () => {
                 </div>
 
                 {/* Icon 3 */}
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center border-r-[1px] border-r-[#00B4F1] border-dotted">
                   <div className="mb-4">
                     <img src={refresh} alt="Duration" className="h-20 w-auto" />
                   </div>
@@ -467,7 +451,6 @@ const Home = () => {
               {/* US Map */}
               <div className="relative ">
                 <div className="h-[600px] w-full rounded-xl overflow-hidden">
-
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
                     <MyMapWithSearch />
@@ -503,7 +486,7 @@ const Home = () => {
               Do I Qualify?
             </h2>
 
-            <p className="text-gray-700 text-lg mb-8 max-w-3xl mx-auto">
+            <p className="text-gray-700 text-lg mb-8  mx-auto px-20">
               To see if you might qualify for the study, we need to ask you 8
               quick questions. If you pass the pre-screener and appear to
               prequalify, you can submit your contact information to the local
@@ -513,75 +496,82 @@ const Home = () => {
             </p>
 
             {/* Progress Steps */}
-            <div className="max-w-3xl mx-auto mb-12">
-              <div className="flex items-center justify-between relative">
-                {/* Progress Bar Line */}
-                <div className="absolute left-0 right-0 h-1 bg-gray-200 top-1/2 transform -translate-y-1/2 z-0">
-                  <div className="h-full bg-cyan-500 w-1/6"></div>
-                </div>
-
-                {/* Step 1 - Active */}
-                <div className="flex flex-col items-center relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold mb-8">
-                    1
+            <div className="mx-auto border border-[#DDE2E5] rounded-lg p-10 shadow-sm">
+              <div className=" mx-auto mb-12">
+                <div className="flex justify-center items-center gap-8 mb-8">
+                  <div className="text-center">
+                    <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-6 h-6 mx-auto">
+                      <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
+                    </div>
+                    <Typography variant="small" className="text-[#00B4F1]">
+                      Select Location
+                    </Typography>
                   </div>
-                  <span className="text-sm font-medium text-cyan-500">
-                    Select Location
-                  </span>
-                </div>
+                  <div className="w-24 mb-2 h-1 bg-[#CFD6DC] rounded"></div>
 
-                {/* Step 2 - Inactive */}
-                <div className="flex flex-col items-center relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 font-bold mb-8">
-                    2
+                  <div className="text-center">
+                    <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
+
+                    <Typography variant="small" className="text-gray-400">
+                      Pre-Screener
+                    </Typography>
                   </div>
-                  <span className="text-sm font-medium text-gray-400">
-                    Pre-Screener
-                  </span>
-                </div>
+                  <div className="w-24 mb-2 h-1 bg-[#CFD6DC] rounded"></div>
 
-                {/* Step 3 - Inactive */}
-                <div className="flex flex-col items-center relative z-10">
-                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 font-bold mb-8">
-                    3
+                  <div className="text-center">
+                    <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
+                    <Typography variant="small" className="text-gray-400">
+                      Contact Info
+                    </Typography>
                   </div>
-                  <span className="text-sm font-medium text-gray-400">
-                    Contact Info
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Location Selection Form */}
-            <div className="max-w-3xl mx-auto border border-[#dde2e5] rounded-lg p-10 shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 text-left">
-                Select a Study Location
-              </h3>
-
-              <p className="text-gray-700 mb-8 text-left">
-                Please select a study location near you to begin the
-                pre-screening process.
-              </p>
-
-              {/* Location Dropdown */}
-              <div className="mb-8">
-                <div className="">
-                  <select name="cars" id="cars" className="flex w-full items-center border rounded-md p-3 text-left" onChange={(e) => setSelectLocation(e.target.value)}>
-                    <option value="">Select Location</option>
-                    {allStudyCenter?.data.map((center) => (<option key={center?.id} value={center?.id}>{center?.name}</option>))}
-
-                  </select>
                 </div>
               </div>
 
-              {/* Continue Button */}
-              <div className="text-left">
-                <button className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
-                  onClick={() => navigate("/prescreen", { state: { center: selectLocation } })}
-                  disabled={!selectLocation}
-                >
-                  Continue To Pre-Screener
-                </button>
+              {/* Location Selection Form */}
+              <div className="px-20 mx-auto ">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4 text-left">
+                  Select a Study Location
+                </h3>
+
+                <p className="text-gray-700 mb-8 text-left">
+                  Please select a study location near you to begin the
+                  pre-screening process.
+                </p>
+
+                {/* Location Dropdown */}
+                <div className="mb-8">
+                  <div className="relative min-w-[300px] max-w-[300px]">
+                    <LuMapPin className="absolute left-[10px] top-[16px]" />
+                    <select
+                      name="cars"
+                      id="cars"
+                      className="flex border-[#EDEDFF] w-full  items-center border rounded-md p-3 ps-7 text-left"
+                      onChange={(e) => setSelectLocation(e.target.value)}
+                    >
+                      <option value="">Select Location</option>
+                      {allStudyCenter?.data.map((center) => (
+                        <option key={center?.id} value={center?.id}>
+                          {center?.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Continue Button */}
+                <div className="text-left">
+                  <button
+                    className="px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                    onClick={() =>
+                      navigate("/prescreen", {
+                        state: { center: selectLocation },
+                      })
+                    }
+                    disabled={!selectLocation}
+                  >
+                    Continue To Pre-Screener
+                  </button>
+                </div>
               </div>
             </div>
           </div>

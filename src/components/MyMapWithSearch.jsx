@@ -64,7 +64,7 @@ const MyMapWithSearch = () => {
         <div className="flex flex-col gap-5 relative">
             <div className="z-[999] absolute w-full flex items-center justify-center py-5">
                 <div className="mx-auto p-4 flex gap-4">
-                    <div className="relative flex items-center rounded-full border border-gray-200 bg-white shadow-sm overflow-hidden">
+                    <div className="relative flex items-center rounded-[12px] min-w-[420px]  bg-white shadow-sm overflow-hidden">
                         <div className="pl-4 text-gray-400">
                             <BiSearch size={20} />
                         </div>
@@ -73,7 +73,7 @@ const MyMapWithSearch = () => {
                             placeholder="Enter your zip code to find nearby study centers"
                             value={zipcode}
                             onChange={(e) => setZipcode(e.target.value)}
-                            className="w-full py-3 px-3 text-gray-500 focus:outline-none"
+                            className="w-full py-3 px-3 text-gray-500 focus:outline-none "
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     handleSearch();
