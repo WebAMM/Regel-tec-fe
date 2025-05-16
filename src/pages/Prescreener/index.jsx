@@ -144,7 +144,7 @@ const Prescreener = () => {
   console.log(sectionQuestions, "sectionQuestions");
   if (isLoading)
     return (
-      <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center">
+      <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center bg-[#000000c2]">
         <Rings
           visible={true}
           height="80"
