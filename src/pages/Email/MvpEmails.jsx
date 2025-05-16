@@ -1,33 +1,35 @@
 import React, { useState } from 'react'
 import ReusableTable from '../../components/ReusableTable';
-import { useGetAllEmailsQuery } from '../../api/apiSlice';
+import { useDeleteEmailByIdMutation, useGetMvpEmailsQuery } from '../../api/apiSlice';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import EmailDetail from './EmailDetail';
 
 const MvpEmails = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { data: emails, isLoading } = useGetAllEmailsQuery()
+    const { data: emails, isLoading } = useGetMvpEmailsQuery()
+    const [deleteEmailById] = useDeleteEmailByIdMutation()
+    const [id, setId] = useState(false);
+
     console.log(emails?.data, 'emails')
     const handleDetail = (row) => {
-        console.log(row, 'row')
+        setId(row?.id)
         setIsOpen(true)
+    }
+    const handleDelete = async (row) => {
+        try {
+            console.log(row.id)
+            await deleteEmailById(row?.id).unwrap()
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const columns = [
         { accessor: "to", header: "From" },
         { accessor: "subject", header: "Subject" },
         { accessor: "date", header: "Date" },
-        {
-            accessor: "questionStatus", header: "Status", render: ({ questionStatus }) => {
-                return (
 
-                    <div className="flex items-center justify-center border rounded-sm border-gray-300">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                        <p className="text-base text-gray-800">{questionStatus ? "Assined" : 'unAssined'}</p>
-                    </div>
-                )
-            }
-        },
         {
             accessor: "", header: "Action", render: (row) => {
                 return (
@@ -42,7 +44,7 @@ const MvpEmails = () => {
                         <button
                             type='button'
                             className=' rounded-[99px] bg-[#f2f9ff] text-blue-500 text-[18px] flex items-center justify-center cursor-pointer hover:shadow-lg'
-                        //   onClick={() => handleDetail(row)}
+                            onClick={() => handleDelete(row)}
                         >
                             <RiDeleteBin6Line color="gray" size={18} />
                         </button>
@@ -58,7 +60,7 @@ const MvpEmails = () => {
     return (
         <>
             <ReusableTable columns={columns} data={emails?.data} />
-            <EmailDetail open={isOpen} onClose={() => setIsOpen(false)} />
+            <EmailDetail open={isOpen} onClose={() => setIsOpen(false)} id={id} />
         </>
     )
 }

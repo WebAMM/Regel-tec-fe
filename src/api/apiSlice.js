@@ -4,9 +4,8 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://regel-medical-be.vercel.app/api",
 
-    prepareHeaders: (headers, { getState, endpoint }) => {
+    prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
-      // console.log(endpoint, "endpoint");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -15,7 +14,13 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["studyCenter", "allQuestions", "Mvps", "Emails"],
+  tagTypes: [
+    "studyCenter",
+    "allQuestions",
+    "Mvps",
+    "MvpEmails",
+    "ReferralEmails",
+  ],
   endpoints: (builder) => ({
     //////////////////////////// auth
     login: builder.mutation({
@@ -142,10 +147,21 @@ export const api = createApi({
         method: "GET",
       }),
     }),
-    getPreScreeningReport: builder.query({
+    generatePreScreeningExcelReport: builder.query({
       query: () => ({
+        url: "/report/generateExcelReport",
+        method: "GET",
+      }),
+    }),
+    getPreScreeningReport: builder.query({
+      query: ({ fromDate, studyCenterId, toDate }) => ({
         url: "/report",
         method: "GET",
+        params: {
+          fromDate,
+          studyCenterId,
+          toDate,
+        },
       }),
     }),
     //////////////////////////// Mvp
@@ -169,17 +185,32 @@ export const api = createApi({
     }),
 
     //////////////////////////// Emails
-    getAllEmails: builder.query({
+    getMvpEmails: builder.query({
       query: () => ({
-        url: "/email",
+        url: "/email/mvp",
         method: "GET",
-        // params: {
-        //   page,
-        //   limit,
-        //   studyCenterStatus,
-        // },
       }),
-      providesTags: ["Emails"],
+      providesTags: ["MvpEmails"],
+    }),
+    getReferralEmails: builder.query({
+      query: () => ({
+        url: "/email/referral",
+        method: "GET",
+      }),
+      providesTags: ["ReferralEmails"],
+    }),
+    getEmailById: builder.query({
+      query: (id) => ({
+        url: `/email/${id}`,
+        method: "GET",
+      }),
+    }),
+    deleteEmailById: builder.mutation({
+      query: (id) => ({
+        url: `/email/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["ReferralEmails", "MvpEmails"],
     }),
   }),
 });
@@ -202,6 +233,10 @@ export const {
   useGetDashboardReportQuery,
   useGetAllMvpListQuery,
   useGetMvpDetailQuery,
-  useGetAllEmailsQuery,
+  useGetMvpEmailsQuery,
   useGetPreScreeningReportQuery,
+  useGetReferralEmailsQuery,
+  useGetEmailByIdQuery,
+  useDeleteEmailByIdMutation,
+  useLazyGeneratePreScreeningExcelReportQuery,
 } = api;

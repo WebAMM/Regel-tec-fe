@@ -5,12 +5,19 @@ import prescreenIcon from "../../assets/images/prescreen-icon.png";
 import refferalIcon from "../../assets/images/refferal-icon.png";
 import statesIcon from "../../assets/images/states-icon.png";
 import ReusableTable from '../../components/ReusableTable';
-import { useGetPreScreeningReportQuery } from '../../api/apiSlice';
+import { useGetPreScreeningReportQuery, } from '../../api/apiSlice';
+import { useLocation } from 'react-router-dom';
+import { CgNotes } from 'react-icons/cg';
+import { Button } from '@material-tailwind/react';
 
 
 
 const PreScreeningReport = () => {
-    const { data: screeningReport, isLoading } = useGetPreScreeningReportQuery()
+    const { state } = useLocation()
+    const { values } = state
+    console.log(state, 'state')
+    const { data: screeningReport, isLoading } = useGetPreScreeningReportQuery(values)
+    // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
     const totalCards = [
         {
             icon: studyIcon,
@@ -43,6 +50,18 @@ const PreScreeningReport = () => {
             name: "MVPs Awaiting Local Study Center",
         },
     ];
+
+    // const downLoadExcel = async () => {
+    //     // try {
+    //     //     const response = await trigger().unwrap()
+    //     //     console.log(response?.header, 'response')
+    //     // } catch (error) {
+    //     //     console.log(error)
+    //     // }
+    //     <a href="https://regel-medical-be.vercel.app/api/report/generateExcelReport" class="download-button">
+    //         Download Excel Report
+    //     </a>
+    // }
     // const columns = [
 
     //     { accessor: "userPublicId", header: "User ID" },
@@ -108,7 +127,6 @@ const PreScreeningReport = () => {
         },
         {
             accessor: "name", header: "Name", render: ({ name }) => {
-                console.log(name, 'name')
                 return (
                     <div>
                         {name === ' ' ? '-' : name}
@@ -168,11 +186,20 @@ const PreScreeningReport = () => {
         { accessor: (row) => new Date(row.date).toLocaleDateString(), header: "Date" },
     ];
 
-    console.log(screeningReport?.data?.preScreeningReport, 'screeningReport')
+    console.log(values, 'values')
 
     if (isLoading) return <div>Loading...</div>
     return (
         <>
+            <div className='flex justify-between items-center w-full my-4'>
+                <h1 className='font-bold text-3xl'>Pre-Screening Report</h1>
+                <a
+                    href={`https://regel-medical-be.vercel.app/api/report/generateExcelReport?fromDate=${values?.fromDate}&toDate=${values?.toDate}&studyCenterId=${values?.studyCenterId}`}
+                    className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2">
+                    <CgNotes size={22} />
+                    Download Report
+                </a>
+            </div>
             <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 {totalCards.map((item, i) => {
                     return (
