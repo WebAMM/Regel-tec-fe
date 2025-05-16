@@ -374,13 +374,13 @@ const SampleScreener = () => {
     //         proceedWithApiCall();
     //     }
     // }, [groupedData.bmi, addAnswersOfSections, batchNumber, currentStep, evaluateAnswersData, groupedData, totalSteps6]);
-    if (isLoading || BatchNoLoader) return  <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center bg-[#000000c2]">
+    if (isLoading || BatchNoLoader) return <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center bg-gray-50">
         <div className="flex space-x-2 justify-center items-center h-16">
-          <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-          <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-          <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce"></div>
+            <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+            <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+            <div className="w-4 h-4 bg-[#0092b8] rounded-full animate-bounce"></div>
         </div>
-      </div>;
+    </div>;
     // console.log(state, 'state')
     // console.log(evaluateAnswersData, 'evaluateAnswersData')
     // console.log(contactData, 'contactData')
