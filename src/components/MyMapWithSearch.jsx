@@ -6,6 +6,9 @@ import { BiSearch } from "react-icons/bi";
 import PopUpSection from "./PopUpSection";
 import { useLazyGetRadiusBasedStudyCenterQuery } from "../api/apiSlice";
 import Loader from "./Loader";
+import MarkerImage from '../assets/images/marker.png'
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { renderToStaticMarkup } from "react-dom/server";
 
 // This component will update the map view when position changes
 function ChangeMapView({ position, zoom }) {
@@ -17,6 +20,21 @@ function ChangeMapView({ position, zoom }) {
 
     return null;
 }
+const iconMarkup = renderToStaticMarkup(<FaMapMarkerAlt size={32} color="#00a6f4" />);
+
+// const customIcon = L.icon({
+//     iconUrl: <FaMapMarkerAlt />,
+//     iconSize: [32, 32], // Adjust the size as needed
+//     iconAnchor: [16, 32], // Point of the icon which corresponds to marker's location
+//     popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
+// });
+const customIcon = L.divIcon({
+    html: iconMarkup,
+    className: '', // Optional: add custom class names if needed
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+});
 
 const MyMapWithSearch = () => {
     const [position, setPosition] = useState([51.505, -0.09]); // Default position
@@ -100,6 +118,7 @@ const MyMapWithSearch = () => {
                     <Marker
                         key={index}
                         position={[center?.coordinates?.lat, center?.coordinates?.long]}
+                        icon={customIcon}
                     >
                         <Popup>
                             <PopUpSection center={center} zipcode={zipcode} />
