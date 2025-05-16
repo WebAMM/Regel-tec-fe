@@ -1,16 +1,22 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useGetAllStudyCenterWithOutPaginationQuery } from '../../api/apiSlice';
 
 const GenerateNewReport = ({ open, onClose }) => {
+    const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery()
+
+    const navigate = useNavigate()
     const initialValues = {
-        studyCenter: '',
-        exportFormat: '.xlsx',
+        studyCenterId: '',
         fromDate: '',
         toDate: '',
     };
     const handleSubmit = async (values) => {
         console.log(values, 'values')
+        navigate('/admin/pre-Screening-report', { state: { values: values } })
     };
+
 
     if (!open) return null;
 
@@ -34,19 +40,18 @@ const GenerateNewReport = ({ open, onClose }) => {
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Select Study Center</label>
                                         <Field
                                             as='select'
-                                            name="studyCenter"
+                                            name="studyCenterId"
                                             className="w-full border border-gray-300 rounded-md px-3 py-2"
                                         >
-                                            <option value="">study 1</option>
+                                            {allStudyCenter?.data?.map((center, index) => (<option key={index} value={center?.id}>{center?.name}</option>))}
 
 
                                         </Field>
-                                        {errors.studyCenter && touched.studyCenter && <div className="text-red-500 text-sm">{errors.studyCenter}</div>}
+                                        {errors.studyCenterId && touched.studyCenterId && <div className="text-red-500 text-sm">{errors.studyCenterId}</div>}
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Export Format</label>
-                                        <Field name="exportFormat" type="text" className="w-full border border-gray-300 rounded-md px-3 py-2" />
-                                        {errors.exportFormat && touched.exportFormat && <div className="text-red-500 text-sm">{errors.exportFormat}</div>}
+                                        <p className="w-full border border-gray-300 rounded-md px-3 py-2">.xlsx</p>
                                     </div>
 
                                     <div>
