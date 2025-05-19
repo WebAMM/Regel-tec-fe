@@ -25,12 +25,12 @@ const Home = () => {
   const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery();
 
 
-   const handleClickScroll = (id) => {
-		const element = document.getElementById(`${id}`);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
+  const handleClickScroll = (id) => {
+    const element = document.getElementById(`${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
 
   const featureItems = [
@@ -127,37 +127,37 @@ const Home = () => {
                   {/* Features with Checkmarks */}
                   <div className="w-[85%]">
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 ">
-                    {featureItems.map((item, index) => (
-                      <div key={index} className="flex items-center">
-                        <div className="flex-shrink-0 h-6 w-6 bg-cyan-500 rounded-full flex items-center justify-center text-white">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 ">
+                      {featureItems.map((item, index) => (
+                        <div key={index} className="flex items-center">
+                          <div className="flex-shrink-0 h-6 w-6 bg-cyan-500 rounded-full flex items-center justify-center text-white">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                          <span className="ml-3 text-[#39394A] text-[16px] font-[700]">
+                            {item.text}
+                          </span>
                         </div>
-                        <span className="ml-3 text-[#39394A] text-[16px] font-[700]">
-                          {item.text}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
                   </div>
 
                   {/* CTA Buttons */}
                   <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                    <button type="button" onClick={() => 	handleClickScroll("nearLocation")}  className="cursor-pointer px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
+                    <button type="button" onClick={() => handleClickScroll("nearLocation")} className="cursor-pointer px-8 py-3 border-2 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-lg">
                       Find A Study Location
                     </button>
-                    <button type="button" onClick={() => 	handleClickScroll("qualify")}  className=" cursor-pointer px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
+                    <button type="button" onClick={() => handleClickScroll("qualify")} className=" cursor-pointer px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-lg">
                       See If You Qualify
                     </button>
                   </div>
@@ -273,10 +273,10 @@ const Home = () => {
                 />
               </div>
               <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <button onClick={() => 	handleClickScroll("nearLocation")}  className="cursor-pointer px-8 h-[48px] border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]">
+                <button onClick={() => handleClickScroll("nearLocation")} className="cursor-pointer px-8 h-[48px] border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]">
                   Find A Study Location
                 </button>
-                <button onClick={() => 	handleClickScroll("qualify")}  className=" cursor-pointer px-8 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]">
+                <button onClick={() => handleClickScroll("qualify")} className=" cursor-pointer px-8 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]">
                   See If You Qualify
                 </button>
               </div>
@@ -465,7 +465,7 @@ const Home = () => {
                 <div className="h-[600px] w-full rounded-xl overflow-hidden">
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
-                    <MyMapWithSearch />
+                    <MyMapWithSearch center={allStudyCenter?.data} />
                     {/* <img
                       src={map}
                       alt="Map"
@@ -515,7 +515,7 @@ const Home = () => {
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-6 h-6 mx-auto">
                       <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
                     </div>
-                    <div  className="text-[14px] font-[400] font-relay text-[#00B4F1] mt-2">
+                    <div className="text-[14px] font-[400] font-relay text-[#00B4F1] mt-2">
                       Select Location
                     </div>
                   </div>
@@ -524,7 +524,7 @@ const Home = () => {
                   <div className="text-center">
                     <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
 
-                     <div  className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
+                    <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
                       Pre-Screener
                     </div>
                   </div>
@@ -532,7 +532,7 @@ const Home = () => {
 
                   <div className="text-center">
                     <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
-                    <div  className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
+                    <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
                       Contact Info
                     </div>
                   </div>

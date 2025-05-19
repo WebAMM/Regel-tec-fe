@@ -36,8 +36,8 @@ const customIcon = L.divIcon({
     popupAnchor: [0, -32],
 });
 
-const MyMapWithSearch = () => {
-    const [position, setPosition] = useState([35.481918, -97.508469]); // Default position
+const MyMapWithSearch = ({ center }) => {
+    const [position, setPosition] = useState([23.634501, -102.552784]); // Default position
     const [zoom, setZoom] = useState(4);
     const [zipcode, setZipcode] = useState("");
     const [radiusBaseedCenters, setRadiusBaseedCenters] = useState(null);
@@ -78,6 +78,8 @@ const MyMapWithSearch = () => {
             alert("An error occurred while searching. Please try again.");
         }
     };
+    console.log(center, 'center')
+    console.log(radiusBaseedCenters, 'radiusBaseedCenters')
     return (
         <div className="flex flex-col gap-5 relative">
             <div className="z-[999] absolute w-full flex items-center justify-center py-5">
@@ -110,13 +112,17 @@ const MyMapWithSearch = () => {
 
             <MapContainer center={position} zoom={zoom} style={{ height: "100vh", width: "100%" }}
                 scrollWheelZoom={false}
+            // maxBounds={[[24.396308, -125.0], [49.384358, -66.93457]]}
+            // maxBoundsViscosity={1.0}
+            // minZoom={4}
+            // maxZoom={10}
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <ChangeMapView position={position} zoom={zoom} />
-                {radiusBaseedCenters && radiusBaseedCenters.map((center, index) => (
+                {/* {radiusBaseedCenters && radiusBaseedCenters.map((center, index) => (
                     <Marker
                         key={index}
                         position={[center?.coordinates?.lat, center?.coordinates?.long]}
@@ -126,7 +132,30 @@ const MyMapWithSearch = () => {
                             <PopUpSection center={center} zipcode={zipcode} />
                         </Popup>
                     </Marker>
-                ))}
+                ))} */}
+                {radiusBaseedCenters ? (radiusBaseedCenters.map((center, index) => (
+                    <Marker
+                        key={index}
+                        position={[center?.coordinates?.lat, center?.coordinates?.long]}
+                        icon={customIcon}
+                    >
+                        <Popup>
+                            <PopUpSection center={center} zipcode={zipcode} />
+                        </Popup>
+                    </Marker>
+                ))) : (center?.map((center, index) => (
+                    <Marker
+                        key={index}
+                        position={[center?.coordinates?.lat, center?.coordinates?.long]}
+                        icon={customIcon}
+                    >
+                        <Popup>
+                            <PopUpSection center={center} zipcode={zipcode} />
+                        </Popup>
+                    </Marker>
+                )))
+
+                }
             </MapContainer>
         </div>
     );

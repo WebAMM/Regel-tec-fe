@@ -34,7 +34,12 @@ const ContactForm = () => {
       firstName: Yup.string().required('First name is required'),
       lastName: Yup.string().required('Last name is required'),
       email: Yup.string().email('Invalid email').required('Email is required'),
+      // phone: Yup.number().required('Phone number is required'),
       phone: Yup.string()
+        .matches(
+          /^[0-9+\-()\s]{7,15}$/,
+          'Enter a valid phone number'
+        )
         .required('Phone number is required'),
       city: Yup.string().required('City is required'),
       state: Yup.string().required('State is required'),
@@ -92,7 +97,7 @@ const ContactForm = () => {
                 <div className="text-[18px] font-[700] text-[#121229] mb-4">
                   Contact Information
                 </div>
-                <div className="text-[16px] font-[400] text-[#39394A] mb-8">
+                <div className="text-[16px] font-[400] text-[#39394A] font-relay mb-8">
                   {state?.isStudyCenterInRadius ? `Please enter your contact information so that someone from a
                   local study center may contact you in the future, should a
                   local study center open in your area.` : 'Please enter your contact information so that someone from the local study center may contact you.'}
@@ -109,7 +114,7 @@ const ContactForm = () => {
                       <div className="max-w-[80%] mx-auto">
                         <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">
                               City
                             </label>
                             <Field name='mvp.city'
@@ -121,7 +126,7 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               State
                             </label>
                             <Field name='mvp.state'
@@ -132,7 +137,7 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Zip Code
                             </label>
                             <Field name='mvp.zipCode'
@@ -143,7 +148,7 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               First Name
                             </label>
                             <Field name='mvp.firstName'
@@ -154,7 +159,7 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Last Name
                             </label>
                             <Field name='mvp.lastName'
@@ -165,7 +170,7 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Email Address
                             </label>
                             <Field
@@ -178,10 +183,10 @@ const ContactForm = () => {
                             )}
                           </div>
                           <div className="flex flex-col">
-                            <label className="text-sm font-normal text-gray-700 text-start mb-1">
+                            <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Phone Number
                             </label>
-                            <Field name='mvp.phone' type='phone'
+                            <Field name='mvp.phone' type='tel'
                               className={`border ${errors.mvp?.phone && touched.mvp?.phone ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.phone && touched.mvp?.phone && (

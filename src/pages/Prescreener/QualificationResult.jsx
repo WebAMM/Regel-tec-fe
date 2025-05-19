@@ -63,7 +63,7 @@ Please check back to this study website regularly for updates on new study locat
             </Typography>
             <Typography
                 variant="paragraph"
-                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto"
+                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto "
             >
                 {content.description}
             </Typography>

@@ -119,7 +119,7 @@ const Login = () => {
                 {isLoading ? (
                   <Loader />
                 ) : (
-                  "Reset Password"
+                  "Login"
                 )}
               </button>
             </Form>
