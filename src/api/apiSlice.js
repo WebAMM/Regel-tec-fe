@@ -70,6 +70,14 @@ export const api = createApi({
       }),
       providesTags: ["studyCenter"],
     }),
+    updateStudyCenterStatus: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `/studyCenter/${id}/update-status`,
+        method: "PATCH",
+        body: payload,
+      }),
+      invalidatesTags: ["studyCenter"],
+    }),
     getRadiusBasedStudyCenter: builder.query({
       query: (zipVCode) => ({
         url: `/studyCenter/get-nearest/${zipVCode}`,
@@ -239,4 +247,5 @@ export const {
   useGetEmailByIdQuery,
   useDeleteEmailByIdMutation,
   useLazyGeneratePreScreeningExcelReportQuery,
+  useUpdateStudyCenterStatusMutation,
 } = api;
