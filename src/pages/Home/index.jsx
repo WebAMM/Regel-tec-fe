@@ -35,8 +35,8 @@ const Home = () => {
 
   const featureItems = [
     { text: "Local study center" },
-    { text: "Local spine physician" },
     { text: "No cost to participate" },
+    { text: "Local spine physician" },
     { text: "Enrolling now" },
   ];
 
