@@ -14,11 +14,11 @@ const faqs = [
   },
   {
     question: "What is HYDRAFIL™?",
-    answer: `HYDRAFIL is an injectable spinal implant for minimally invasive treatment of chronic low back pain from degenerative disc disease. It is a proprietary hydrated polymer gel (hydrogel) technology that, when heated, becomes a liquid that can be injected through a needle directly into the nucleus of a degenerated lumbar disc in your spine. Once it enters the body, the gel cools to form an integrated solid implant within the disc, forming a soft, space-filling implant that mimics the same properties of the natural disc and works to preserve spinal motion.\n\nThe HYDRAFIL implant is designed to supplement and reinforce the interior of the degenerated disc (disc augmentation) without requiring the destruction or removal of any existing disc material.\n\nHYDRAFIL is an investigational device. It is limited by federal (or United States) law to investigational use.`
+    answer: `<span class="text-[#00B4F1]">HYDRAFIL</span> is an injectable spinal implant for minimally invasive treatment of chronic low back pain from degenerative disc disease. It is a proprietary hydrated polymer gel (hydrogel) technology that, when heated, becomes a liquid that can be injected through a needle directly into the nucleus of a degenerated lumbar disc in your spine. Once it enters the body, the gel cools to form an integrated solid implant within the disc, forming a soft, space-filling implant that mimics the same properties of the natural disc and works to preserve spinal motion.\n\nThe HYDRAFIL implant is designed to supplement and reinforce the interior of the degenerated disc (disc augmentation) without requiring the destruction or removal of any existing disc material.\n\nHYDRAFIL is an investigational device. It is limited by federal (or United States) law to investigational use.`
   },
   {
     question: "What is ReGelTec?",
-    answer: `ReGelTec, Inc. is a clinical stage medical device company developing the next generation of minimally invasive spinal implants for chronic lower back pain due to degenerative disc disease. ReGelTec is the sponsor of the HYDRAFIL-D research study.`
+    answer: `<span class="text-[#00B4F1]">ReGelTec, Inc.</span> is a clinical stage medical device company developing the next generation of minimally invasive spinal implants for chronic lower back pain due to degenerative disc disease. ReGelTec is the sponsor of the HYDRAFIL-D research study.`
   },
   {
     question: "How do I know if I qualify?",
@@ -64,16 +64,19 @@ const faqs = [
       {faqs.map((item, index) => (
         <Accordion className="mb-[16px]" key={index} open={open === index}>
           <AccordionHeader
-            className="bg-[#E5F7FE] !border-none text-[#39394A] flex  px-4 py-4 rounded cursor-pointer "
+            className="bg-[#E5F7FE] !border-none text-[#39394A] flex  px-4 h-[80px] rounded cursor-pointer "
             onClick={() => handleOpen(index)}
           >
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full ">
+              <div className="text-[20px] font-[600] text-[#39394A]">
             {item?.question}
+
+              </div>
             <FaAngleUp />
             </div>
           </AccordionHeader>
-          <AccordionBody className="px-4 py-2 bg-[#E5F7FE] text-gray-700">
-            <div  dangerouslySetInnerHTML={{ __html: item?.answer.replace(/\n/g, "<br />") }}>
+          <AccordionBody className="px-4 pt-[0px] bg-[#E5F7FE] pb-6 rounded">
+            <div className="text-[16px] font-[400] text-[#39394A] font-relay" dangerouslySetInnerHTML={{ __html: item?.answer.replace(/\n/g, "<br />") }}>
 
             </div>
           </AccordionBody>
