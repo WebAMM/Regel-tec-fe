@@ -262,7 +262,7 @@ const SampleScreener = () => {
                     case "TextBox":
                         return (
                             <div className="flex w-1/4 flex-col" key={question.questionId}>
-                                <label className="text-sm font-normal text-gray-700 text-start mb-1">{question.title}</label>
+                                <label className="text-sm font-normal text-start mb-1 text-[#39394A] font-relay">{question.title}</label>
                                 <input
                                     placeholder={question.meta.placeholder}
                                     type="text"
@@ -275,7 +275,7 @@ const SampleScreener = () => {
                     case "NumericBox":
                         return (
                             <div className="flex w-1/4 flex-col" key={question.questionId}>
-                                <label className="text-sm font-normal text-gray-700 text-start mb-1">{question.title}</label>
+                                <label className="text-sm font-normal text-start mb-1 text-[#39394A] font-relay">{question.title}</label>
                                 <input
                                     placeholder={question.meta.placeholder}
                                     type="number"
@@ -296,7 +296,7 @@ const SampleScreener = () => {
                     case "DropDown":
                         return (
                             <div className="flex flex-col w-1/4" key={question.questionId}>
-                                <label className="text-sm font-normal text-gray-700 text-start mb-1">{question.title}</label>
+                                <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">{question.title}</label>
                                 <select
                                     value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
                                     onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
@@ -314,18 +314,22 @@ const SampleScreener = () => {
                     case "TrueFalse":
                         return (
                             <div className="flex flex-col w-1/4" key={question.questionId}>
-                                <label className="text-sm font-normal text-gray-700 text-start mb-1">{question.title}</label>
-                                {question.meta.options.map((option) => (
-                                    <div className="flex" key={option._id}>
-                                        <input
-                                            type="radio"
-                                            value={option.value}
-                                            checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
-                                            onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
-                                        />
-                                        <label>{option.label}</label>
-                                    </div>
-                                ))}
+                                <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">{question.title}</label>
+                                <div className="flex text-[#39394A] font-relay items-center justify-between w-1/2 mt-8 mb-2">
+                                    {question.meta.options.map((option) => (
+                                        <div className="flex" key={option._id}>
+                                            <input
+                                                type="radio"
+                                                value={option.value}
+                                                checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
+                                                onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
+                                            />
+
+                                            <label>{option.label}</label>
+                                        </div>
+
+                                    ))}
+                                </div>
                             </div>
                         );
                     default:
