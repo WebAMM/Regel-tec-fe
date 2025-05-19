@@ -168,7 +168,9 @@ const ContactForm = () => {
                             <label className="text-sm font-normal text-gray-700 text-start mb-1">
                               Email Address
                             </label>
-                            <Field name='mvp.email'
+                            <Field
+                              name='mvp.email'
+                              type='email'
                               className={`border ${errors.mvp?.email && touched.mvp?.email ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.email && touched.mvp?.email && (
@@ -186,47 +188,6 @@ const ContactForm = () => {
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.phone}</div>
                             )}
 
-                            {/* <div className="relative flex w-full">
-                              <Menu placement="bottom-start">
-                                <MenuHandler>
-                                  <Button
-                                    ripple={false}
-                                    variant="text"
-                                    color="blue-gray"
-                                    className="!h-[50px] border border-gray-200 w-14 shrink-0 rounded-r-none  border-r-0  bg-transparent px-3"
-                                  >
-                                    {CODES[country]}
-                                  </Button>
-                                </MenuHandler>
-                                <MenuList className="max-h-[20rem] max-w-[18rem]">
-                                  {COUNTRIES.map((country, index) => {
-                                    return (
-                                      <MenuItem
-                                        key={country}
-                                        value={country}
-                                        onClick={() => setCountry(index)}
-                                      >
-                                        {country}
-                                      </MenuItem>
-                                    );
-                                  })}
-                                </MenuList>
-                              </Menu>
-                              <Input
-                                type="tel"
-                                pattern="[0-9]*"
-                                inputMode="numeric"
-                                maxLength={12}
-                                placeholder="324-456-2323"
-                                className="appearance-none border border-gray-200 rounded-lg px-3 outline-none  rounded-l-[0px] !h-[50px] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                                labelProps={{
-                                  className: "before:content-none after:content-none",
-                                }}
-                                containerProps={{
-                                  className: "min-w-0",
-                                }}
-                              />
-                            </div> */}
                           </div>
                         </div>
                         <div className="flex gap-4 mt-4 justify-start">

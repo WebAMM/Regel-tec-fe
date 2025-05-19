@@ -23,7 +23,7 @@ function ChangeMapView({ position, zoom }) {
 const iconMarkup = renderToStaticMarkup(<FaMapMarkerAlt size={32} color="#00a6f4" />);
 
 // const customIcon = L.icon({
-//     iconUrl: <FaMapMarkerAlt />,
+//     iconUrl: MarkerImage,
 //     iconSize: [32, 32], // Adjust the size as needed
 //     iconAnchor: [16, 32], // Point of the icon which corresponds to marker's location
 //     popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
@@ -37,8 +37,8 @@ const customIcon = L.divIcon({
 });
 
 const MyMapWithSearch = () => {
-    const [position, setPosition] = useState([51.505, -0.09]); // Default position
-    const [zoom, setZoom] = useState(10);
+    const [position, setPosition] = useState([35.481918, -97.508469]); // Default position
+    const [zoom, setZoom] = useState(4);
     const [zipcode, setZipcode] = useState("");
     const [radiusBaseedCenters, setRadiusBaseedCenters] = useState(null);
 
@@ -72,7 +72,7 @@ const MyMapWithSearch = () => {
             }
 
             // Always zoom to 13 when searching
-            setZoom(10);
+            setZoom(4);
         } catch (error) {
             console.error("Error searching location:", error);
             alert("An error occurred while searching. Please try again.");
@@ -108,7 +108,9 @@ const MyMapWithSearch = () => {
                 </div>
             </div>
 
-            <MapContainer center={position} zoom={zoom} style={{ height: "100vh", width: "100%" }}>
+            <MapContainer center={position} zoom={zoom} style={{ height: "100vh", width: "100%" }}
+                scrollWheelZoom={false}
+            >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
