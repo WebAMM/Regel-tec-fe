@@ -1,0 +1,10 @@
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.font-relay {
+  font-family: "Raleway", sans-serif;
+}
+.container {
+    max-width: 1200px !important;
+}
