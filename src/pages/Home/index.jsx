@@ -89,7 +89,11 @@ const Home = () => {
       });
     }
   }, []);
-  console.log(selectLocation, "selectLocation");
+  // console.log(allStudyCenter?.data, "allStudyCenter");
+  const studyCentersWithCoordinates = allStudyCenter?.data.filter(center =>
+    center.coordinates.lat !== null && center.coordinates.long !== null
+  );
+  // console.log(studyCentersWithCoordinates, 'studyCentersWithCoordinates')
   return (
     <>
       <div className="">
@@ -286,7 +290,7 @@ const Home = () => {
 
         {/* About The HYDRAFIL-D Study Section */}
         <div className=" ">
-          <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4 py-4">
+          <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4">
             <div className="container mx-auto">
               <div className="flex flex-col lg:flex-row items-center gap-6">
                 {/* Left Side - Image of Device */}
@@ -465,7 +469,7 @@ const Home = () => {
                 <div className="h-[600px] w-full rounded-xl overflow-hidden">
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
-                    <MyMapWithSearch center={allStudyCenter?.data} />
+                    <MyMapWithSearch center={studyCentersWithCoordinates} />
                     {/* <img
                       src={map}
                       alt="Map"
@@ -561,7 +565,7 @@ const Home = () => {
                       onChange={(e) => setSelectLocation(e.target.value)}
                     >
                       <option value="">Select Location</option>
-                      {allStudyCenter?.data.map((center) => (
+                      {studyCentersWithCoordinates?.map((center) => (
                         <option key={center?.id} value={center?.id}>
                           {center?.name}
                         </option>
