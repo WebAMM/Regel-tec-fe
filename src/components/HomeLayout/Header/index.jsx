@@ -33,7 +33,7 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between py-4">
         {/* Logo */}
         <div>
-          <img src={regel} alt="logo" />
+          <img src={regel} alt="logo" className="responsive_logo" />
         </div>
 
         {/* Desktop Navigation */}
@@ -47,7 +47,7 @@ const Header = () => {
               {link.text}
             </a>
           ))}
-          <button onClick={() => 	handleClickScroll("qualify")}  type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-medium">
+          <button onClick={() => 	handleClickScroll("qualify")}  type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-normal">
             See If You Qualify
           </button>
         </nav>

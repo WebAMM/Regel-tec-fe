@@ -19,3 +19,18 @@ html,
 body {
   background: #fff;
 }
+@media screen and (max-width: 650px) {
+  .responsive_infocards {
+   margin-top: 70px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .responsive_infocards {
+   margin-top: 100px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .responsive_logo{
+    width: 150px;
+  }
+}
