@@ -34,3 +34,15 @@ body {
     width: 150px;
   }
 }
+.leaflet-popup-content-wrapper{
+  width: 300px;
+}
+.leaflet-container a.leaflet-popup-close-button{
+  top: 15px !important;
+  right: 25px !important;
+  font-size: 20px !important;
+  color: #9CA3AF impott !important;
+}
+::placeholder{
+  font-size: 14px !important;
+}
