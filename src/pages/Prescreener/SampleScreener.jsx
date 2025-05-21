@@ -300,7 +300,7 @@ const SampleScreener = () => {
                                 <select
                                     value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
                                     onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
-                                    className="border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
+                                    className="text-[#39394A] text-xs border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                                 >
                                     <option value="">Select an option</option>
                                     {question.meta.options.map((option) => (
@@ -317,15 +317,16 @@ const SampleScreener = () => {
                                 <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">{question.title}</label>
                                 <div className="flex text-[#39394A] font-relay items-center justify-between w-1/2 mt-8 mb-2">
                                     {question.meta.options.map((option) => (
-                                        <div className="flex" key={option._id}>
+                                        <div className="flex gap-2" key={option._id}>
                                             <input
+                                             id={`radio-${question.questionId}-${option._id}`}
                                                 type="radio"
                                                 value={option.value}
                                                 checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
                                                 onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                             />
 
-                                            <label>{option.label}</label>
+                                             <label htmlFor={`radio-${question.questionId}-${option._id}`}>{option.label}</label>
                                         </div>
 
                                     ))}

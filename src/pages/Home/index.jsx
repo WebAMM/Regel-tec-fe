@@ -220,7 +220,7 @@ const Home = () => {
                     )}
                   </div>
                   <div>
-                    <h3 className="font-[700] text-[#121229] mb-2 text-[18px]">
+                    <h3 className="font-[700] text-[#121229] text-[18px]">
                       {card.title}
                     </h3>
                     <p className="text-[#39394A] font-relay font-[400] text-[16px]">
@@ -404,7 +404,7 @@ const Home = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
                 {/* Icon 1 */}
                 <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
-                  <div className="mb-4">
+                  <div className="mb-[10px]">
                     <img
                       src={growing}
                       alt="Age eligibility"
@@ -420,7 +420,7 @@ const Home = () => {
 
                 {/* Icon 2 */}
                 <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
-                  <div className="mb-2">
+                  <div className="mb-[10px]">
                     <img
                       src={lowPain}
                       alt="Back pain"
@@ -436,7 +436,7 @@ const Home = () => {
 
                 {/* Icon 3 */}
                 <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
-                  <div className="mb-2">
+                  <div className="mb-[10px]">
                     <img src={refresh} alt="Duration" className="h-auto w-auto" />
                   </div>
                   <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
@@ -448,7 +448,7 @@ const Home = () => {
 
                 {/* Icon 4 */}
                 <div className="flex flex-col items-center text-center">
-                  <div className="mb-2">
+                  <div className="mb-[10px]">
                     <img src={asset} alt="No surgery" className="h-auto w-auto" />
                   </div>
                   <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
@@ -571,14 +571,14 @@ const Home = () => {
                 {/* Location Dropdown */}
                 <div className="mb-8">
                   <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[300px]">
-                    <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1]" />
+                    <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1] text-[18px]" />
                     <select
                       name="cars"
                       id="cars"
-                      className="flex border-[#EDEDFF] w-full  items-center border rounded-md p-3 ps-7 text-left lg:text-xl md:text-lg sm:text-sm text-sm"
+                      className="flex text-[#39394A] font-normal border-[#EDEDFF] w-full items-center border rounded-md p-3 ps-7 text-left text-sm"
                       onChange={(e) => setSelectLocation(e.target.value)}
                     >
-                      <option value="">Select a Location</option>
+                      <option value="">Select a location...</option>
                       {studyCentersWithCoordinates?.map((center) => (
                         <option key={center?.id} value={center?.id}>
                           {center?.name}
