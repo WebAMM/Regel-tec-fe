@@ -64,11 +64,11 @@ const faqs = [
       {faqs.map((item, index) => (
         <Accordion className="mb-[16px]" key={index} open={open === index}>
           <AccordionHeader
-            className="bg-[#E5F7FE] !border-none text-[#39394A] flex  px-4 h-[80px] rounded cursor-pointer "
+            className="bg-[#E5F7FE] !border-none text-[#39394A] flex px-[30px] h-[80px] rounded cursor-pointer "
             onClick={() => handleOpen(index)}
           >
             <div className="flex items-center justify-between w-full ">
-              <div className="text-[20px] font-[600] text-[#39394A]">
+              <div className="lg:text-xl md:text-lg sm:text-sm text-sm font-[600] text-[#39394A]">
             {item?.question}
 
               </div>
