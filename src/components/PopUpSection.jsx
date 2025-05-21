@@ -13,7 +13,7 @@ const PopUpSection = ({ center, zipcode }) => {
     return (
         <div className="bg-white p-1 rounded-lg ">
             <h3 className="font-bold text-gray-800 mb-2">
-                Local Study Center Example
+                Local Study Center
             </h3>
             <p className="text-gray-600 mb-1">
                 {center?.name}

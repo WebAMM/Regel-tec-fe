@@ -221,7 +221,7 @@ const Home = () => {
             CHRONIC LOW BACK PAIN DUE TO DDD
           </h2>
         </div>
-        <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5">
+        <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5" id="Degenerative Disc">
           <div className=" flex flex-col lg:flex-row justify-between">
             <div className="lg:w-[52%]">
               <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-3">
@@ -289,7 +289,7 @@ const Home = () => {
         </div>
 
         {/* About The HYDRAFIL-D Study Section */}
-        <div className=" ">
+        <div className=" " id="Study Overview">
           <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4">
             <div className="container mx-auto">
               <div className="flex flex-col lg:flex-row items-center gap-6">
@@ -314,13 +314,13 @@ const Home = () => {
                   </h2>
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4">
-                    This research study is being sponsored by ReGelTec to
+                    This research study is being sponsored by <a href="https://regeltec.com/" className="text-[#00B4F1] cursor-pointer">ReGelTec</a> to
                     evaluate the safety and effectiveness of an investigational
                     spinal disc implant called HYDRAFIL
                   </p>
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
-                    <span className="text-cyan-500">HYDRAFIL</span> is
+                    <span className="text-cyan-500 cursor-pointer" onClick={() => handleClickScroll("FAQs")}>HYDRAFIL</span> is
                     a hydrated polymer gel (hydrogel) that mimics the natural
                     properties of the nucleus inside the disc, and is designed
                     to be an injectable, soft, space-filling technology for
@@ -340,14 +340,14 @@ const Home = () => {
                 <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
                   Approximately 225 adults with chronic low back pain will
                   participate in this research study at multiple study{" "}
-                  <a href="#" className="text-cyan-500 hover:underline">
+                  <span onClick={() => handleClickScroll("nearLocation")} className="text-cyan-500 hover:underline cursor-pointer">
                     site locations
-                  </a>{" "}
+                  </span>{" "}
                   (i.e., local study centers) in the United States. Adults with
                   chronic low back pain due to DDD{" "}
-                  <a href="#" className="text-cyan-500 hover:underline">
+                  <span onClick={() => handleClickScroll("qualify")} className="text-cyan-500 hover:underline cursor-pointer">
                     may qualify
-                  </a>
+                  </span>
                   .
                 </p>
 
@@ -470,20 +470,6 @@ const Home = () => {
                   <div ref={mapRef} className="h-full w-full relative" >
                     {/* Fallback content if Google Maps fails to load */}
                     <MyMapWithSearch center={studyCentersWithCoordinates} className="p-10" />
-                    {/* <img
-                      src={map}
-                      alt="Map"
-                      className="w-full h-full object-cover"
-                    /> */}
-                    {/* {!window.google && (
-                      <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center p-4">
-                        <p className="text-gray-700 text-lg mb-4 text-center">
-                          Map loading failed. Please ensure you have a valid
-                          Google Maps API key configured.
-                        </p>
-                       
-                      </div>
-                    )} */}
                   </div>
                 </div>
               </div>
@@ -594,13 +580,12 @@ const Home = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2">
+        <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2" id="FAQs">
           <div className="container mx-auto px-4">
             <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4">FAQS</h3>
             <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-6">
               Frequently Asked Question
             </h2>
-            {/* FAQ content would go here */}
             <FaqSection />
           </div>
         </div>
