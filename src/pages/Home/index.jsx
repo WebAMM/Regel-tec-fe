@@ -233,80 +233,87 @@ const Home = () => {
           </div>
         </div>
         {/* Additional Section*/}
-        <div className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
-          <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs">
-            CHRONIC LOW BACK PAIN DUE TO DDD
-          </h2>
+        <div className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5" id="Degenerative Disc">
         </div>
-        <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5" id="Degenerative Disc">
-          <div className=" flex flex-col lg:flex-row justify-between">
-            <div className="lg:w-[52%]">
-              <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-3">
-                About Degenerative Disc Disease
-              </h2>
+        <div >
+          <div className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs">
+              CHRONIC LOW BACK PAIN DUE TO DDD
+            </h2>
+          </div>
+          <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5" >
+            <div className=" flex flex-col lg:flex-row justify-between">
+              <div className="lg:w-[52%]">
+                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-3">
+                  About Degenerative Disc Disease
+                </h2>
 
-              <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm  font-[400] mb-4">
-                Low back pain is a common and debilitating condition affecting
-                adults all over the world. Chronic low back pain can have many
-                causes; for many, degenerative disc disease (DDD) is the primary
-                culprit. The lumbar spine (lower back) plays a critical role in
-                weight-bearing function and twisting movements. This makes the
-                discs in your lower back more prone to breaking down
-                (degeneration).
-              </p>
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm  font-[400] mb-4">
+                  Low back pain is a common and debilitating condition affecting
+                  adults all over the world. Chronic low back pain can have many
+                  causes; for many, degenerative disc disease (DDD) is the primary
+                  culprit. The lumbar spine (lower back) plays a critical role in
+                  weight-bearing function and twisting movements. This makes the
+                  discs in your lower back more prone to breaking down
+                  (degeneration).
+                </p>
 
-              <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
-                Wear-and-tear injuries can happen over time, along with natural
-                aging processes, where the interior of the disc – the nucleus –
-                can begin to dry up, weaken and collapse. As the nucleus
-                dehydrates and shrinks, the disc able to properly bear weight,
-                leading to tearing and further damage within and around the
-                disc.
-              </p>
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
+                  Wear-and-tear injuries can happen over time, along with natural
+                  aging processes, where the interior of the disc – the nucleus –
+                  can begin to dry up, weaken and collapse. As the nucleus
+                  dehydrates and shrinks, the disc able to properly bear weight,
+                  leading to tearing and further damage within and around the
+                  disc.
+                </p>
 
-              <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
-                This can cause increased pain over time and can lead to other
-                back problems including spinal stenosis or a herniated disc.
-              </p>
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
+                  This can cause increased pain over time and can lead to other
+                  back problems including spinal stenosis or a herniated disc.
+                </p>
 
-              <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
-                Conservative care treatment options for DDD such as pain
-                medications, exercise, physical therapy, or epidural steroid
-                injections may not adequately relieve the pain for some
-                patients. When conservative care is not effective, some patients
-                seek surgical alternatives such as spinal fusion or total disc
-                replacement.
-              </p>
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
+                  Conservative care treatment options for DDD such as pain
+                  medications, exercise, physical therapy, or epidural steroid
+                  injections may not adequately relieve the pain for some
+                  patients. When conservative care is not effective, some patients
+                  seek surgical alternatives such as spinal fusion or total disc
+                  replacement.
+                </p>
 
-              <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6">
-                Traditional treatments for DDD are often ineffective or come
-                with significant risks and side effects. Research is underway to
-                find different ways to treat DDD, including the HYDRAFIL-D
-                Research Study.
-              </p>
-            </div>
-            <div>
-              <div className="rounded-full flex justify-center items-center">
-                <img
-                  src={backpain}
-                  alt="Person with lower back pain"
-                  className="lg:w-full lg:h-auto "
-                />
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6">
+                  Traditional treatments for DDD are often ineffective or come
+                  with significant risks and side effects. Research is underway to
+                  find different ways to treat DDD, including the HYDRAFIL-D
+                  Research Study.
+                </p>
               </div>
-              <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                <button onClick={() => handleClickScroll("nearLocation")} className="cursor-pointer px-5 h-[48px] border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]">
-                  Find A Study Location
-                </button>
-                <button onClick={() => handleClickScroll("qualify")} className=" cursor-pointer px-8 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]">
-                  See If You Qualify
-                </button>
+              <div>
+                <div className="rounded-full flex justify-center items-center">
+                  <img
+                    src={backpain}
+                    alt="Person with lower back pain"
+                    className="lg:w-full lg:h-auto "
+                  />
+                </div>
+                <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                  <button onClick={() => handleClickScroll("nearLocation")} className="cursor-pointer px-5 h-[48px] border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]">
+                    Find A Study Location
+                  </button>
+                  <button onClick={() => handleClickScroll("qualify")} className=" cursor-pointer px-8 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]">
+                    See If You Qualify
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+
         {/* About The HYDRAFIL-D Study Section */}
-        <div className=" " id="Study Overview">
+        <div id="Study Overview" className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+        </div>
+        <div className=" " >
           <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4">
             <div className="container mx-auto">
               <div className="flex flex-col lg:flex-row items-center gap-6">
@@ -456,7 +463,9 @@ const Home = () => {
         </div>
 
         {/* Study Location Section */}
-        <div className="bg-[#e5f7fe] pt-12 pb-12 h-[930px]" id="nearLocation">
+        <div id="nearLocation" className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+        </div>
+        <div className="bg-[#e5f7fe] pt-12 pb-12 h-[930px]" >
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
               <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
@@ -495,7 +504,9 @@ const Home = () => {
         </div>
 
         {/* Qualification Section */}
-        <div className="bg-white lg:py-16 md:py-12 sm:py-8 py-8" id="qualify">
+        <div id="qualify" className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+        </div>
+        <div className="bg-white lg:py-16 md:py-12 sm:py-8 py-8" >
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
               TAKE THE PRE-SCREENER
@@ -597,7 +608,9 @@ const Home = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2" id="FAQs">
+        <div id="FAQs" className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+        </div>
+        <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2" >
           <div className="container mx-auto px-4">
             <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4">FAQS</h3>
             <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-6">
