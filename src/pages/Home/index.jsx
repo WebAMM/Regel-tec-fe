@@ -17,11 +17,15 @@ import placeIcon from "../../assets/images/place.png";
 import { FaCheck } from "react-icons/fa";
 import { Typography } from "@material-tailwind/react";
 import { LuMapPin } from "react-icons/lu";
+import LandingPageLogin from "./LandingPageLogin";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const mapRef = useRef(null);
   const navigate = useNavigate();
   const [selectLocation, setSelectLocation] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
+
   const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery();
 
 
@@ -29,6 +33,19 @@ const Home = () => {
     const element = document.getElementById(`${id}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const handleSubmit = (values) => {
+    console.log(values, 'values');
+    if (!values.email || !values.password) {
+      toast.error("Please fill in all fields")
+      return
+    }
+    if (values.email === 'admin@hydrafilstudy.com' && values.password === 'HYiu87t6$') {
+      // navigate('/review');
+      setIsOpen(false)
+    } else {
+      toast.error("Invalid email or password");
     }
   };
 
@@ -590,6 +607,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} />
     </>
   );
 };
