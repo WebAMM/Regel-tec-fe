@@ -6,11 +6,11 @@ const Header = () => {
 
 
   const handleClickScroll = (id) => {
-		const element = document.getElementById(`${id}`);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
+    const element = document.getElementById(`${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
 
   useEffect(() => {
@@ -21,11 +21,11 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { text: "Degenerative Disc Disease", href: "#" },
-    { text: "Study Overview", href: "#" },
-    { text: "Study Locations", href: "#" },
-    { text: "Do I Qualify", href: "#" },
-    { text: "FAQs", href: "#" },
+    { text: "Degenerative Disc Disease", href: "Degenerative Disc" },
+    { text: "Study Overview", href: "Study Overview" },
+    { text: "Study Locations", href: "nearLocation" },
+    { text: "Do I Qualify", href: "qualify" },
+    { text: "FAQs", href: "FAQs" },
   ];
 
   return (
@@ -39,15 +39,16 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-6">
           {navLinks.map((link, index) => (
-            <a
+            <div
               key={index}
-              href={link.href}
-              className="text-gray-700 hover:text-cyan-500 transition-colors font-medium"
+              // href={link.href}
+              className="text-gray-700 hover:text-cyan-500 transition-colors font-medium cursor-pointer"
+              onClick={() => handleClickScroll(link.href)}
             >
               {link.text}
-            </a>
+            </div>
           ))}
-          <button onClick={() => 	handleClickScroll("qualify")}  type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-normal">
+          <button onClick={() => handleClickScroll("qualify")} type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-normal">
             See If You Qualify
           </button>
         </nav>
@@ -103,7 +104,7 @@ const Header = () => {
                 {link.text}
               </a>
             ))}
-            <button onClick={() => 	handleClickScroll("qualify")} className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full">
+            <button onClick={() => handleClickScroll("qualify")} className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full">
               See If You Qualify
             </button>
           </nav>
