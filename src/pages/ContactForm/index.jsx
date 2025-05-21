@@ -98,9 +98,9 @@ const ContactForm = () => {
                   Contact Information
                 </div>
                 <div className="text-[16px] font-[400] text-[#39394A] font-relay mb-8">
-                  {state?.isStudyCenterInRadius ? `Please enter your contact information so that someone from a
+                  {state?.isStudyCenterInRadius ? ` Please enter your contact information so that someone from the local study center may contact you.` : `Please enter your contact information so that someone from a
                   local study center may contact you in the future, should a
-                  local study center open in your area.` : 'Please enter your contact information so that someone from the local study center may contact you.'}
+                  local study center open in your area.`}
                 </div>
                 <Formik
                   initialValues={initialValues}
