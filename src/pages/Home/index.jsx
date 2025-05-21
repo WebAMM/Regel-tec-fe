@@ -269,11 +269,11 @@ const Home = () => {
               </p>
             </div>
             <div>
-              <div className="rounded-full ">
+              <div className="rounded-full flex justify-center items-center">
                 <img
                   src={backpain}
                   alt="Person with lower back pain"
-                  className="w-full h-auto"
+                  className="lg:w-full lg:h-auto "
                 />
               </div>
               <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
@@ -379,7 +379,7 @@ const Home = () => {
               {/* Eligibility Icons Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
                 {/* Icon 1 */}
-               <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
+                <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
                   <div className="mb-4">
                     <img
                       src={growing}
@@ -469,7 +469,7 @@ const Home = () => {
                 <div className="h-[600px] w-full rounded-xl overflow-hidden">
                   <div ref={mapRef} className="h-full w-full relative" >
                     {/* Fallback content if Google Maps fails to load */}
-                    <MyMapWithSearch center={studyCentersWithCoordinates} className="p-10"/>
+                    <MyMapWithSearch center={studyCentersWithCoordinates} className="p-10" />
                     {/* <img
                       src={map}
                       alt="Map"
@@ -514,7 +514,7 @@ const Home = () => {
             {/* Progress Steps */}
             <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-4 p-2 shadow-sm">
               <div className=" mx-auto mb-12">
-                <div className="flex justify-center items-center gap-8 mb-8">
+                <div className="flex justify-center items-center lg:gap-8 md:gap-6 sm:gap-4 gap-4 mb-8">
                   <div className="text-center">
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-6 h-6 mx-auto">
                       <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
@@ -556,7 +556,7 @@ const Home = () => {
 
                 {/* Location Dropdown */}
                 <div className="mb-8">
-                 <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[300px]">
+                  <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[300px]">
                     <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1]" />
                     <select
                       name="cars"
