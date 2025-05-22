@@ -62,3 +62,22 @@ export const addQuestionValidation = Yup.object().shape({
     )
     .min(1, "At least one section is required"),
 });
+export const ContactFormSchema = Yup.object().shape({
+  mvp: Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    // phone: Yup.number().required('Phone number is required'),
+    phone: Yup.string()
+      .matches(
+        /^[0-9+\-()\s]{7,15}$/,
+        // /^\(\d{3}\) \d{3}-\d{4}$/,
+        "Enter a valid phone number"
+      )
+      .length(14, "Phone number must be 14 characters")
+      .required("Phone number is required"),
+    city: Yup.string().required("City is required"),
+    state: Yup.string().required("State is required"),
+    zipCode: Yup.string().required("Zip code is required"),
+  }),
+});

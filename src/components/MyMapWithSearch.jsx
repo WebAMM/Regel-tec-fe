@@ -148,6 +148,7 @@ const MyMapWithSearch = ({ center }) => {
                         key={index}
                         position={[center?.coordinates?.lat, center?.coordinates?.long]}
                         icon={customIcon}
+
                     >
                         <Popup>
                             <PopUpSection center={center} zipcode={zipcode} />
