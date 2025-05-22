@@ -19,7 +19,7 @@ const QualificationResult = ({
         description: `Based on your responses to this initial questionnaire, it appears you may qualify for the ${studyName} research study. The final decision will be made by the local study doctor. Please click Next to enter your contact information so someone from the local study center can contact you.`,
         image: circleCheck,
         buttonText: "Next",
-        buttonAction: onNext || (() => navigate("/contact", { state: { reportId: reportId, contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius } }))
+        buttonAction: onNext || (() => navigate("/contact", { state: { reportId: reportId, contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius, isQualified: isQualified } }))
     };
 
     const nonQualifiedContent = {
@@ -35,7 +35,7 @@ const QualificationResult = ({
 Please check back to this study website regularly for updates on new study locations that may be opening in the future. You may be able to participate if a new local study center location opens near you.`,
         image: circleCheck,
         buttonText: "Next",
-        buttonAction: onNext || (() => navigate("/contact", { state: { contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius } }))
+        buttonAction: onNext || (() => navigate("/contact", { state: { contactData: contactData, isStudyCenterInRadius: isStudyCenterInRadius, isQualified: isQualified } }))
     };
 
     let content = ''
@@ -49,7 +49,7 @@ Please check back to this study website regularly for updates on new study locat
     } else {
         content = nonQualifiedContent
     }
-    console.log(reportId, 'reportId')
+    // console.log(reportId, 'reportId')
     return (
         <div className="">
             <div className="flex justify-center">
@@ -57,13 +57,13 @@ Please check back to this study website regularly for updates on new study locat
             </div>
             <Typography
                 variant="h3"
-                className="my-4 text-4xl font-bold text-gray-900"
+                className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
             >
                 {content.title}
             </Typography>
             <Typography
                 variant="paragraph"
-                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto "
+                className="mb-12 lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] max-w-4xl mx-auto "
             >
                 {content.description}
             </Typography>

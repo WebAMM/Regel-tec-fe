@@ -11,15 +11,15 @@ const SubmissionComplete = () => {
             </div>
             <Typography
                 variant="h3"
-                className="my-4 text-4xl font-bold text-gray-900"
+                className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
             >
                 Submission Complete
             </Typography>
             <Typography
                 variant="paragraph"
-                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto"
+                className="mb-12 lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] font-relay max-w-4xl mx-auto"
             >
-                Thank you. Someone from the local study center may contact you. <a href="javascript:void(0)" className="text-[#00B4F1]">Privacy Policy</a>
+                Thank you. Someone from the local study center may contact you. <a href="javascript:void(0)" target='_blank' className="text-[#00B4F1]">Privacy Policy</a>
             </Typography>
             <Button
                 className="bg-[#00B4F1] h-12 text-white rounded-full"

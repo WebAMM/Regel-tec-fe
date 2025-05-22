@@ -176,7 +176,7 @@ const SampleScreener = () => {
             const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
             // If answer doesn't exist or is empty string
             if (!questionAnswer || questionAnswer.answer === '') {
-                setValidationError("Please complete all questions in this sectionmmmmmmmmmmmmm.");
+                setValidationError("Please complete all questions in this section.");
                 return false;
             }
         }
@@ -256,12 +256,12 @@ const SampleScreener = () => {
     };
 
     const questionDivision = sectionQuestions?.data?.sections?.map((section, index) => (
-        <div key={section.sectionId} className="flex gap-4 items-center">
+        <div key={section.sectionId} className="flex gap-4 items-center lg:flex-row md:flex-row sm:flex-col flex-col">
             {section.questions.map((question, questionIndex) => {
                 switch (question.type) {
                     case "TextBox":
                         return (
-                            <div className="flex w-1/4 flex-col" key={question.questionId}>
+                            <div className="flex lg:w-1/4 md:w-1/3 sm:w-100 w-50 flex-col" key={question.questionId}>
                                 <label className="text-sm font-normal text-start mb-1 text-[#39394A] font-relay">{question.title}</label>
                                 <input
                                     placeholder={question.meta.placeholder}
@@ -274,7 +274,7 @@ const SampleScreener = () => {
                         );
                     case "NumericBox":
                         return (
-                            <div className="flex w-1/4 flex-col" key={question.questionId}>
+                            <div className="flex lg:w-1/4 md:w-1/3 sm:w-100 w-50 flex-col" key={question.questionId}>
                                 <label className="text-sm font-normal text-start mb-1 text-[#39394A] font-relay">{question.title}</label>
                                 <input
                                     placeholder={question.meta.placeholder}
@@ -295,12 +295,12 @@ const SampleScreener = () => {
                         );
                     case "DropDown":
                         return (
-                            <div className="flex flex-col w-1/4" key={question.questionId}>
+                            <div className="flex flex-col lg:w-1/4 md:w-1/3 sm:w-100 w-50" key={question.questionId}>
                                 <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">{question.title}</label>
                                 <select
                                     value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
                                     onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
-                                    className="border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
+                                    className="text-[#39394A] text-xs border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                                 >
                                     <option value="">Select an option</option>
                                     {question.meta.options.map((option) => (
@@ -313,19 +313,20 @@ const SampleScreener = () => {
                         );
                     case "TrueFalse":
                         return (
-                            <div className="flex flex-col w-1/4" key={question.questionId}>
+                            <div className="flex flex-col lg:w-1/4 md:w-1/3 sm:w-100 w-50" key={question.questionId}>
                                 <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">{question.title}</label>
                                 <div className="flex text-[#39394A] font-relay items-center justify-between w-1/2 mt-8 mb-2">
                                     {question.meta.options.map((option) => (
-                                        <div className="flex" key={option._id}>
+                                        <div className="flex gap-2" key={option._id}>
                                             <input
+                                                id={`radio-${question.questionId}-${option._id}`}
                                                 type="radio"
                                                 value={option.value}
                                                 checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
                                                 onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                             />
 
-                                            <label>{option.label}</label>
+                                            <label htmlFor={`radio-${question.questionId}-${option._id}`}>{option.label}</label>
                                         </div>
 
                                     ))}
@@ -392,7 +393,7 @@ const SampleScreener = () => {
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
             <div className="container mx-auto">
                 <div className="text-center">
-                    <Header />
+                    <Header isQualified={submitForm} />
                     <div className="bg-white shadow-lg rounded-xl w-full p-8">
                         <ProgressStepper />
                         {!submitForm ? (

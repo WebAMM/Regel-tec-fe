@@ -11,15 +11,15 @@ const PopUpSection = ({ center, zipcode }) => {
         navigate("/prescreen", { state: { center: item, userLocation: zipcode } })
     }
     return (
-        <div className="bg-white p-1 rounded-lg ">
-            <h3 className="font-bold text-gray-800 mb-2">
+        <div className="bg-white p-1 rounded-lg">
+            <div className="font-semibold text-[#121229] mb-2 font-relay text-[16px]">
                 Local Study Center
-            </h3>
-            <p className="text-gray-600 mb-1">
+            </div>
+            <p className="text-[#39394A] mb-1 font-relay">
                 {center?.name}
             </p>
             <p className="text-gray-700 mb-3">
-                {center?.address},{center?.city},{center?.state},{center?.zipcode}
+                {center?.city},{center?.state},{center?.zipCode}
             </p>
             <div className="flex items-center text-gray-600 mb-4">
                 <svg
@@ -42,7 +42,7 @@ const PopUpSection = ({ center, zipcode }) => {
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                 </svg>
-                <span>{center?.distanceFromUserLocation?.distance} miles away</span>
+                <span>{center?.distanceFromUserLocation?.distance || 0.00} miles away</span>
             </div>
             <button className="w-full bg-cyan-500 text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-medium"
                 onClick={() => handleCenter(center)}

@@ -20,32 +20,63 @@ import ProgressStepper from "../Prescreener/ProgressStepper";
 import ContactProgress from "./ContactProgress";
 import { useAddNewMvpMutation } from "../../api/apiSlice";
 import { toast } from "react-toastify";
+import { ContactFormSchema } from "../../schemas/validations";
 
 const COUNTRIES = ["France (+33)", "Germany (+49)", "Spain (+34)", "USA (+1)"];
 const CODES = ["+33", "+49", "+34", "+1"];
+// const formatPhoneNumber = (value) => {
+//   // Remove all non-digits
+//   const phoneNumber = value.replace(/\D/g, '');
+
+//   // Format based on length
+//   if (phoneNumber.length <= 3) {
+//     return phoneNumber;
+//   } else if (phoneNumber.length <= 6) {
+//     return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+//   } else {
+//     return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+//   }
+// };
+const formatPhoneNumber = (value) => {
+  const cleaned = value.replace(/\D/g, "").slice(0, 10);
+  const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
+
+  if (!match) return value;
+
+  const [, area, prefix, line] = match;
+
+  if (area && prefix && line) {
+    return `(${area}) ${prefix}-${line}`;
+  } else if (area && prefix) {
+    return `(${area}) ${prefix}`;
+  } else if (area) {
+    return `(${area}`;
+  }
+
+  return value;
+};
+const PhoneInput = ({ field, form, ...props }) => {
+  const handleChange = (e) => {
+    const formattedValue = formatPhoneNumber(e.target.value);
+    form.setFieldValue(field.name, formattedValue);
+  };
+
+  return (
+    <input
+      {...field}
+      {...props}
+      onChange={handleChange}
+      maxLength={14} // (555) 000-0000 = 14 characters
+    />
+  );
+};
 const ContactForm = () => {
   const [country, setCountry] = useState(0);
   const [finish, isFinish] = useState(false);
   const { state } = useLocation()
   const [addNewMvp] = useAddNewMvpMutation()
   const { contactData } = state
-  const ContactFormSchema = Yup.object().shape({
-    mvp: Yup.object().shape({
-      firstName: Yup.string().required('First name is required'),
-      lastName: Yup.string().required('Last name is required'),
-      email: Yup.string().email('Invalid email').required('Email is required'),
-      // phone: Yup.number().required('Phone number is required'),
-      phone: Yup.string()
-        .matches(
-          /^[0-9+\-()\s]{7,15}$/,
-          'Enter a valid phone number'
-        )
-        .required('Phone number is required'),
-      city: Yup.string().required('City is required'),
-      state: Yup.string().required('State is required'),
-      zipCode: Yup.string().required('Zip code is required'),
-    }),
-  });
+
 
   const initialValues = {
     mvp: {
@@ -70,8 +101,17 @@ const ContactForm = () => {
       toast.error(error?.data?.message || 'Failed to add MVP')
     }
   }
+  let contactInfo = ''
+  if (state?.isQualified) {
+    if (state?.isStudyCenterInRadius) {
+      contactInfo = 'Please enter your contact information so that someone from the local study center may contact you.'
+    }
 
-  // console.log(state?.isStudyCenterInRadius, 'state')
+  } else {
+    contactInfo = 'Please enter your contact information so that someone from a local study center may contact you in the future, should a local study center open in your area.'
+  }
+
+  // console.log(state, 'state')
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
       <div className="container mx-auto">
@@ -84,7 +124,7 @@ const ContactForm = () => {
           </Typography>
           <Typography
             variant="h3"
-            className="my-4 text-4xl font-bold text-gray-900"
+            className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
           >
             Do I Qualify?
           </Typography>
@@ -98,9 +138,7 @@ const ContactForm = () => {
                   Contact Information
                 </div>
                 <div className="text-[16px] font-[400] text-[#39394A] font-relay mb-8">
-                  {state?.isStudyCenterInRadius ? ` Please enter your contact information so that someone from the local study center may contact you.` : `Please enter your contact information so that someone from a
-                  local study center may contact you in the future, should a
-                  local study center open in your area.`}
+                  {contactInfo}
                 </div>
                 <Formik
                   initialValues={initialValues}
@@ -119,7 +157,7 @@ const ContactForm = () => {
                             </label>
                             <Field name='mvp.city'
 
-                              className={`border ${errors.mvp?.city && touched.mvp?.city ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.city && touched.mvp?.city ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.city && touched.mvp?.city && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.city}</div>
@@ -130,7 +168,7 @@ const ContactForm = () => {
                               State
                             </label>
                             <Field name='mvp.state'
-                              className={`border ${errors.mvp?.state && touched.mvp?.state ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.state && touched.mvp?.state ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.state && touched.mvp?.state && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.state}</div>
@@ -141,7 +179,7 @@ const ContactForm = () => {
                               Zip Code
                             </label>
                             <Field name='mvp.zipCode'
-                              className={`border ${errors.mvp?.zipCode && touched.mvp?.zipCode ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.zipCode && touched.mvp?.zipCode ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.zipCode && touched.mvp?.zipCode && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.zipCode}</div>
@@ -152,7 +190,7 @@ const ContactForm = () => {
                               First Name
                             </label>
                             <Field name='mvp.firstName'
-                              className={`border ${errors.mvp?.firstName && touched.mvp?.firstName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.firstName && touched.mvp?.firstName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.firstName && touched.mvp?.firstName && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.firstName}</div>
@@ -163,7 +201,7 @@ const ContactForm = () => {
                               Last Name
                             </label>
                             <Field name='mvp.lastName'
-                              className={`border ${errors.mvp?.lastName && touched.mvp?.lastName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.lastName && touched.mvp?.lastName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.lastName && touched.mvp?.lastName && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.lastName}</div>
@@ -176,7 +214,7 @@ const ContactForm = () => {
                             <Field
                               name='mvp.email'
                               type='email'
-                              className={`border ${errors.mvp?.email && touched.mvp?.email ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              className={`border text-[#39394A] font-relay ${errors.mvp?.email && touched.mvp?.email ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.email && touched.mvp?.email && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.email}</div>
@@ -186,9 +224,23 @@ const ContactForm = () => {
                             <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Phone Number
                             </label>
-                            <Field name='mvp.phone' type='tel'
+                            {/* <Field name='mvp.phone' type='tel'
                               className={`border ${errors.mvp?.phone && touched.mvp?.phone ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
-                            />
+                            /> */}
+                            <Field name="mvp.phone">
+                              {({ field, form }) => (
+                                <PhoneInput
+                                  field={field}
+                                  form={form}
+                                  type="tel"
+                                  placeholder="(555) 000-0000"
+                                  className={`border text-[#39394A] font-relay ${errors.mvp?.phone && touched.mvp?.phone
+                                    ? 'border-red-500'
+                                    : 'border-gray-200'
+                                    } rounded-lg px-3 !h-[50px] outline-none`}
+                                />
+                              )}
+                            </Field>
                             {errors.mvp?.phone && touched.mvp?.phone && (
                               <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.phone}</div>
                             )}
