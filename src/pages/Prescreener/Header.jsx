@@ -30,7 +30,7 @@ const Header = ({ isQualified = true }) => {
             </Typography>)} */}
             {!isQualified ? (<Typography
                 variant="paragraph"
-                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto"
+                className="mb-12 text-lg font-normal text-[#39394A] font-relay max-w-4xl mx-auto"
             >
                 To see if you might qualify for the study, we need to ask you 8
                 quick questions. If you pass the pre-screener and appear to
