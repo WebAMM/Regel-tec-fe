@@ -57,13 +57,13 @@ Please check back to this study website regularly for updates on new study locat
             </div>
             <Typography
                 variant="h3"
-                className="my-4 text-4xl font-bold text-gray-900"
+                className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
             >
                 {content.title}
             </Typography>
             <Typography
                 variant="paragraph"
-                className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto "
+                className="mb-12 lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] max-w-4xl mx-auto "
             >
                 {content.description}
             </Typography>

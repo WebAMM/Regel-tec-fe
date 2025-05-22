@@ -3,7 +3,7 @@ import React from 'react'
 import { FaCheck } from "react-icons/fa";
 const ContactProgress = () => {
     return (
-        <div className="flex justify-center items-center gap-8 mb-8">
+        <div className="flex justify-center items-center lg:flex-row md:flex-row sm:flex-col flex-col lg:gap-8 md:gap-6 sm:gap-4 gap-4 mb-8">
             <div className="text-center">
                 <div className="rounded-full bg-[#00B4F1] text-white w-6 h-6 mx-auto flex items-center justify-center p-1">
                     <FaCheck />

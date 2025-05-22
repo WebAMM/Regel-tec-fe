@@ -124,7 +124,7 @@ const ContactForm = () => {
           </Typography>
           <Typography
             variant="h3"
-            className="my-4 text-4xl font-bold text-gray-900"
+            className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
           >
             Do I Qualify?
           </Typography>

@@ -69,7 +69,7 @@ const LandingPageLogin = ({ open, handleSubmit }) => {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full py-2 bg-[#00AEEF] text-white rounded hover:[#0090c7] transition"
+                                        className="w-full py-2 bg-[#00AEEF] text-white rounded hover:[#0090c7] transition cursor-pointer"
                                     >
 
                                         Login
