@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Button, Input, Typography, Radio } from "@material-tailwind/react";
-import { FaCheck } from "react-icons/fa";
-import circleCheck from "../../assets/images/check-circle.png";
+import { Button, Typography } from "@material-tailwind/react";
+import { Field, Form, Formik } from "formik";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  useGetAllQuestionsForWebViewQuery,
-  useGetAllQuestionsQuery,
+  useGetAllQuestionsForWebViewQuery
 } from "../../api/apiSlice";
-import _ from "lodash";
+import circleCheck from "../../assets/images/check-circle.png";
 import CustomProgress from "./CustomProgress";
-import { Field, Form, Formik } from "formik";
 import Header from "./Header";
 import ProgressStepper from "./ProgressStepper";
 

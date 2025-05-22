@@ -18,8 +18,8 @@ const PopUpSection = ({ center, zipcode }) => {
             <p className="text-[#39394A] mb-1 font-relay">
                 {center?.name}
             </p>
-            <p className="text-[#39394A] mb-3 font-relay">
-                {center?.address},{center?.city},{center?.state},{center?.zipcode}
+            <p className="text-gray-700 mb-3">
+                {center?.city},{center?.state},{center?.zipCode}
             </p>
             <div className="flex items-center text-gray-600 mb-4">
                 <svg
@@ -42,7 +42,7 @@ const PopUpSection = ({ center, zipcode }) => {
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                 </svg>
-                <span className='text-[#39394A]'>{center?.distanceFromUserLocation?.distance} miles away</span>
+                <span>{center?.distanceFromUserLocation?.distance || 0.00} miles away</span>
             </div>
             <button className="w-full bg-cyan-500 text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-medium"
                 onClick={() => handleCenter(center)}

@@ -319,14 +319,14 @@ const SampleScreener = () => {
                                     {question.meta.options.map((option) => (
                                         <div className="flex gap-2" key={option._id}>
                                             <input
-                                             id={`radio-${question.questionId}-${option._id}`}
+                                                id={`radio-${question.questionId}-${option._id}`}
                                                 type="radio"
                                                 value={option.value}
                                                 checked={groupedData.data.find(item => item.questionId === question.questionId)?.answer === option.value}
                                                 onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
                                             />
 
-                                             <label htmlFor={`radio-${question.questionId}-${option._id}`}>{option.label}</label>
+                                            <label htmlFor={`radio-${question.questionId}-${option._id}`}>{option.label}</label>
                                         </div>
 
                                     ))}
@@ -393,7 +393,7 @@ const SampleScreener = () => {
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
             <div className="container mx-auto">
                 <div className="text-center">
-                    <Header />
+                    <Header isQualified={submitForm} />
                     <div className="bg-white shadow-lg rounded-xl w-full p-8">
                         <ProgressStepper />
                         {!submitForm ? (
