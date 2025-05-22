@@ -300,7 +300,7 @@ const SampleScreener = () => {
                                 <select
                                     value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || ''}
                                     onChange={(e) => handleInputChange(question.questionId, e.target.value, section.sectionId, question.title)}
-                                    className="text-[#39394A] text-xs border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
+                                    className="text-[#39394A] text-sm border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                                 >
                                     <option value="">Select an option</option>
                                     {question.meta.options.map((option) => (
@@ -313,9 +313,9 @@ const SampleScreener = () => {
                         );
                     case "TrueFalse":
                         return (
-                            <div className="flex flex-col lg:w-1/4 md:w-1/3 sm:w-100 w-50" key={question.questionId}>
-                                <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">{question.title}</label>
-                                <div className="flex text-[#39394A] font-relay items-center justify-between w-1/2 mt-8 mb-2">
+                            <div className="flex flex-col lg:w-1/2 md:w-1/2 sm:w-100 w-50" key={question.questionId}>
+                                <label className="lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-start text-[#39394A] font-relay mb-1">{question.title}</label>
+                                <div className="flex text-[#39394A] font-relay items-center justify-between w-1/2 mt-[30px] mb-2">
                                     {question.meta.options.map((option) => (
                                         <div className="flex gap-2" key={option._id}>
                                             <input
@@ -407,7 +407,7 @@ const SampleScreener = () => {
                                         {currentStep} of {totalSteps}
                                     </Typography>
                                 </div>
-                                <div className="mb-5">
+                                <div className="mt-3">
                                     <CustomProgress value={currentStep} total={totalSteps} />
                                 </div>
                                 <form>

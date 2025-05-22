@@ -115,7 +115,7 @@ const Home = () => {
     <>
       <div className="">
         <div
-          className="h-[730px] pt-[100px]"
+          className="h-[730px] pt-[100px] hidden-bg-image"
           style={{
             backgroundImage: `url(${bgHome})`,
             backgroundSize: "100% 100%",
@@ -233,7 +233,7 @@ const Home = () => {
           </div>
         </div>
         {/* Additional Section*/}
-        <div className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5" id="Degenerative Disc">
+        <div className="container mx-auto pt-10 lg:px-0 md:px-5 sm:px-5 px-5" id="Degenerative Disc">
         </div>
         <div >
           <div className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
@@ -311,7 +311,7 @@ const Home = () => {
 
 
         {/* About The HYDRAFIL-D Study Section */}
-        <div id="Study Overview" className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5">
+        <div id="Study Overview" className="container mx-auto pt-[15px] lg:px-0 md:px-5 sm:px-5 px-5">
         </div>
         <div className=" " >
           <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4">
