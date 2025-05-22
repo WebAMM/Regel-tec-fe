@@ -222,7 +222,7 @@ const Prescreener = () => {
                   </Typography>
                   <Typography
                     variant="paragraph"
-                    className="mb-12 text-lg font-normal text-gray-700 max-w-4xl mx-auto"
+                    className="mb-12 text-lg font-normal text-[#39394A] font-relay max-w-4xl mx-auto"
                   >
                     Based on your responses to this initial questionnaire, it
                     appears you may qualify for the HYDRAFIL-D research study.
