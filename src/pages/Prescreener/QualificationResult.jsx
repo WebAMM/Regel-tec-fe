@@ -30,7 +30,7 @@ const QualificationResult = ({
         buttonAction: onNext || (() => navigate("/", { state: { reportId: reportId } }))
     };
     const studyCenterNotFoundContent = {
-        title: "We’re sorry. There is no study center close enough to you..",
+        title: "We’re sorry. There is no study center close enough to you.",
         description: `Thank you for your interest in the HYDRAFIL-D research study. Based on your responses to this initial questionnaire, it appears you may qualify for this study; however, no local study center is available in your area at this time.
 Please check back to this study website regularly for updates on new study locations that may be opening in the future. You may be able to participate if a new local study center location opens near you.`,
         image: circleCheck,

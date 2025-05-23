@@ -5,14 +5,20 @@ const Header = () => {
   const [openNav, setOpenNav] = useState(false);
 
 
-  const handleClickScroll = (id) => {
+ const handleClickScroll = (id) => {
     const element = document.getElementById(`${id}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const navbarHeight = 100; // Adjust this based on your navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
-
-
+  
   useEffect(() => {
     window.addEventListener(
       "resize",
