@@ -21,14 +21,16 @@ import LandingPageLogin from "./LandingPageLogin";
 import { toast } from "react-toastify";
 
 const Home = () => {
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
-   useEffect(() => {
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
+  useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const mapRef = useRef(null);
   const navigate = useNavigate();
@@ -125,15 +127,15 @@ const Home = () => {
   return (
     <>
       <div className="">
-     <div
-  className="h-[730px] pt-[100px] hidden-bg-image hero-bg-mobile"
-  style={{
-    backgroundImage: `url(${bgHome})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
-    backgroundRepeat: "no-repeat",
-  }}
->
+        <div
+          className="h-[730px] pt-[100px] hidden-bg-image hero-bg-mobile"
+          style={{
+            backgroundImage: `url(${bgHome})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
           {/* Hero Section */}
           <div className="container mx-auto">
             <div className=" mx-auto px-4 lg:py-12 md:py-10 sm:py-3 py-3">
@@ -565,9 +567,9 @@ const Home = () => {
         {/* Qualification Section */}
         <div
           id="qualify"
-          className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5"
+          className="container mx-auto pt-5 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-white lg:py-16 md:py-12 sm:py-8 py-8">
+        <div className="bg-white lg:py-14 md:py-8 sm:py-4 py-4">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
               TAKE THE PRE-SCREENER
@@ -672,7 +674,7 @@ const Home = () => {
         {/* FAQ Section */}
         <div
           id="FAQs"
-          className="container mx-auto pt-20 lg:px-0 md:px-5 sm:px-5 px-5"
+          className="container mx-auto lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2">
           <div className="container mx-auto px-4">
