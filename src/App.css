@@ -46,3 +46,22 @@ body {
 ::placeholder {
   font-size: 14px !important;
 }
+
+
+ /* @media (max-width: 576px) {
+  .hero-bg-mobile {
+    background-size: 100% auto !important;
+    background-position: center 105% !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+  }
+} */
+ @media (max-width: 576px) {
+    .hero-bg-mobile {
+    background-size: 100% auto !important;
+    background-position: center bottom !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+  }
+}
+ 
