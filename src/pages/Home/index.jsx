@@ -286,13 +286,13 @@ const Home = () => {
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
-                  nucleus dehydrates and shrinks, the disc able to properly bear
+                  nucleus dehydrates and shrinks, the disc is less able to properly bear
                   weight, leading to tearing and further damage within and
                   around the disc.
                 </p>
 
                 <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
-                  This can cause increased pain over time and can lead to other
+                  DDD can cause increased pain over time and can lead to other
                   back problems including spinal stenosis or a herniated disc.
                 </p>
 
@@ -374,7 +374,7 @@ const Home = () => {
                       href="https://regeltec.com/"
                       className="text-[#00B4F1] cursor-pointer"
                     >
-                      ReGelTec
+                      ReGelTec,Inc.
                     </a>{" "}
                     to evaluate the safety and effectiveness of an
                     investigational spinal disc implant called HYDRAFIL
@@ -655,7 +655,7 @@ const Home = () => {
                 {/* Continue Button */}
                 <div className="text-left">
                   <button
-                    className="lg:text-xl md:text-lg sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                    className="lg:text-[16px] md:text-text-sm sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
                     onClick={() =>
                       navigate("/prescreen", {
                         state: { center: selectLocation },

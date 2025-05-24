@@ -124,7 +124,7 @@ const ContactForm = () => {
           </Typography>
           <Typography
             variant="h3"
-            className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
+            className="my-4 lg:text-[38px] md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
           >
             Do I Qualify?
           </Typography>
@@ -251,7 +251,7 @@ const ContactForm = () => {
                           <Button
                             type="submit"
                             // disabled={isSubmitting}
-                            className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center"
+                            className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                           >
                             {isSubmitting ? 'loading...' : 'Submit'}
 
