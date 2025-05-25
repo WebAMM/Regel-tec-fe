@@ -13,7 +13,7 @@ const Header = ({ isQualified = true }) => {
             </Typography>
             <Typography
                 variant="h3"
-                className="my-4 lg:text-4xl md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
+                className="my-4 lg:text-[38px] md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
             >
                 Do I Qualify?
             </Typography>
@@ -30,7 +30,7 @@ const Header = ({ isQualified = true }) => {
             </Typography>)} */}
             {!isQualified ? (<Typography
                 variant="paragraph"
-                className="mb-12 lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] font-relay max-w-4xl mx-auto"
+                className="mb-12 lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] font-relay max-w-5xl mx-auto"
             >
                 To see if you might qualify for the study, we need to ask you 8
                 quick questions. If you pass the pre-screener and appear to
