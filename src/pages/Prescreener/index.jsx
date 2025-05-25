@@ -179,7 +179,7 @@ const Prescreener = () => {
                         {currentStep > 1 && (
                           <Button
                             variant="outlined"
-                            className="h-12 border-[#] text-[#00B4F1] rounded-full"
+                            className="h-12 border-[#] text-[#00B4F1] rounded-full cursor-pointer"
                             onClick={handleBack}
                             type="button"
                           >
