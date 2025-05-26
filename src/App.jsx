@@ -13,6 +13,7 @@ import Emails from "./pages/Email";
 import Reports from "./pages/Reports";
 import PreScreeningReport from "./pages/Reports/PreScreeningReport";
 import Settings from "./pages/Settings";
+import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
 
 function App() {
   // Define router with createBrowserRouter
@@ -24,7 +25,11 @@ function App() {
         {
           index: true,
           element: <Home />
-        }
+        },
+        {
+          path: "/privacy-policy",
+          element: <PrivacyPolicy />
+        },
       ]
     },
     {
@@ -37,6 +42,7 @@ function App() {
       path: "/contact",
       element: <ContactForm />
     },
+
     {
       path: "/admin/login",
       element: <Login />

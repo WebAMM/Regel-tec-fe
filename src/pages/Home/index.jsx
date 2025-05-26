@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import MyMapWithSearch from "../../components/MyMapWithSearch";
 import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
 import bgHome from "../../assets/images/Background.png";
+import bgHome1 from "../../assets/images/Background1.png";
+
 import discIcon from "../../assets/images/disc.png";
 import insulinIcon from "../../assets/images/insulin.png";
 import placeIcon from "../../assets/images/place.png";
@@ -128,9 +130,9 @@ const Home = () => {
     <>
       <div className="">
         <div
-          className="h-[730px] pt-[100px] hidden-bg-image hero-bg-mobile"
+          className="h-[730px] pt-[100px]  "
           style={{
-            backgroundImage: `url(${bgHome})`,
+            backgroundImage: window.innerWidth >= 640 ? `url(${bgHome})` : 'none',
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -188,11 +190,11 @@ const Home = () => {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6">
+                  <div className="flex gap-4 lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6">
                     <button
                       type="button"
                       onClick={() => handleClickScroll("nearLocation")}
-                      className="cursor-pointer px-5 py-3 border-1 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-md"
+                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-md"
                     >
                       Find A Study Location
                     </button>
@@ -203,6 +205,10 @@ const Home = () => {
                     >
                       See If You Qualify
                     </button>
+                  </div>
+
+                  <div className="w-full h-screen">
+                    <img src={bgHome1} alt="" className="block sm:hidden w-full object-cover" />
                   </div>
                 </div>
 
