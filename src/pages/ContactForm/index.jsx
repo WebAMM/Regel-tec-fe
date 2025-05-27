@@ -130,7 +130,7 @@ const ContactForm = () => {
           </Typography>
 
           <div className="bg-white shadow-lg rounded-xl w-full p-8">
-            <ContactProgress />
+            <ContactProgress submitForm={finish} />
 
             {!finish ? (
               <>
