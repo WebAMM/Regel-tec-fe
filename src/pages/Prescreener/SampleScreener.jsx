@@ -395,7 +395,7 @@ const SampleScreener = () => {
                 <div className="text-center">
                     <Header isQualified={submitForm} />
                     <div className="bg-white shadow-lg rounded-xl w-full p-8">
-                        <ProgressStepper />
+                        <ProgressStepper submitForm={submitForm} />
                         {!submitForm ? (
                             <>
                                 <div className="flex items-center justify-between">
