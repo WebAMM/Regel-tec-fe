@@ -23,6 +23,8 @@ import LandingPageLogin from "./LandingPageLogin";
 import { toast } from "react-toastify";
 
 const Home = () => {
+  const [openReGelTecFaq, setOpenReGelTecFaq] = useState(false);
+  const [openHydrafil, setOpenHydrafil] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1024
   );
@@ -76,18 +78,19 @@ const Home = () => {
       icon: "person",
       title: "Degenerative Disc Disease",
       description:
-        "Low back pain caused by DDD is a common and debilitating condition",
+        "Low back pain caused by DDD is a <br/> common  and debilitating condition",
     },
     {
       icon: "syringe",
       title: "HYDRAFIL-D Study",
       description:
-        "Evaluating an investigational injectable hydrogel spinal implant",
+        "Evaluating an investigational <br/> injectable hydrogel spinal implant",
     },
     {
       icon: "location",
       title: "Study Locations",
-      description: "The study is now underway at multiple sites in the US",
+      description:
+        "The study is now underway at <br/> multiple sites in the US",
     },
   ];
 
@@ -132,7 +135,8 @@ const Home = () => {
         <div
           className="h-[730px] pt-[100px]  "
           style={{
-            backgroundImage: window.innerWidth >= 640 ? `url(${bgHome})` : 'none',
+            backgroundImage:
+              window.innerWidth >= 640 ? `url(${bgHome})` : "none",
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -151,7 +155,9 @@ const Home = () => {
                   </div>
 
                   <h1 className="lg:text-[40px] md:text-[30px] sm:text-xl xs:text-[15px] text-[15px] md:text-4xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px]">
-                    Investigating a New Treatment for People Suffering from
+                    Investigating a New Treatment <br /> for People Suffering
+                    from
+                    <br />
                     Degenerative Disc Disease
                   </h1>
 
@@ -167,7 +173,7 @@ const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 md:gap-3 sm:gap-2 gap-2 lg:mb-6 md:mb-4 sm:mb-2 mb-2">
                       {featureItems.map((item, index) => (
                         <div key={index} className="flex items-center">
-                          <div className="flex-shrink-0 h-6 w-6 bg-cyan-500 rounded-full flex items-center justify-center text-white">
+                          <div className="flex-shrink-0 h-6 w-6 bg-[#00B4F1] rounded-full flex items-center justify-center text-white">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-4 w-4"
@@ -190,25 +196,29 @@ const Home = () => {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex gap-4 lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6">
+                  <div className="flex lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6">
                     <button
                       type="button"
                       onClick={() => handleClickScroll("nearLocation")}
-                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-50 transition-colors font-medium text-md"
+                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-medium text-md"
                     >
                       Find A Study Location
                     </button>
                     <button
                       type="button"
                       onClick={() => handleClickScroll("qualify")}
-                      className="h-[50px] cursor-pointer px-8 py-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
+                      className="h-[50px] cursor-pointer px-5 py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
                     >
                       See If You Qualify
                     </button>
                   </div>
 
                   <div className="w-full h-screen">
-                    <img src={bgHome1} alt="" className="block sm:hidden w-full object-cover" />
+                    <img
+                      src={bgHome1}
+                      alt=""
+                      className="block sm:hidden w-full object-cover"
+                    />
                   </div>
                 </div>
 
@@ -218,15 +228,15 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards">
-          <div className="mx-auto px-4">
+        <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards h-[150px]">
+          <div className="p-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-8">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className="flex p-4 items-center gap-5"
+                  className="flex px-5 items-center gap-5"
                   style={{
-                    borderRight: index < 2 ? "1px solid #e5e7eb" : "none",
+                    borderRight: index < 2 ? "2px dotted #8F8F95" : "none",
                   }}
                 >
                   {/* Icon placeholder */}
@@ -251,9 +261,10 @@ const Home = () => {
                     <h3 className="font-[700] text-[#121229] text-[18px]">
                       {card.title}
                     </h3>
-                    <p className="text-[#39394A] font-relay font-[400] text-[16px]">
-                      {card.description}
-                    </p>
+                    <p
+                      className="text-[#39394A] font-relay font-[400] text-[16px]"
+                      dangerouslySetInnerHTML={{ __html: card.description }}
+                    />
                   </div>
                 </div>
               ))}
@@ -274,7 +285,7 @@ const Home = () => {
           <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5">
             <div className=" flex flex-col lg:flex-row justify-between">
               <div className="lg:w-[52%]">
-                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-3">
+                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
                   About Degenerative Disc Disease
                 </h2>
 
@@ -292,14 +303,11 @@ const Home = () => {
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
-                  nucleus dehydrates and shrinks, the disc is less able to properly bear
+                  nucleus dehydrates and shrinks, the disc able to properly bear
                   weight, leading to tearing and further damage within and
-                  around the disc.
-                </p>
-
-                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
-                  DDD can cause increased pain over time and can lead to other
-                  back problems including spinal stenosis or a herniated disc.
+                  around the disc. DDD can cause increased pain over time and
+                  can lead to other back problems including spinal stenosis or a
+                  herniated disc.
                 </p>
 
                 <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
@@ -351,7 +359,7 @@ const Home = () => {
           className="container mx-auto pt-[15px] lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className=" ">
-          <div className="bg-[#e5f7fe] mx-auto py-16 mt-4 px-4">
+          <div className="bg-[#e5f7fe] mx-auto py-[60px] mt-4 px-4">
             <div className="container mx-auto">
               <div className="flex flex-col lg:flex-row items-center gap-6">
                 {/* Left Side - Image of Device */}
@@ -370,7 +378,7 @@ const Home = () => {
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
                     </h2>
                   </div>
-                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-3">
+                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
                     About The HYDRAFIL-D Study
                   </h2>
 
@@ -379,8 +387,13 @@ const Home = () => {
                     <a
                       href="https://regeltec.com/"
                       className="text-[#00B4F1] cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClickScroll("FAQs");
+                        setTimeout(() => setOpenReGelTecFaq(true), 500);
+                      }}
                     >
-                      ReGelTec,Inc.
+                      ReGelTec
                     </a>{" "}
                     to evaluate the safety and effectiveness of an
                     investigational spinal disc implant called HYDRAFIL
@@ -388,8 +401,12 @@ const Home = () => {
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
                     <span
-                      className="text-cyan-500 cursor-pointer"
-                      onClick={() => handleClickScroll("FAQs")}
+                      className="text-[#00B4F1] cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClickScroll("FAQs");
+                        setTimeout(() => setOpenHydrafil(true), 500);
+                      }}
                     >
                       HYDRAFIL
                     </span>{" "}
@@ -414,7 +431,7 @@ const Home = () => {
                   participate in this research study at multiple study{" "}
                   <span
                     onClick={() => handleClickScroll("nearLocation")}
-                    className="text-cyan-500 hover:underline cursor-pointer"
+                    className="text-[#00B4F1] hover:underline cursor-pointer"
                   >
                     site locations
                   </span>{" "}
@@ -422,7 +439,7 @@ const Home = () => {
                   chronic low back pain due to DDD{" "}
                   <span
                     onClick={() => handleClickScroll("qualify")}
-                    className="text-cyan-500 hover:underline cursor-pointer"
+                    className="text-[#00B4F1] hover:underline cursor-pointer"
                   >
                     may qualify
                   </span>
@@ -441,9 +458,9 @@ const Home = () => {
             {/* Eligibility Criteria Section */}
           </div>
           <div>
-            <div className="lg:my-20 md:my-15 sm:my-10 my-10 container mx-auto">
+            <div className="lg:my-[4.5rem] md:my-15 sm:my-10 my-10 container mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
+                <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2">
                   ELIGIBILITY CRITERIA
                 </h2>
                 <h3 className="lg:text-[28px] md:text-[24px] sm:text-xl text-lg font-[700] text-[#121229] mb-2 text-center">
@@ -529,10 +546,10 @@ const Home = () => {
           id="nearLocation"
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-[#e5f7fe] pt-12 pb-12 h-[930px]">
+        <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[960px]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
-              <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
+              <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2">
                 STUDY UNDERWAY AT MULTIPLE STUDY CENTERS IN THE US
               </h2>
 
@@ -553,7 +570,7 @@ const Home = () => {
             </div>
 
             {/* Map Section */}
-            <div className="rounded-lg overflow-hidden shadow-md mb-16 relative">
+            <div className="rounded-lg overflow-hidden shadow-md mb-16 relative mt-[50px]">
               {/* US Map */}
               <div className="relative ">
                 <div className="h-[600px] w-full rounded-xl overflow-hidden">
@@ -585,7 +602,7 @@ const Home = () => {
               Do I Qualify?
             </h2>
 
-            <p className="text-[#39394A] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-12">
+            <p className="text-[#39394A] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-[55px]">
               To see if you might qualify for the study, we need to ask you 8
               quick questions. If you pass the pre-screener and appear to <br />
               prequalify, you can submit your contact information to the local
@@ -597,29 +614,29 @@ const Home = () => {
 
             {/* Progress Steps */}
             <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-4 p-2 shadow-sm">
-              <div className=" mx-auto mb-12">
-                <div className="flex justify-center items-center lg:gap-8 md:gap-6 sm:gap-4 gap-4 mb-8">
+              <div className=" mx-auto mb-16">
+                <div className="flex justify-center items-center mb-8">
                   <div className="text-center">
-                    <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-6 h-6 mx-auto">
+                    <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-[20px] h-[20px]  mx-auto">
                       <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
                     </div>
                     <div className="text-[14px] font-[400] font-relay text-[#00B4F1] mt-2">
                       Select Location
                     </div>
                   </div>
-                  <div className="lg:w-24 md:w-20 sm:w-[200px] w-[200px] mb-2 h-1 bg-[#CFD6DC] rounded"></div>
+                  <div className="lg:w-[130px] md:w-20 sm:w-[200px] w-[200px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
 
                   <div className="text-center">
-                    <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
+                    <div className="rounded-full bg-blue-100 w-[20px] h-[20px] mx-auto"></div>
 
                     <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
                       Pre-Screener
                     </div>
                   </div>
-                  <div className="lg:w-24 md:w-20 sm:w-[200px] w-[200px] mb-2 h-1 bg-[#CFD6DC] rounded"></div>
+                  <div className="lg:w-[130px] md:w-20 sm:w-[200px] w-[200px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
 
                   <div className="text-center">
-                    <div className="rounded-full bg-blue-100 w-6 h-6 mx-auto"></div>
+                    <div className="rounded-full bg-blue-100 w-[20px] h-[20px] mx-auto"></div>
                     <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
                       Contact Info
                     </div>
@@ -639,13 +656,13 @@ const Home = () => {
                 </p>
 
                 {/* Location Dropdown */}
-                <div className="mb-8">
-                  <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[300px]">
-                    <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1] text-[18px]" />
+                <div className="mb-8 pt-3">
+                  <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[320px]">
+                    <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1] text-[20px] ml-[5px]" />
                     <select
                       name="cars"
                       id="cars"
-                      className="flex text-[#39394A] font-normal border-[#EDEDFF] w-full items-center border rounded-md p-3 ps-7 text-left text-sm"
+                      className="flex text-[#39394A] font-normal border-[#EDEDFF] w-full items-center border rounded-md p-3 ps-7 ml-[10px] text-left text-sm"
                       onChange={(e) => setSelectLocation(e.target.value)}
                     >
                       <option value="">Select a location...</option>
@@ -661,7 +678,7 @@ const Home = () => {
                 {/* Continue Button */}
                 <div className="text-left">
                   <button
-                    className="lg:text-[16px] md:text-text-sm sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                    className="lg:text-lg md:text-lg sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
                     onClick={() =>
                       navigate("/prescreen", {
                         state: { center: selectLocation },
@@ -682,15 +699,18 @@ const Home = () => {
           id="FAQs"
           className="container mx-auto lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-white lg:py-10 md:py-8 sm:py-2 py-2">
+        <div className="bg-white lg:py-[15px] md:py-4 sm:py-2 py-2">
           <div className="container mx-auto px-4">
-            <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4">
+            <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[5px]">
               FAQS
             </h3>
             <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-6">
               Frequently Asked Question
             </h2>
-            <FaqSection />
+            <FaqSection
+              openReGelTecFaq={openReGelTecFaq}
+              openHydrafil={openHydrafil}
+            />
           </div>
         </div>
       </div>

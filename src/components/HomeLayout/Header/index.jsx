@@ -4,21 +4,21 @@ import regel from "../../../assets/images/regel.svg";
 const Header = () => {
   const [openNav, setOpenNav] = useState(false);
 
-
- const handleClickScroll = (id) => {
+  const handleClickScroll = (id) => {
     const element = document.getElementById(`${id}`);
     if (element) {
       const navbarHeight = 100; // Adjust this based on your navbar height
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - navbarHeight;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   };
-  
+
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -38,7 +38,10 @@ const Header = () => {
     <header className="w-full bg-white z-[111] shadow-sm mb-2 fixed top-0 left-0">
       <div className="container mx-auto px-4 flex items-center justify-between py-4">
         {/* Logo */}
-        <div>
+        <div
+          className="cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           <img src={regel} alt="logo" className="responsive_logo" />
         </div>
 
@@ -54,7 +57,11 @@ const Header = () => {
               {link.text}
             </div>
           ))}
-          <button onClick={() => handleClickScroll("qualify")} type="button" className="cursor-pointer bg-cyan-500 text-white px-6 py-2 rounded-full hover:bg-cyan-600 transition-colors font-normal">
+          <button
+            onClick={() => handleClickScroll("qualify")}
+            type="button"
+            className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] text-[16px] rounded-full hover:bg-cyan-600 transition-colors font-normal"
+          >
             See If You Qualify
           </button>
         </nav>
@@ -110,7 +117,10 @@ const Header = () => {
                 {link.text}
               </a>
             ))}
-            <button onClick={() => handleClickScroll("qualify")} className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full">
+            <button
+              onClick={() => handleClickScroll("qualify")}
+              className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full"
+            >
               See If You Qualify
             </button>
           </nav>
