@@ -9,7 +9,7 @@ const SubmissionComplete = ({ isQualified, isStudyCenterInRadius }) => {
         if (isStudyCenterInRadius) {
             contactInfo = (
                 <>
-                    Thank you. Someone from the local study center may contact you.
+                    Thank you. Someone from the local study center may contact you. {" "}
                     <Link to='/privacy-policy' className="text-[#00B4F1]">Privacy Policy</Link>
                 </>
             )
@@ -17,7 +17,7 @@ const SubmissionComplete = ({ isQualified, isStudyCenterInRadius }) => {
         else {
             contactInfo = (
                 <>
-                    Thank you. Should a local study center open in your area in the future, we will share your information with their research staff. Someone from the local study center may contact you.
+                    Thank you. Should a local study center open in your area in the future, we will share your information with their research staff. Someone from the local study center may contact you. {" "}
                     <Link to='/privacy-policy' className="text-[#00B4F1]">Privacy Policy</Link>
                 </>
             )
