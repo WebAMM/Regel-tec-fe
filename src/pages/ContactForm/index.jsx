@@ -106,9 +106,9 @@ const ContactForm = () => {
     if (state?.isStudyCenterInRadius) {
       contactInfo = 'Please enter your contact information so that someone from the local study center may contact you.'
     }
-
-  } else {
-    contactInfo = 'Please enter your contact information so that someone from a local study center may contact you in the future, should a local study center open in your area.'
+    else {
+      contactInfo = 'Please enter your contact information so that someone from a local study center may contact you in the future, should a local study center open in your area.'
+    }
   }
 
   // console.log(state, 'state')
@@ -265,7 +265,7 @@ const ContactForm = () => {
 
               </>
             ) : (
-              <SubmissionComplete />
+              <SubmissionComplete isQualified={state?.isQualified} isStudyCenterInRadius={state?.isStudyCenterInRadius} />
             )}
           </div>
         </div>
