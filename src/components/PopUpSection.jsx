@@ -19,7 +19,7 @@ const PopUpSection = ({ center, zipcode }) => {
                 {center?.name}
             </p>
             <p className="text-gray-700 mb-3">
-                {center?.city},{center?.state},{center?.zipCode}
+                {center?.city}, {center?.state}, {center?.zipCode}
             </p>
             <div className="flex items-center text-gray-600 mb-4">
                 <svg
