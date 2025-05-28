@@ -10,8 +10,7 @@ import {
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { Field, Form, Formik } from "formik";
-import * as Yup from 'yup';
-
+import * as Yup from "yup";
 
 import { useLocation } from "react-router-dom";
 import { CgLayoutGrid } from "react-icons/cg";
@@ -73,41 +72,41 @@ const PhoneInput = ({ field, form, ...props }) => {
 const ContactForm = () => {
   const [country, setCountry] = useState(0);
   const [finish, isFinish] = useState(false);
-  const { state } = useLocation()
-  const [addNewMvp] = useAddNewMvpMutation()
-  const { contactData } = state
-
+  const { state } = useLocation();
+  const [addNewMvp] = useAddNewMvpMutation();
+  const { contactData } = state;
 
   const initialValues = {
     mvp: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      city: contactData?.city || '',
-      state: contactData?.state || '',
-      zipCode: contactData?.zipCode || '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      city: contactData?.city || "",
+      state: contactData?.state || "",
+      zipCode: contactData?.zipCode || "",
     },
-    reportId: state?.reportId
-  }
+    reportId: state?.reportId,
+  };
 
   const handleSubmit = async (values) => {
     try {
-      await addNewMvp(values).unwrap()
-      toast.success('MVP added Successfully')
-      isFinish(true)
+      await addNewMvp(values).unwrap();
+      toast.success("MVP added Successfully");
+      isFinish(true);
     } catch (error) {
-      console.log(error)
-      toast.error(error?.data?.message || 'Failed to add MVP')
+      console.log(error);
+      toast.error(error?.data?.message || "Failed to add MVP");
     }
-  }
-  let contactInfo = ''
+  };
+  let contactInfo = "";
   if (state?.isQualified) {
     if (state?.isStudyCenterInRadius) {
-      contactInfo = 'Please enter your contact information so that someone from the local study center may contact you.'
-    }
-    else {
-      contactInfo = 'Please enter your contact information so that someone from a local study center may contact you in the future, should a local study center open in your area.'
+      contactInfo =
+        "Please enter your contact information so that someone from the local study center may contact you.";
+    } else {
+      contactInfo =
+        "Please enter your contact information so that someone from a local study center may contact you in the future, should a local study center open in your area.";
     }
   }
 
@@ -130,7 +129,7 @@ const ContactForm = () => {
           </Typography>
 
           <div className="bg-white shadow-lg rounded-xl w-full p-8">
-            <ContactProgress />
+            <ContactProgress submitForm={finish} />
 
             {!finish ? (
               <>
@@ -145,7 +144,6 @@ const ContactForm = () => {
                   onSubmit={handleSubmit}
                   validationSchema={ContactFormSchema}
                   enableReinitialize={true}
-
                 >
                   {({ errors, touched, isSubmitting }) => (
                     <Form>
@@ -155,56 +153,94 @@ const ContactForm = () => {
                             <label className="text-sm font-normal text-start text-[#39394A] font-relay mb-1">
                               City
                             </label>
-                            <Field name='mvp.city'
-
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.city && touched.mvp?.city ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                            <Field
+                              name="mvp.city"
+                              disabled
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.city && touched.mvp?.city
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                             />
                             {errors.mvp?.city && touched.mvp?.city && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.city}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.city}
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-col">
                             <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               State
                             </label>
-                            <Field name='mvp.state'
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.state && touched.mvp?.state ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                            <Field
+                              name="mvp.state"
+                              disabled
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.state && touched.mvp?.state
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                             />
                             {errors.mvp?.state && touched.mvp?.state && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.state}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.state}
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-col">
                             <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Zip Code
                             </label>
-                            <Field name='mvp.zipCode'
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.zipCode && touched.mvp?.zipCode ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                            <Field
+                              name="mvp.zipCode"
+                              disabled
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.zipCode && touched.mvp?.zipCode
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                             />
                             {errors.mvp?.zipCode && touched.mvp?.zipCode && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.zipCode}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.zipCode}
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-col">
                             <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               First Name
                             </label>
-                            <Field name='mvp.firstName'
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.firstName && touched.mvp?.firstName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                            <Field
+                              name="mvp.firstName"
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.firstName && touched.mvp?.firstName
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none`}
                             />
-                            {errors.mvp?.firstName && touched.mvp?.firstName && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.firstName}</div>
-                            )}
+                            {errors.mvp?.firstName &&
+                              touched.mvp?.firstName && (
+                                <div className="text-red-500 text-xs mt-1 text-left">
+                                  {errors.mvp.firstName}
+                                </div>
+                              )}
                           </div>
                           <div className="flex flex-col">
                             <label className="text-sm font-normal text-[#39394A] font-relay text-start mb-1">
                               Last Name
                             </label>
-                            <Field name='mvp.lastName'
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.lastName && touched.mvp?.lastName ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                            <Field
+                              name="mvp.lastName"
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.lastName && touched.mvp?.lastName
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.lastName && touched.mvp?.lastName && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.lastName}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.lastName}
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-col">
@@ -212,12 +248,18 @@ const ContactForm = () => {
                               Email Address
                             </label>
                             <Field
-                              name='mvp.email'
-                              type='email'
-                              className={`border text-[#39394A] font-relay ${errors.mvp?.email && touched.mvp?.email ? 'border-red-500' : 'border-gray-200'} rounded-lg px-3 !h-[50px] outline-none`}
+                              name="mvp.email"
+                              type="email"
+                              className={`border text-[#39394A] font-relay ${
+                                errors.mvp?.email && touched.mvp?.email
+                                  ? "border-red-500"
+                                  : "border-gray-200"
+                              } rounded-lg px-3 !h-[50px] outline-none`}
                             />
                             {errors.mvp?.email && touched.mvp?.email && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.email}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.email}
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-col">
@@ -234,17 +276,19 @@ const ContactForm = () => {
                                   form={form}
                                   type="tel"
                                   placeholder="(555) 000-0000"
-                                  className={`border text-[#39394A] font-relay ${errors.mvp?.phone && touched.mvp?.phone
-                                    ? 'border-red-500'
-                                    : 'border-gray-200'
-                                    } rounded-lg px-3 !h-[50px] outline-none`}
+                                  className={`border text-[#39394A] font-relay ${
+                                    errors.mvp?.phone && touched.mvp?.phone
+                                      ? "border-red-500"
+                                      : "border-gray-200"
+                                  } rounded-lg px-3 !h-[50px] outline-none`}
                                 />
                               )}
                             </Field>
                             {errors.mvp?.phone && touched.mvp?.phone && (
-                              <div className="text-red-500 text-xs mt-1 text-left">{errors.mvp.phone}</div>
+                              <div className="text-red-500 text-xs mt-1 text-left">
+                                {errors.mvp.phone}
+                              </div>
                             )}
-
                           </div>
                         </div>
                         <div className="flex gap-4 mt-4 justify-start">
@@ -253,19 +297,19 @@ const ContactForm = () => {
                             // disabled={isSubmitting}
                             className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                           >
-                            {isSubmitting ? 'loading...' : 'Submit'}
-
+                            {isSubmitting ? "loading..." : "Submit"}
                           </Button>
                         </div>
                       </div>
                     </Form>
                   )}
-
                 </Formik>
-
               </>
             ) : (
-              <SubmissionComplete isQualified={state?.isQualified} isStudyCenterInRadius={state?.isStudyCenterInRadius} />
+              <SubmissionComplete
+                isQualified={state?.isQualified}
+                isStudyCenterInRadius={state?.isStudyCenterInRadius}
+              />
             )}
           </div>
         </div>

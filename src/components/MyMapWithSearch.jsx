@@ -6,7 +6,7 @@ import { BiSearch } from "react-icons/bi";
 import PopUpSection from "./PopUpSection";
 import { useLazyGetRadiusBasedStudyCenterQuery } from "../api/apiSlice";
 import Loader from "./Loader";
-import MarkerImage from '../assets/images/marker.png'
+import MarkerImage from '../assets/images/locationIcon.png'
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { renderToStaticMarkup } from "react-dom/server";
 
@@ -22,19 +22,19 @@ function ChangeMapView({ position, zoom }) {
 }
 const iconMarkup = renderToStaticMarkup(<FaMapMarkerAlt size={32} color="#00a6f4" />);
 
-// const customIcon = L.icon({
-//     iconUrl: MarkerImage,
-//     iconSize: [32, 32], // Adjust the size as needed
-//     iconAnchor: [16, 32], // Point of the icon which corresponds to marker's location
-//     popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
-// });
-const customIcon = L.divIcon({
-    html: iconMarkup,
-    className: '', // Optional: add custom class names if needed
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
+const customIcon = L.icon({
+    iconUrl: MarkerImage,
+    iconSize: [32, 32], // Adjust the size as needed
+    iconAnchor: [16, 32], // Point of the icon which corresponds to marker's location
+    popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
 });
+// const customIcon = L.divIcon({
+//     html: iconMarkup,
+//     className: '', // Optional: add custom class names if needed
+//     iconSize: [32, 32],
+//     iconAnchor: [16, 32],
+//     popupAnchor: [0, -32],
+// });
 
 const MyMapWithSearch = ({ center }) => {
     const [position, setPosition] = useState([23.634501, -102.552784]); // Default position
@@ -78,7 +78,9 @@ const MyMapWithSearch = ({ center }) => {
             alert("An error occurred while searching. Please try again.");
         }
     };
-    console.log(center, 'center')
+    // const accessToken = process.env.MAP_ACCESS_TOKEN;
+    const accessToken = import.meta.env.VITE_MAP_ACCESS_TOKEN;
+    console.log(accessToken, 'accessToken')
     console.log(radiusBaseedCenters, 'radiusBaseedCenters')
     return (
         <div className="flex flex-col gap-5 relative">
@@ -118,8 +120,9 @@ const MyMapWithSearch = ({ center }) => {
             // maxZoom={10}
             >
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url={`https://tile.jawg.io/jawg-lagoon/{z}/{x}/{y}{r}.png?access-token=${accessToken}`}
+                    attribution='<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    accessToken={accessToken}
                 />
                 <ChangeMapView position={position} zoom={zoom} />
                 {/* {radiusBaseedCenters && radiusBaseedCenters.map((center, index) => (

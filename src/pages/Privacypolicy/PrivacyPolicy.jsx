@@ -178,7 +178,7 @@ const PrivacyPolicy = () => {
                         <p className="font-medium">323 West Camden Street</p>
                         <p className="font-medium">Suite 600</p>
                         <p className="font-medium">Baltimore, MD 21201</p>
-                        <p className="font-medium">Email: privacy@hydrafilstudy.com</p>
+                        <p className="font-medium">Email: referrals@hydrafilresearchstudy.com</p>
                     </div>
                 </section>
             </div>
