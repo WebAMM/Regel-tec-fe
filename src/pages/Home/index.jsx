@@ -207,7 +207,7 @@ const Home = () => {
                     <button
                       type="button"
                       onClick={() => handleClickScroll("qualify")}
-                      className="h-[50px] cursor-pointer px-5 py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
+                      className="h-[50px] cursor-pointer px-[28px] py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
                     >
                       See If You Qualify
                     </button>
@@ -303,7 +303,7 @@ const Home = () => {
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
-                  nucleus dehydrates and shrinks, the disc able to properly bear
+                  nucleus dehydrates and shrinks, the disc able is less to properly bear
                   weight, leading to tearing and further damage within and
                   around the disc. DDD can cause increased pain over time and
                   can lead to other back problems including spinal stenosis or a
@@ -337,13 +337,13 @@ const Home = () => {
                 <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                   <button
                     onClick={() => handleClickScroll("nearLocation")}
-                    className="cursor-pointer px-5 h-[48px] border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]"
+                    className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]"
                   >
                     Find A Study Location
                   </button>
                   <button
                     onClick={() => handleClickScroll("qualify")}
-                    className=" cursor-pointer px-8 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]"
+                    className=" cursor-pointer px-[28px] h-[50px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]"
                   >
                     See If You Qualify
                   </button>
@@ -372,17 +372,17 @@ const Home = () => {
                 </div>
 
                 {/* Right Side - Text Content */}
-                <div className="lg:w-[50%]">
+                <div className="lg:w-[50%] flex justify-center items-center flex-col">
                   <div className="mb-2">
-                    <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide text-[16px]">
+                    <div className="text-[#00B4F1] font-[500] uppercase tracking-wide text-[16px] lg:mr-[10rem] md:mr-[0rem] mr-0">
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
-                    </h2>
+                    </div>
                   </div>
-                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
+                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px] lg:mr-[5rem] md:mr-0 mr-0">
                     About The HYDRAFIL-D Study
                   </h2>
 
-                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4">
+                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4 lg:mr-[3rem] md:mr-0 mr-0">
                     This research study is being sponsored by{" "}
                     <a
                       href="https://regeltec.com/"
@@ -395,8 +395,8 @@ const Home = () => {
                     >
                       ReGelTec
                     </a>{" "}
-                    to evaluate the safety and effectiveness of an
-                    investigational spinal disc implant called HYDRAFIL
+                    to evaluate the <br/> safety and effectiveness of an
+                    investigational spinal disc implant called <br/> HYDRAFIL
                   </p>
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
@@ -410,17 +410,17 @@ const Home = () => {
                     >
                       HYDRAFIL
                     </span>{" "}
-                    is a hydrated polymer gel (hydrogel) that mimics the natural
+                    is a hydrated polymer gel (hydrogel) that mimics the natural <br/>
                     properties of the nucleus inside the disc, and is designed
-                    to be an injectable, soft, space-filling technology for
-                    minimally invasive treatment of chronic low back pain from
-                    degenerative disc disease (DDD). HYDRAFIL offers a novel
+                    to be an injectable, <br/> soft, space-filling technology for
+                    minimally invasive treatment of chronic low <br/> back pain from
+                    degenerative disc disease (DDD). HYDRAFIL offers a novel <br/>
                     approach to treating DDD by delivering a hydrogel implant
-                    injected directly through a needle to supplement and
-                    reinforce the interior of the degenerated disc that is
-                    causing the pain without removing any existing disc
+                    injected directly <br/> through a needle to supplement and
+                    reinforce the interior of the <br/> degenerated disc that is
+                    causing the pain without removing any existing <br/> disc
                     material. The intent of the treatment is to reduce pain and
-                    improve function for people with chronic low back pain due
+                    improve <br/> function for people with chronic low back pain due
                     to DDD.
                   </p>
                 </div>
@@ -435,7 +435,7 @@ const Home = () => {
                   >
                     site locations
                   </span>{" "}
-                  (i.e., local study centers) in the United States. Adults with
+                  (i.e., local study centers) <br/> in the United States. Adults with
                   chronic low back pain due to DDD{" "}
                   <span
                     onClick={() => handleClickScroll("qualify")}
@@ -449,7 +449,7 @@ const Home = () => {
                 <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
                   If you qualify and participate, you will receive study-related
                   medical care and treatment from a local spine specialist
-                  physician (i.e., the local study doctor). You will be asked to
+                  physician (i.e., the local <br/> study doctor). You will be asked to
                   participate in this study for at least 24 months and up to 5
                   years.
                 </p>
@@ -705,7 +705,7 @@ const Home = () => {
               FAQS
             </h3>
             <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-6">
-              Frequently Asked Question
+              Frequently Asked Questions
             </h2>
             <FaqSection
               openReGelTecFaq={openReGelTecFaq}

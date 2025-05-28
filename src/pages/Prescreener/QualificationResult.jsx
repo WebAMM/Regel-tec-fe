@@ -24,7 +24,7 @@ const QualificationResult = ({
 
     const nonQualifiedContent = {
         title: "We’re sorry. You do not qualify.",
-        description: `Thank you for your interest in the HYDRAFIL-D research study. We’re sorry, but based on your responses you do not qualify for this study.`,
+        description: `Thank you for your interest in the HYDRAFIL-D research study. We’re sorry, but based on your responses <br/> you do not qualify for this study. <br   /> <div style="margin-top: 1rem; color: #39394A;">If you are interested in learning more about other clinical research opportunities, please visit <br/> <span style="color: #00B4F1;">www.clinicaltrials.gov</span></div>`,
         image: circleCheck,
         buttonText: "Back to Home",
         buttonAction: onNext || (() => navigate("/", { state: { reportId: reportId } }))
@@ -59,7 +59,7 @@ const QualificationResult = ({
                 className="my-4 lg:text-[28px] md:text-2xl sm:text-xl text-xl font-bold text-gray-900"
             >
                 {content.title}
-            </Typography>
+            </Typography>   
             <Typography
                 variant="paragraph"
                 className="mb-8 lg:text-[16px]  md:text-[16px] sm:text-sm text-sm font-normal text-[#39394A] max-w-5xl mx-auto"
