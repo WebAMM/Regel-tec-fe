@@ -34,7 +34,7 @@ const QualificationResult = ({
 
   const nonQualifiedContent = {
     title: "We’re sorry. You do not qualify.",
-    description: `Thank you for your interest in the HYDRAFIL-D research study. We’re sorry, but based on your responses <br/> you do not qualify for this study. <br   /> <div style="margin-top: 1rem; color: #39394A;">If you are interested in learning more about other clinical research opportunities, please visit <br/> <span style="color: #00B4F1;">www.clinicaltrials.gov</span></div>`,
+    description: `Thank you for your interest in the HYDRAFIL-D research study. We’re sorry, but based on your responses <br/> you do not qualify for this study. <br   /> <div style="margin-top: 1rem; color: #39394A;">If you are interested in learning more about other clinical research opportunities, please visit <br/> <span style="color: #00B4F1;"><a href="http://www.clinicaltrials.gov/" target="_blank">www.clinicaltrials.gov</a> </span></div>`,
     image: circleCheck,
     buttonText: "Back to Home",
     buttonAction:
@@ -42,7 +42,7 @@ const QualificationResult = ({
   };
   const studyCenterNotFoundContent = {
     title: "We’re sorry. There is no study center close enough to you.",
-    description: `Thank you for your interest in the HYDRAFIL-D research study. Based on your responses to this initial questionnaire, it appears you may<br/> qualify for this study; however, no local study center is available in your area at this time.<br/>Please check back to this study website regularly for updates on new study locations that may be opening in the future. You may be able to participate if a new local study center location opens near you.<br/><div style="margin-top: 0.7rem;">If you still wish to leave your contact information, please click Next to enter your contact information. You will not be contacted by a local <br/> study center at this time. However, should a study center open in your area in the future, we may share your contact information with their research staff.`,
+    description: `Thank you for your interest in the HYDRAFIL-D research study. Based on your responses to this initial questionnaire, it appears you may<br/> qualify for this study; however, no local study center is available in your area at this time.<br/><div style="margin-top: 15px">Please check back to this study website regularly for updates on new study locations that may be opening in the future. You may be able</div> to participate if a new local study center location opens near you.<br/><div style="margin-top: 0.7rem;">If you still wish to leave your contact information, please click Next to enter your contact information. You will not be contacted by a local <br/> study center at this time. However, should a study center open in your area in the future, we may share your contact information with their research staff.`,
     image: circleCheck,
     buttonText: "Next",
     buttonAction:
@@ -78,7 +78,7 @@ const QualificationResult = ({
       </div>
       <Typography
         variant="h3"
-        className="my-4 lg:text-[28px] md:text-2xl sm:text-xl text-xl font-bold text-gray-900"
+        className="my-4 lg:text-[28px] md:text-2xl sm:text-xl text-xl font-bold text-[#121229]"
       >
         {content.title}
       </Typography>
@@ -89,7 +89,7 @@ const QualificationResult = ({
         <span dangerouslySetInnerHTML={{ __html: content.description }} />
       </Typography>
       <Button
-        className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium"
+        className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer"
         onClick={content.buttonAction}
       >
         {content.buttonText}
