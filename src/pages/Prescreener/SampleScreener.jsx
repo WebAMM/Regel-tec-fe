@@ -414,7 +414,7 @@ const SampleScreener = () => {
       <div className="container mx-auto">
         <div className="text-center">
           <Header isQualified={submitForm} />
-          <div className="bg-white shadow-lg rounded-xl w-full p-8">
+          <div className="bg-white shadow-lg rounded-xl w-full p-8 border border-[#DDE2E5]">
             <ProgressStepper submitForm={submitForm} />
             {!submitForm ? (
               <>
