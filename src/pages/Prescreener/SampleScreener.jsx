@@ -13,15 +13,13 @@ import ProgressStepper from "./ProgressStepper";
 import QualificationResult from "./QualificationResult";
 
 const SampleScreener = () => {
-  const { data: sectionQuestions, isLoading } =
-    useGetAllQuestionsForWebViewQuery();
-  const { data: latesBatchNo, isLoading: BatchNoLoader } =
-    useGetLatestBatchNoQuery();
-  const [addAnswersOfSections, { isLoading: addAnswersLoader }] =
-    useAddAnswersOfSectionsMutation();
-  const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] =
-    useEvaluateAnswersMutation();
-  const [qualificationStatus, setQualificationStatus] = useState(null);
+    const { data: sectionQuestions, isLoading } = useGetAllQuestionsForWebViewQuery();
+    const { data: latesBatchNo, isLoading: BatchNoLoader } = useGetLatestBatchNoQuery()
+    const [addAnswersOfSections, { isLoading: addAnswersLoader }] = useAddAnswersOfSectionsMutation()
+    const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] = useEvaluateAnswersMutation()
+    const [qualificationStatus, setQualificationStatus] = useState(null);
+    const isValidZipCode = (zip) => /^\d{5}$/.test(zip);
+
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -94,10 +92,11 @@ const SampleScreener = () => {
           bmi: Number(bmi.toFixed(1)), // Add BMI to groupedData
         }));
 
-        console.log(groupedData, "groupedData in BMI");
-      }
-    }
-  };
+                // console.log(groupedData, 'groupedData in BMI')
+
+            }
+        }
+    };
 
   // Handle input changes and update groupedData
   const handleInputChange = (questionId, value, sectionId, title) => {
@@ -144,13 +143,11 @@ const SampleScreener = () => {
       });
     }
 
-    setValidationError(""); // Clear validation error when user makes changes
-    setGroupedData((prevData) => {
-      const updatedData = [...prevData.data];
-      console.log(updatedData, "updatedata");
-      const questionIndex = updatedData.findIndex(
-        (item) => item.questionId === questionId
-      );
+        setValidationError(""); // Clear validation error when user makes changes
+        setGroupedData((prevData) => {
+            const updatedData = [...prevData.data];
+            // console.log(updatedData, 'updatedata')
+            const questionIndex = updatedData.findIndex(item => item.questionId === questionId);
 
       if (questionIndex !== -1) {
         updatedData[questionIndex].answer = value;
@@ -181,12 +178,16 @@ const SampleScreener = () => {
       // console.log('evaluateAnswersData.userZipcode', evaluateAnswersData.userZipcode);
       // const questionAnswer = evaluateAnswersData.userZipcode !== '' ? groupedData.data.filter((el) => el.title === 'Zip Code').find(item => item.questionId === question.questionId) : groupedData.data.find(item => item.questionId === question.questionId);
 
-      if (
-        question.title === "Zip Code" &&
-        evaluateAnswersData.userZipcode !== ""
-      ) {
-        continue; // Skip this iteration and move to the next question
-      }
+            if (question.title === 'Zip Code' && evaluateAnswersData.userZipcode !== '') {
+                const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
+                const zip = questionAnswer?.answer || (evaluateAnswersData.userZipcode || '');
+                if (!isValidZipCode(zip)) {
+                    setValidationError("Please enter a valid 5-digit Zip Code.");
+                    return false;
+                }
+                continue; // Skip this iteration and move to the next question
+            }
+
 
       const questionAnswer = groupedData.data.find(
         (item) => item.questionId === question.questionId
@@ -260,19 +261,29 @@ const SampleScreener = () => {
           answers: latestAnswers,
         };
 
-        // Uncomment the line below to actually submit the data
-        const response = await evaluateAnswers(
-          evaluateAnswersDataForm
-        ).unwrap();
-        console.log("evaluateAnswersDataForm", evaluateAnswersDataForm);
-        if (response?.result) {
-          setQualificationStatus(response.result);
+                // Uncomment the line below to actually submit the data
+                const response = await evaluateAnswers(evaluateAnswersDataForm).unwrap();
+                console.log('response', response?.result?.data?.preScreenerResult, 'response');
+                if (response?.result) {
+                    setQualificationStatus(response.result);
+                    if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
+                        if (response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius) {
+                            navigate('/prescreen/ps', { replace: true })
+                        }
+                        else {
+                            navigate('/prescreen/pns', { replace: true })
+                        }
+
+                    }
+                    else {
+                        navigate('/prescreen/dq', { replace: true })
+                    }
+                }
+            }
+        } catch (error) {
+            console.log('Submit error:', error);
         }
-      }
-    } catch (error) {
-      console.log("Submit error:", error);
-    }
-  };
+    };
 
   const questionDivision = sectionQuestions?.data?.sections?.map(
     (section, index) => (

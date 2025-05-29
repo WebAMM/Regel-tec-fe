@@ -2,7 +2,7 @@ import { Typography } from '@material-tailwind/react'
 import React from 'react'
 
 const Header = ({ isQualified = true }) => {
-    console.log(isQualified, 'isQualified')
+    // console.log(isQualified, 'isQualified')
     return (
         <div>
             <Typography

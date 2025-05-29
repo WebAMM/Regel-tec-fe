@@ -19,10 +19,14 @@ import placeIcon from "../../assets/images/place.png";
 import { FaCheck } from "react-icons/fa";
 import { Typography } from "@material-tailwind/react";
 import { LuMapPin } from "react-icons/lu";
+import { RxCross2 } from "react-icons/rx";
 import LandingPageLogin from "./LandingPageLogin";
 import { toast } from "react-toastify";
 
 const Home = () => {
+  const [showCookiesModal, setShowCookiesModal] = useState(true);
+  const [showLocationModal, setShowLocationModal] = useState(true);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [openReGelTecFaq, setOpenReGelTecFaq] = useState(false);
   const [openHydrafil, setOpenHydrafil] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
@@ -65,7 +69,24 @@ const Home = () => {
       toast.error("Invalid email or password");
     }
   };
+  const handleAcceptCookies = () => {
+    setShowCookiesModal(false);
+  };
 
+  const handleDeclineCookies = () => {
+    setShowCookiesModal(false);
+  };
+
+  const handleLocationModalOk = () => {
+    setShowLocationModal(false);
+  };
+  const handlePrivacyPolicyClick = () => {
+    setShowPrivacyModal(true);
+  };
+
+  const handlePrivacyModalClose = () => {
+    setShowPrivacyModal(false);
+  };
   const featureItems = [
     { text: "Local study center" },
     { text: "No cost to participate" },
@@ -303,11 +324,11 @@ const Home = () => {
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
-                  nucleus dehydrates and shrinks, the disc able is less to properly bear
-                  weight, leading to tearing and further damage within and
-                  around the disc. DDD can cause increased pain over time and
-                  can lead to other back problems including spinal stenosis or a
-                  herniated disc.
+                  nucleus dehydrates and shrinks, the disc able is less to
+                  properly bear weight, leading to tearing and further damage
+                  within and around the disc. DDD can cause increased pain over
+                  time and can lead to other back problems including spinal
+                  stenosis or a herniated disc.
                 </p>
 
                 <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
@@ -395,8 +416,8 @@ const Home = () => {
                     >
                       ReGelTec
                     </a>{" "}
-                    to evaluate the <br/> safety and effectiveness of an
-                    investigational spinal disc implant called <br/> HYDRAFIL
+                    to evaluate the <br /> safety and effectiveness of an
+                    investigational spinal disc implant called <br /> HYDRAFIL
                   </p>
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
@@ -410,18 +431,20 @@ const Home = () => {
                     >
                       HYDRAFIL
                     </span>{" "}
-                    is a hydrated polymer gel (hydrogel) that mimics the natural <br/>
+                    is a hydrated polymer gel (hydrogel) that mimics the natural{" "}
+                    <br />
                     properties of the nucleus inside the disc, and is designed
-                    to be an injectable, <br/> soft, space-filling technology for
-                    minimally invasive treatment of chronic low <br/> back pain from
-                    degenerative disc disease (DDD). HYDRAFIL offers a novel <br/>
+                    to be an injectable, <br /> soft, space-filling technology
+                    for minimally invasive treatment of chronic low <br /> back
+                    pain from degenerative disc disease (DDD). HYDRAFIL offers a
+                    novel <br />
                     approach to treating DDD by delivering a hydrogel implant
-                    injected directly <br/> through a needle to supplement and
-                    reinforce the interior of the <br/> degenerated disc that is
-                    causing the pain without removing any existing <br/> disc
-                    material. The intent of the treatment is to reduce pain and
-                    improve <br/> function for people with chronic low back pain due
-                    to DDD.
+                    injected directly <br /> through a needle to supplement and
+                    reinforce the interior of the <br /> degenerated disc that
+                    is causing the pain without removing any existing <br />{" "}
+                    disc material. The intent of the treatment is to reduce pain
+                    and improve <br /> function for people with chronic low back
+                    pain due to DDD.
                   </p>
                 </div>
               </div>
@@ -435,8 +458,8 @@ const Home = () => {
                   >
                     site locations
                   </span>{" "}
-                  (i.e., local study centers) <br/> in the United States. Adults with
-                  chronic low back pain due to DDD{" "}
+                  (i.e., local study centers) <br /> in the United States.
+                  Adults with chronic low back pain due to DDD{" "}
                   <span
                     onClick={() => handleClickScroll("qualify")}
                     className="text-[#00B4F1] hover:underline cursor-pointer"
@@ -449,9 +472,9 @@ const Home = () => {
                 <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
                   If you qualify and participate, you will receive study-related
                   medical care and treatment from a local spine specialist
-                  physician (i.e., the local <br/> study doctor). You will be asked to
-                  participate in this study for at least 24 months and up to 5
-                  years.
+                  physician (i.e., the local <br /> study doctor). You will be
+                  asked to participate in this study for at least 24 months and
+                  up to 5 years.
                 </p>
               </div>
             </div>
@@ -714,7 +737,422 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} />
+      {/* <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} /> */}
+      {/* Cookies Modal */}
+      {showCookiesModal && (
+        <div className="fixed bottom-64 left-1/2 transform -translate-x-1/2 z-40 w-full">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Our website uses cookies
+            </h3>
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+              <div className="flex-1 space-y-3">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  We value your privacy. This website stores cookies on your
+                  computer. These cookies are used to improve your website
+                  experience and provide more personalized services to you, both
+                  on this website and through other media. To find out more
+                  about the cookies we use, see our <br />{" "}
+                  <span
+                    className="text-[#00B4F1] underline cursor-pointer"
+                    onClick={handlePrivacyPolicyClick}
+                  >
+                    Privacy Policy
+                  </span>
+                  .
+                </p>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  We won't track your information when you visit our website.
+                  But in order to comply with your preferences, we'll have to
+                  use just one tiny cookie so that you're not asked to make this
+                  choice again.
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-3 lg:justify-end">
+              <button
+                onClick={handleDeclineCookies}
+                className="px-8 py-2 border border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-blue-50 transition-colors font-medium"
+              >
+                Decline
+              </button>
+              <button
+                onClick={handleAcceptCookies}
+                className="px-8 py-2 bg-[#00B4F1] text-white rounded-full hover:bg-blue-600 transition-colors font-medium"
+              >
+                Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Location Modal */}
+      {showLocationModal && (
+        <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-50">
+          <div className="bg-white rounded-lg p-6 w-[480px] shadow shadow-[#14142B14]">
+            <p className="text-sm text-gray-700 mb-6 leading-relaxed">
+              This website is only for use in the United States. By clicking OK
+              you confirm that you are an adult over 18 years of age located in
+              the United States, and you agree to the terms of our{" "}
+              <span
+                className="text-[#00B4F1] underline cursor-pointer"
+                onClick={handlePrivacyPolicyClick}
+              >
+                Privacy Policy
+              </span>
+              .
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => window.open("https://regeltec.com/", "_blank")}
+                className="px-6 py-2 border border-[#00B4F1] text-[#00B4F1] rounded text-sm font-medium hover:bg-blue-50"
+              >
+                Leave Website
+              </button>
+              <button
+                onClick={handleLocationModalOk}
+                className="px-8 py-2 bg-[#00B4F1] text-white rounded text-sm font-medium hover:bg-blue-600"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showPrivacyModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-60 shadow shadow-[#14142B14]">
+          <div className="bg-white rounded-lg w-full max-w-2xl mx-4 h-[65vh] border-[#EFF0F6] flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
+                  <img src="../../src/assets/images/privacyLogo.png"/>
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    Privacy Policy
+                  </h2>
+                  <p className="text-sm text-[#00B4F1]">
+                    Updated: March 1, 2025
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={handlePrivacyModalClose}
+                className="rounded-full hover:bg-gray-100 flex items-center justify-center"
+              >
+              <RxCross2 size={25}/>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  1. Introduction
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  ReGelTec, Inc. ("we," "our," or "us") is committed to
+                  safeguarding the privacy of individuals ("you" or
+                  "participants") who visit our website and provide personal
+                  information to participate in our clinical trial for an
+                  injectable spinal implant targeting back pain caused by
+                  degenerative disc disease. This Privacy Policy outlines how we
+                  collect, use, disclose, and protect your information.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  2. Information We Collect
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  We collect information that you voluntarily provide to us when
+                  expressing interest in participating in our clinical trial and
+                  completing our pre-screener to learn if you may qualify. The
+                  information you provide may be used and disclosed in
+                  accordance with this Privacy Policy, your express written
+                  consent, to comply with a valid court order, or applicable
+                  laws.
+                </p>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  The information we collect from you includes eligibility
+                  information (on our pre-screener) and contact information,
+                  including:
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  Eligibility Information
+                </h3>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4">
+                  <li>• City, state, and ZIP code</li>
+                  <li>
+                    • Confirmation of age range (at least 22 years old) (Yes or
+                    No)
+                  </li>
+                  <li>
+                    • Confirmation of duration of chronic low back pain (at
+                    least 6 months) (Yes or No)
+                  </li>
+                  <li>
+                    • Confirmation of any history of lumbar spine surgery (Yes
+                    or No)
+                  </li>
+                  <li>
+                    • Sex, height, and weight (to calculate Body Mass Index)
+                  </li>
+                  <li>
+                    • Confirmation of any cigarette, nicotine, or tobacco use
+                    (Yes or No)
+                  </li>
+                  <li>
+                    • Confirmation of having insulin-dependent diabetes mellitus
+                    (Type 1 diabetes) (Yes or No)
+                  </li>
+                  <li>
+                    • Confirmation of having had an MRI in the last 6 months
+                    (Yes or No)
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  Contact Information
+                </h3>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4">
+                  <li>• First and last name</li>
+                  <li>• City, state and ZIP code</li>
+                  <li>• Email address</li>
+                  <li>• Phone number</li>
+                </ul>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  The contact information will be collected from you complete
+                  personally identifiable information, including your name.
+                  Contact information will only be collected from you if you
+                  pre-qualify after completing our pre-screener. Your
+                  eligibility information and contact information will be stored
+                  and your identity will not be coded. Otherwise, if you do not
+                  pre-qualify, any eligibility information we collect from you
+                  will not be linked to any identifiable information about you.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  3. How We Use Your Information
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-2">
+                  The information collected is used to:
+                </p>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4 mb-4">
+                  <li>
+                    • Assess your eligibility for participation in the clinical
+                    trial and contact you with an appropriate local study center
+                    if applicable
+                  </li>
+                  <li>
+                    • Provide you with information about clinical trial
+                    enrollment and related opportunities
+                  </li>
+                  <li>
+                    • Maintain records as required by regulatory guidelines
+                  </li>
+                  <li>
+                    • Evaluate the reasons you were not eligible for the study
+                    for purposes of market research and to communicate with the
+                    FDA eligibility information only
+                  </li>
+                </ul>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  We do not sell or rent your personal information to third
+                  parties.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  Eligibility information that is not linked to your contact
+                  information and cannot be used to identify you may be stripped
+                  and shared in the individual or in the aggregate for our
+                  legitimate business purposes.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  4. Sharing Your Information
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  Every effort will be made to protect your privacy. This data
+                  we collect from you will only be shared in accordance with
+                  this Privacy Policy and will not be shared with anyone outside
+                  this research unless required by law or a valid court order.
+                  We may share your information only with:
+                </p>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4">
+                  <li>
+                    • Clinical Study Sites, Clinical Research Organizations
+                    (CROs), and Partners: Trusted entities assisting in
+                    conducting the clinical trial, bound by confidentiality
+                    agreements.
+                  </li>
+                  <li>
+                    • Regulatory Authorities: As required to comply with
+                    applicable laws and regulations.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  5. Data Security
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  We implement appropriate technical and organizational measures
+                  to protect your personal information against unauthorized
+                  access, alteration, disclosure, or destruction. However, no
+                  method of transmission over the Internet or electronic storage
+                  is 100% secure. While we strive to use commercially acceptable
+                  means to protect your personal information, we cannot
+                  guarantee its absolute security.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  6. Your Rights
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-2">
+                  Depending on your jurisdiction, you may have rights regarding
+                  your personal information, including:
+                </p>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4 mb-4">
+                  <li>• Accessing the data we hold about you</li>
+                  <li>• Correcting inaccurate data</li>
+                  <li>• Withdrawing consent for data processing</li>
+                </ul>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  To exercise these rights, please contact us using the
+                  information provided below.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  7. Links to Other Websites
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  Our website may contain links to external sites. We are not
+                  responsible for the content or privacy practices of such
+                  sites. We encourage users to be aware when they leave our site
+                  and to read the privacy statements of any other site that
+                  collects personally identifiable information.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  8. Cookie Policy
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  Our website uses cookies to enhance user experience and
+                  analyze site usage. Cookies are small data files stored on
+                  your device that help us understand how you interact with our
+                  site. You can manage your cookie preferences through your
+                  browser settings; however, disabling cookies may affect site
+                  functionality.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  9. California Privacy Rights
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-2">
+                  If you are a California resident, you have specific rights
+                  under the California Consumer Privacy Act (CCPA), including:
+                </p>
+                <ul className="text-sm text-gray-600 space-y-2 ml-4 mb-4">
+                  <li>
+                    • Right to Know: You may request information about the
+                    categories and specific pieces of personal data we have
+                    collected about you
+                  </li>
+                  <li>
+                    • Right to Delete: You may request the deletion of personal
+                    information we have collected about you
+                  </li>
+                  <li>
+                    • Right to Opt-Out: You have the right to opt-out of the
+                    sale of your personal information
+                  </li>
+                  <li>
+                    • Right to Non-Discrimination: You will not receive
+                    discriminatory treatment for exercising your CCPA rights
+                  </li>
+                </ul>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  To exercise these rights, please contact us using the
+                  information provided below.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  10. Children's Privacy
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  Our services are not intended for individuals under 18. We do
+                  not knowingly collect information from children.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  11. Changes to This Privacy Policy
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  We may update this Privacy Policy periodically. Changes will
+                  be posted on this page with an updated effective date.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  12. Contact Us
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  If you have questions or concerns about this Privacy Policy or
+                  our data practices, please contact us at:
+                </p>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p>ReGelTec, Inc.</p>
+                  <p>307 West Camden Street</p>
+                  <p>Suite 400</p>
+                  <p>Baltimore, MD 21201</p>
+                  <p>Email: privacy@regeltec.com</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-200 flex justify-end items-end">
+              <button
+                onClick={handlePrivacyModalClose}
+                 className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] text-[16px] rounded-full hover:bg-cyan-600 transition-colors font-normal"
+              >
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
