@@ -12,7 +12,7 @@ import MyMapWithSearch from "../../components/MyMapWithSearch";
 import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
 import bgHome from "../../assets/images/Background.png";
 import bgHome1 from "../../assets/images/Background1.png";
-
+import PrivacyLogo from '../../assets/images/privacyLogo.png';
 import discIcon from "../../assets/images/disc.png";
 import insulinIcon from "../../assets/images/insulin.png";
 import placeIcon from "../../assets/images/place.png";
@@ -826,7 +826,7 @@ const Home = () => {
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
-                  <img src="../../src/assets/images/privacyLogo.png" />
+                  <img src={PrivacyLogo} />
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">
