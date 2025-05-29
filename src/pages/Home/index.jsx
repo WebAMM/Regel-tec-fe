@@ -714,7 +714,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} />
+      {/* <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} /> */}
     </>
   );
 };
