@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://regel-medical-be.duckdns.org/api",
+    baseUrl: "https://regel-medical-be.vercel.app/api",
 
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
