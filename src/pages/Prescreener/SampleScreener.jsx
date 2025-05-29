@@ -13,6 +13,7 @@ const SampleScreener = () => {
     const [addAnswersOfSections, { isLoading: addAnswersLoader }] = useAddAnswersOfSectionsMutation()
     const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] = useEvaluateAnswersMutation()
     const [qualificationStatus, setQualificationStatus] = useState(null);
+    const isValidZipCode = (zip) => /^\d{5}$/.test(zip);
 
 
     const navigate = useNavigate();
@@ -79,7 +80,7 @@ const SampleScreener = () => {
                     bmi: Number(bmi.toFixed(1)) // Add BMI to groupedData
                 }));
 
-                console.log(groupedData, 'groupedData in BMI')
+                // console.log(groupedData, 'groupedData in BMI')
 
             }
         }
@@ -139,7 +140,7 @@ const SampleScreener = () => {
         setValidationError(""); // Clear validation error when user makes changes
         setGroupedData((prevData) => {
             const updatedData = [...prevData.data];
-            console.log(updatedData, 'updatedata')
+            // console.log(updatedData, 'updatedata')
             const questionIndex = updatedData.findIndex(item => item.questionId === questionId);
 
             if (questionIndex !== -1) {
@@ -170,8 +171,15 @@ const SampleScreener = () => {
             // const questionAnswer = evaluateAnswersData.userZipcode !== '' ? groupedData.data.filter((el) => el.title === 'Zip Code').find(item => item.questionId === question.questionId) : groupedData.data.find(item => item.questionId === question.questionId);
 
             if (question.title === 'Zip Code' && evaluateAnswersData.userZipcode !== '') {
+                const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
+                const zip = questionAnswer?.answer || (evaluateAnswersData.userZipcode || '');
+                if (!isValidZipCode(zip)) {
+                    setValidationError("Please enter a valid 5-digit Zip Code.");
+                    return false;
+                }
                 continue; // Skip this iteration and move to the next question
             }
+
 
             const questionAnswer = groupedData.data.find(item => item.questionId === question.questionId);
             // If answer doesn't exist or is empty string
@@ -245,9 +253,21 @@ const SampleScreener = () => {
 
                 // Uncomment the line below to actually submit the data
                 const response = await evaluateAnswers(evaluateAnswersDataForm).unwrap();
-                console.log('evaluateAnswersDataForm', evaluateAnswersDataForm);
+                console.log('response', response?.result?.data?.preScreenerResult, 'response');
                 if (response?.result) {
                     setQualificationStatus(response.result);
+                    if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
+                        if (response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius) {
+                            navigate('/prescreen/ps', { replace: true })
+                        }
+                        else {
+                            navigate('/prescreen/pns', { replace: true })
+                        }
+
+                    }
+                    else {
+                        navigate('/prescreen/dq', { replace: true })
+                    }
                 }
             }
         } catch (error) {

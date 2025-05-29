@@ -34,7 +34,11 @@ function App() {
     },
     {
       path: "/prescreen",
-      // element: <Prescreener />
+      element: <SampleScreener />
+
+    },
+    {
+      path: "/prescreen/:id",
       element: <SampleScreener />
 
     },
