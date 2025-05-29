@@ -1,12 +1,7 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const PopUpSection = ({ center, zipcode }) => {
     const navigate = useNavigate()
-
-    // console.log(zipcode, 'zipcode')
-
-
     const handleCenter = (item) => {
         navigate("/prescreen", { state: { center: item, userLocation: zipcode } })
     }
@@ -42,7 +37,7 @@ const PopUpSection = ({ center, zipcode }) => {
                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                 </svg>
-                <span>{center?.distanceFromUserLocation?.distance || 0.00} miles away</span>
+                <span>{center?.distanceFromUserLocation?.distance || center?.distanceFromUser?.distance || 0.00} miles away</span>
             </div>
             <button className="w-full bg-cyan-500 text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-medium"
                 onClick={() => handleCenter(center)}
