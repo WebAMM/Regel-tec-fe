@@ -737,7 +737,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} />
+      {/* <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} /> */}
       {/* Cookies Modal */}
       {showCookiesModal && (
         <div className="fixed bottom-64 left-1/2 transform -translate-x-1/2 z-40 w-full">
