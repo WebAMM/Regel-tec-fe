@@ -692,7 +692,7 @@ const Home = () => {
                       <option value="">Select a location...</option>
                       {studyCentersWithCoordinates?.map((center) => (
                         <option key={center?.id} value={center?.id}>
-                          {center?.name}
+                          {center?.name}, {center?.city}, {center.state}
                         </option>
                       ))}
                     </select>
@@ -749,12 +749,12 @@ const Home = () => {
             <p className="text-sm text-gray-700 mb-6 leading-relaxed">
               This website is only for use in the United States. By clicking OK
               you confirm that you are an adult over 18 years of age located in
-              the United States, and you agree to the terms of our{" "}
+              the United States, and you agree to the terms of our
               <span
                 className="text-[#00B4F1] underline cursor-pointer"
                 onClick={handlePrivacyPolicyClick}
               >
-                Privacy Policy
+               &nbsp;  Privacy Policy
               </span>
               .
             </p>
@@ -767,7 +767,7 @@ const Home = () => {
               </button>
               <button
                 onClick={handleLocationModalOk}
-                className="px-8 py-2 bg-[#00B4F1] text-white rounded text-sm font-medium hover:bg-blue-600"
+                className="px-8 py-2 bg-[#00B4F1] text-white rounded text-sm font-medium hover:bg-[#00b5f1d0] cursor-pointer"
               >
                 OK
               </button>
