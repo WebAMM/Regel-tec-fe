@@ -12,7 +12,7 @@ import MyMapWithSearch from "../../components/MyMapWithSearch";
 import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
 import bgHome from "../../assets/images/Background.png";
 import bgHome1 from "../../assets/images/Background1.png";
-import PrivacyLogo from '../../assets/images/privacyLogo.png';
+import PrivacyLogo from "../../assets/images/privacyLogo.png";
 import discIcon from "../../assets/images/disc.png";
 import insulinIcon from "../../assets/images/insulin.png";
 import placeIcon from "../../assets/images/place.png";
@@ -217,18 +217,18 @@ const Home = () => {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6">
+                  <div className="flex lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6 flex-wrap gap-3">
                     <button
                       type="button"
                       onClick={() => handleClickScroll("nearLocation")}
-                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-medium text-md"
+                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-medium lg:text-[16px] md:text-sm sm:text-xs text-xs"
                     >
                       Find A Study Location
                     </button>
                     <button
                       type="button"
                       onClick={() => handleClickScroll("qualify")}
-                      className="h-[50px] cursor-pointer px-[28px] py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
+                      className="xl:h-[50px] lg:h-[46px] md:h-[44] h-[44px] cursor-pointer px-[28px] py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
                     >
                       See If You Qualify
                     </button>
@@ -249,7 +249,7 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards h-[150px]">
+        <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards h-auto">
           <div className="p-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-8">
               {infoCards.map((card, index) => (
@@ -294,7 +294,7 @@ const Home = () => {
         </div>
         {/* Additional Section*/}
         <div
-          className="container mx-auto pt-10 lg:px-0 md:px-5 sm:px-5 px-5"
+          className="container mx-auto lg:pt-10 md:pt-5 sm:pt-3 pt-3 lg:px-0 md:px-5 sm:px-5 px-5"
           id="Degenerative Disc"
         ></div>
         <div>
@@ -303,14 +303,14 @@ const Home = () => {
               CHRONIC LOW BACK PAIN DUE TO DDD
             </h2>
           </div>
-          <div className="container mx-auto mb-[50px] lg:px-0 md:px-5 sm:px-5 px-5">
-            <div className=" flex flex-col lg:flex-row justify-between">
-              <div className="lg:w-[52%]">
-                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
+          <div className="container mx-auto lg:mb-[50px] md:mb-[40px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-4">
+              <div className="lg:w-[55%] w-full">
+                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[20px] mt-[5px]">
                   About Degenerative Disc Disease
                 </h2>
 
-                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm  font-[400] mb-4">
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6 leading-relaxed">
                   Low back pain is a common and debilitating condition affecting
                   adults all over the world. Chronic low back pain can have many
                   causes; for many, degenerative disc disease (DDD) is the
@@ -320,7 +320,7 @@ const Home = () => {
                   to breaking down (degeneration).
                 </p>
 
-                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6 leading-relaxed">
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
@@ -331,7 +331,7 @@ const Home = () => {
                   stenosis or a herniated disc.
                 </p>
 
-                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-4">
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6 leading-relaxed">
                   Conservative care treatment options for DDD such as pain
                   medications, exercise, physical therapy, or epidural steroid
                   injections may not adequately relieve the pain for some
@@ -340,22 +340,23 @@ const Home = () => {
                   total disc replacement.
                 </p>
 
-                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-6">
+                <p className="text-[#39394A] font-relay lg:text-lg md:text-[16px] sm:text-sm text-sm font-[400] mb-8 leading-relaxed">
                   Traditional treatments for DDD are often ineffective or come
                   with significant risks and side effects. Research is underway
                   to find different ways to treat DDD, including the HYDRAFIL-D
                   Research Study.
                 </p>
               </div>
-              <div>
-                <div className="rounded-full flex justify-center items-center">
+
+              <div className="lg:w-[40%] w-full flex flex-col xl:items-start lg:items-center items-center">
+                <div className="flex justify-center items-center mb-8">
                   <img
                     src={backpain}
                     alt="Person with lower back pain"
-                    className="lg:w-full lg:h-auto "
+                    className="w-full h-auto max-w-auto"
                   />
                 </div>
-                <div className="flex flex-col mt-12 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex flex-col lg:mt-12 md:mt-6 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                   <button
                     onClick={() => handleClickScroll("nearLocation")}
                     className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]"
@@ -382,8 +383,9 @@ const Home = () => {
         <div className=" ">
           <div className="bg-[#e5f7fe] mx-auto py-[60px] mt-4 px-4">
             <div className="container mx-auto">
-              <div className="flex flex-col lg:flex-row items-center gap-6">
+              <div className="flex flex-col lg:flex-row items-start gap-8">
                 {/* Left Side - Image of Device */}
+               {/* Left Side - Image of Device */}
                 <div className="pe-8">
                   <img
                     src={injection}
@@ -393,17 +395,17 @@ const Home = () => {
                 </div>
 
                 {/* Right Side - Text Content */}
-                <div className="lg:w-[50%] flex justify-center items-center flex-col">
-                  <div className="mb-2">
-                    <div className="text-[#00B4F1] font-[500] uppercase tracking-wide text-[16px] lg:mr-[10rem] md:mr-[0rem] mr-0">
+                <div className="lg:w-[55%] flex flex-col">
+                  <div className="mb-4">
+                    <div className="text-[#00B4F1] font-[500] uppercase tracking-wide text-[16px]">
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
                     </div>
                   </div>
-                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px] lg:mr-[5rem] md:mr-0 mr-0">
+                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-4">
                     About The HYDRAFIL-D Study
                   </h2>
 
-                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4 lg:mr-[3rem] md:mr-0 mr-0">
+                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4 leading-relaxed">
                     This research study is being sponsored by{" "}
                     <a
                       href="https://regeltec.com/"
@@ -414,13 +416,13 @@ const Home = () => {
                         setTimeout(() => setOpenReGelTecFaq(true), 500);
                       }}
                     >
-                      ReGelTec
+                      ReGelTec, Inc.
                     </a>{" "}
-                    to evaluate the <br /> safety and effectiveness of an
-                    investigational spinal disc implant called <br /> HYDRAFIL
+                    to evaluate the safety and effectiveness of an
+                    investigational spinal disc implant called HYDRAFIL.
                   </p>
 
-                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
+                  <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm leading-relaxed">
                     <span
                       className="text-[#00B4F1] cursor-pointer"
                       onClick={(e) => {
@@ -431,25 +433,24 @@ const Home = () => {
                     >
                       HYDRAFIL
                     </span>{" "}
-                    is a hydrated polymer gel (hydrogel) that mimics the natural{" "}
-                    <br />
+                    is a hydrated polymer gel (hydrogel) that mimics the natural
                     properties of the nucleus inside the disc, and is designed
-                    to be an injectable, <br /> soft, space-filling technology
-                    for minimally invasive treatment of chronic low <br /> back
-                    pain from degenerative disc disease (DDD). HYDRAFIL offers a
-                    novel <br />
+                    to be an injectable, soft, space-filling technology for
+                    minimally invasive treatment of chronic low back pain from
+                    degenerative disc disease (DDD). HYDRAFIL offers a novel
                     approach to treating DDD by delivering a hydrogel implant
-                    injected directly <br /> through a needle to supplement and
-                    reinforce the interior of the <br /> degenerated disc that
-                    is causing the pain without removing any existing <br />{" "}
-                    disc material. The intent of the treatment is to reduce pain
-                    and improve <br /> function for people with chronic low back
-                    pain due to DDD.
+                    injected directly through a needle to supplement and
+                    reinforce the interior of the degenerated disc that is
+                    causing the pain without removing any existing disc
+                    material. The intent of the treatment is to reduce pain and
+                    improve function for people with chronic low back pain due
+                    to DDD.
                   </p>
                 </div>
               </div>
-              <div className=" mt-4">
-                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
+
+              <div className="mt-8">
+                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4 leading-relaxed">
                   Approximately 225 adults with chronic low back pain will
                   participate in this research study at multiple study{" "}
                   <span
@@ -458,8 +459,8 @@ const Home = () => {
                   >
                     site locations
                   </span>{" "}
-                  (i.e., local study centers) <br /> in the United States.
-                  Adults with chronic low back pain due to DDD{" "}
+                  (i.e., local study centers) in the United States. Adults with
+                  chronic low back pain due to DDD{" "}
                   <span
                     onClick={() => handleClickScroll("qualify")}
                     className="text-[#00B4F1] hover:underline cursor-pointer"
@@ -469,16 +470,15 @@ const Home = () => {
                   .
                 </p>
 
-                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm">
+                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm leading-relaxed">
                   If you qualify and participate, you will receive study-related
                   medical care and treatment from a local spine specialist
-                  physician (i.e., the local <br /> study doctor). You will be
-                  asked to participate in this study for at least 24 months and
-                  up to 5 years.
+                  physician (i.e., the local study doctor). You will be asked to
+                  participate in this study for at least 24 months and up to 5
+                  years.
                 </p>
               </div>
             </div>
-            {/* Eligibility Criteria Section */}
           </div>
           <div>
             <div className="lg:my-[4.5rem] md:my-15 sm:my-10 my-10 container mx-auto">
@@ -636,9 +636,9 @@ const Home = () => {
             </p>
 
             {/* Progress Steps */}
-            <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-4 p-2 shadow-sm">
+            <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-4 p-2 shadow-sm lg:h-[34rem] md:h-[32rem] sm:h-[30rem] h-[30rem]">
               <div className=" mx-auto mb-16">
-                <div className="flex justify-center items-center mb-8">
+                <div className="flex justify-center items-center mb-8 pt-4">
                   <div className="text-center">
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-[20px] h-[20px]  mx-auto">
                       <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
@@ -668,7 +668,7 @@ const Home = () => {
               </div>
 
               {/* Location Selection Form */}
-              <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto ">
+              <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
                 <h3 className="lg:text-[28px] md:text-[24px] sm:text-xl text-sm  font-[700] text-[#121229] mb-5 text-left">
                   Select a Study Location
                 </h3>
@@ -701,7 +701,7 @@ const Home = () => {
                 {/* Continue Button */}
                 <div className="text-left">
                   <button
-                    className="lg:text-lg md:text-lg sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                    className="lg:text-[16px] md:text-[16px] sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
                     onClick={() =>
                       navigate("/prescreen", {
                         state: { center: selectLocation },
