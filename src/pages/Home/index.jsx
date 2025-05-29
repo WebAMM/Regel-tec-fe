@@ -570,7 +570,7 @@ const Home = () => {
           id="nearLocation"
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[960px]">
+        <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
               <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2">
@@ -597,7 +597,7 @@ const Home = () => {
             <div className="rounded-lg overflow-hidden shadow-md mb-16 relative mt-[50px]">
               {/* US Map */}
               <div className="relative ">
-                <div className="h-[650px] w-full rounded-xl overflow-hidden">
+                <div className="h-[630px] w-full rounded-xl overflow-hidden">
                   <div ref={mapRef} className="h-full w-full relative">
                     {/* Fallback content if Google Maps fails to load */}
                     <MyMapWithSearch
@@ -754,7 +754,7 @@ const Home = () => {
                 className="text-[#00B4F1] underline cursor-pointer"
                 onClick={handlePrivacyPolicyClick}
               >
-               &nbsp;  Privacy Policy
+                &nbsp;  Privacy Policy
               </span>
               .
             </p>
