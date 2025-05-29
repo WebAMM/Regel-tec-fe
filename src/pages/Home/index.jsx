@@ -826,7 +826,7 @@ const Home = () => {
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
-                  <img src="../../src/assets/images/privacyLogo.png"/>
+                  <img src="../../src/assets/images/privacyLogo.png" />
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900">
@@ -841,7 +841,7 @@ const Home = () => {
                 onClick={handlePrivacyModalClose}
                 className="rounded-full hover:bg-gray-100 flex items-center justify-center"
               >
-              <RxCross2 size={25}/>
+                <RxCross2 size={25} />
               </button>
             </div>
 
@@ -1145,7 +1145,7 @@ const Home = () => {
             <div className="p-6 border-t border-gray-200 flex justify-end items-end">
               <button
                 onClick={handlePrivacyModalClose}
-                 className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] text-[16px] rounded-full hover:bg-cyan-600 transition-colors font-normal"
+                className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] text-[16px] rounded-full hover:bg-cyan-600 transition-colors font-normal"
               >
                 Understood
               </button>
