@@ -19,6 +19,7 @@ html,
 body {
   background: #fff;
 }
+
 @media screen and (max-width: 650px) {
   .responsive_infocards {
     margin-top: 70px;
