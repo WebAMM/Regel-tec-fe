@@ -755,7 +755,7 @@ const Home = () => {
       <CookiesModal handlePrivacyPolicyClick={handlePrivacyPolicyClick} />
       {/* Location Modal */}
       {showLocationModal && (
-        <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-50">
+        <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-[500]">
           <div className="bg-white rounded-lg p-6 w-[480px] shadow shadow-[#14142B14]">
             <p className="text-sm text-gray-700 mb-6 leading-relaxed">
               This website is only for use in the United States. By clicking OK
