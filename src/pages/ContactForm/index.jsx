@@ -128,7 +128,7 @@ const ContactForm = () => {
             Do I Qualify?
           </Typography>
 
-          <div className="bg-white shadow-lg rounded-xl w-full p-8">
+          <div className="bg-white shadow-lg rounded-xl w-full p-8 border border-[#DDE2E5]">
             <ContactProgress submitForm={finish} />
 
             {!finish ? (
