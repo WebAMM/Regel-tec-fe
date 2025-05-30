@@ -48,10 +48,19 @@ const Home = () => {
 
   const { data: allStudyCenter } = useGetAllStudyCenterWithOutPaginationQuery();
 
+  // const handleClickScroll = (id) => {
+  //   const element = document.getElementById(`${id}`);
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
   const handleClickScroll = (id) => {
     const element = document.getElementById(`${id}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const yOffset = -150; // Adjust this value as needed
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
   const handleSubmit = (values) => {
@@ -252,7 +261,7 @@ const Home = () => {
         </div>
         <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards h-auto">
           <div className="p-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-3">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
@@ -300,12 +309,12 @@ const Home = () => {
         ></div>
         <div>
           <div className="container mx-auto pt-10 lg:px-0 md:px-5 sm:px-5 px-5">
-            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs">
+            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs px-5">
               CHRONIC LOW BACK PAIN DUE TO DDD
             </h2>
           </div>
           <div className="container mx-auto lg:mb-[50px] md:mb-[40px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-4">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-4 px-5">
               <div className="lg:w-[55%] w-full">
                 <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[20px] mt-[5px]">
                   About Degenerative Disc Disease
@@ -325,7 +334,7 @@ const Home = () => {
                   Wear-and-tear injuries can happen over time, along with
                   natural aging processes, where the interior of the disc – the
                   nucleus – can begin to dry up, weaken and collapse. As the
-                  nucleus dehydrates and shrinks, the disc able is less to
+                  nucleus dehydrates and shrinks, the disc is less able to
                   properly bear weight, leading to tearing and further damage
                   within and around the disc. DDD can cause increased pain over
                   time and can lead to other back problems including spinal
@@ -354,10 +363,10 @@ const Home = () => {
                   <img
                     src={backpain}
                     alt="Person with lower back pain"
-                    className="w-full h-auto max-w-auto"
+                    className="w-full h-auto max-w-[400px]"
                   />
                 </div>
-                <div className="flex flex-col lg:mt-12 md:mt-6 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex flex-col lg:mt-3 md:mt-3 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                   <button
                     onClick={() => handleClickScroll("nearLocation")}
                     className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]"
@@ -450,8 +459,8 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="mt-8">
-                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-4 leading-relaxed">
+              <div className="mt-[10px] responsive_about_hydra">
+                <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
                   Approximately 225 adults with chronic low back pain will
                   participate in this research study at multiple study{" "}
                   <span
@@ -566,14 +575,17 @@ const Home = () => {
         </div>
 
         {/* Study Location Section */}
-        <div
-          id="nearLocation"
+        {/* <div
+        
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
-        ></div>
+        ></div> */}
         <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-6">
-              <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2">
+              <h2
+                className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2 "
+                id="nearLocation"
+              >
                 STUDY UNDERWAY AT MULTIPLE STUDY CENTERS IN THE US
               </h2>
 
@@ -626,12 +638,11 @@ const Home = () => {
               Do I Qualify?
             </h2>
 
-            <p className="text-[#39394A] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-[55px]">
+            <p className="text-[#39394A] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-[55px] lg:px-20 md:px-10 px-10">
               To see if you might qualify for the study, we need to ask you 8
-              quick questions. If you pass the pre-screener and appear to <br />
+              quick questions. If you pass the pre-screener and appear to
               prequalify, you can submit your contact information to the local
               study center. A study representative may contact you to tell you{" "}
-              <br />
               more about the study, ask you more questions, answer your
               questions, and possibly schedule an office visit.
             </p>
@@ -692,7 +703,8 @@ const Home = () => {
                       <option value="">Select a location...</option>
                       {studyCentersWithCoordinates?.map((center) => (
                         <option key={center?.id} value={center?.id}>
-                          {center?.name}, {center?.city}, {center.state}
+                          {/* {center?.name},  */}
+                          {center?.city}, {center.state}
                         </option>
                       ))}
                     </select>
@@ -740,8 +752,7 @@ const Home = () => {
       </div>
       {/* <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} /> */}
       {/* Cookies Modal */}
-      <CookiesModal
-        handlePrivacyPolicyClick={handlePrivacyPolicyClick} />
+      <CookiesModal handlePrivacyPolicyClick={handlePrivacyPolicyClick} />
       {/* Location Modal */}
       {showLocationModal && (
         <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-50">
@@ -751,10 +762,10 @@ const Home = () => {
               you confirm that you are an adult over 18 years of age located in
               the United States, and you agree to the terms of our
               <span
-                className="text-[#00B4F1] underline cursor-pointer"
+                className="text-[#00B4F1] cursor-pointer"
                 onClick={handlePrivacyPolicyClick}
               >
-                &nbsp;  Privacy Policy
+                &nbsp; Privacy Policy
               </span>
               .
             </p>
@@ -913,16 +924,16 @@ const Home = () => {
                     if applicable
                   </li>
                   <li>
-                    • Provide you with information about clinical trial
-                    enrollment and related opportunities
+                    • Communicate with you regarding trial details, updates, and
+                    related opportunities
                   </li>
                   <li>
                     • Maintain records as required by regulatory guidelines
                   </li>
                   <li>
-                    • Evaluate the reasons you were not eligible for the study
+                    • Evaluate the reason(s) you were not eligible for the study
                     for purposes of market research and to communicate with the
-                    FDA eligibility information only
+                    FDA (eligibility information only)
                   </li>
                 </ul>
                 <p className="text-sm text-gray-600 leading-relaxed">
@@ -934,9 +945,9 @@ const Home = () => {
               <div>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
                   Eligibility information that is not linked to your contact
-                  information and cannot be used to identify you may be stripped
-                  and shared in the individual or in the aggregate for our
-                  legitimate business purposes.
+                  information and cannot be used to identify you, may be
+                  analyzed and shared in the individual or in the aggregate for
+                  our legitimate business purposes.
                 </p>
               </div>
 
@@ -1042,7 +1053,8 @@ const Home = () => {
                   </li>
                   <li>
                     • Right to Delete: You may request the deletion of personal
-                    information we have collected about you
+                    information we have collected from you, subject to certain
+                    exceptions.
                   </li>
                   <li>
                     • Right to Opt-Out: You have the right to opt-out of the
@@ -1089,10 +1101,10 @@ const Home = () => {
                 </p>
                 <div className="text-sm text-gray-600 space-y-1">
                   <p>ReGelTec, Inc.</p>
-                  <p>307 West Camden Street</p>
-                  <p>Suite 400</p>
+                  <p>323 West Camden Street</p>
+                  <p>Suite 600</p>
                   <p>Baltimore, MD 21201</p>
-                  <p>Email: privacy@regeltec.com</p>
+                  <p>Email: privacy@hydrafilstudy.com</p>
                 </div>
               </div>
             </div>
