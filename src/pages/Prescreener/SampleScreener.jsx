@@ -1,6 +1,6 @@
 import { Button, Typography } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   useAddAnswersOfSectionsMutation,
   useEvaluateAnswersMutation,
@@ -11,6 +11,7 @@ import CustomProgress from "./CustomProgress";
 import Header from "./Header";
 import ProgressStepper from "./ProgressStepper";
 import QualificationResult from "./QualificationResult";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const SampleScreener = () => {
   const { data: sectionQuestions, isLoading } =
@@ -411,14 +412,11 @@ const SampleScreener = () => {
               );
             case "TrueFalse":
               return (
-                <div
-                  className="flex flex-col lg:w-1/2 md:w-1/2 sm:w-100 w-50"
-                  key={question.questionId}
-                >
+                <div className="flex flex-col w-full" key={question.questionId}>
                   <label className="lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-start text-[#39394A] font-relay mb-1">
                     {question.title}
                   </label>
-                  <div className="flex text-[#39394A] font-relay items-center justify-between lg:w-1/4 md:w-1/3 sm:w-1/2 w-1/2 mt-[30px] mb-2">
+                  <div className="flex text-[#39394A] font-relay items-center justify-between lg:w-[150px] sm:w-[100px] w-[100px] mt-[30px] mb-2">
                     {question.meta.options.map((option) => (
                       <div className="flex gap-2" key={option._id}>
                         <input
@@ -438,11 +436,17 @@ const SampleScreener = () => {
                               question.title
                             )
                           }
+                          style={{
+                            accentColor: "#00B4F1",
+                            border: "none",
+                            outline: "none",
+                          }}
+                          
                         />
 
                         <label
                           htmlFor={`radio-${question.questionId}-${option._id}`}
-                           className="lg:text-lg md:text-[16px] sm:text-sm text-sm"
+                          className="lg:text-lg md:text-[16px] sm:text-sm text-sm"
                         >
                           {option.label}
                         </label>
@@ -508,9 +512,9 @@ const SampleScreener = () => {
         </div>
       </div>
     );
-    const handleGoToHome = () =>{
-      navigate('/')
-    }
+  const handleGoToHome = () => {
+    navigate("/");
+  };
   // console.log(state, 'state')
   // console.log(evaluateAnswersData, 'evaluateAnswersData')
   // console.log(contactData, 'contactData')
@@ -585,9 +589,13 @@ const SampleScreener = () => {
             )}
           </div>
           <div className="mt-5 flex justify-end items-end">
-            <button className="px-4 py-2 bg-[#00B4F1] text-white rounded-full hover:bg-[#00b5f1d0] transition-colors font-medium cursor-pointer" onClick={handleGoToHome}>
-              Go to Home
-            </button>
+            <Link
+              className="px-4 py-2 text-[#00B4F1] rounded-full hover:underline transition-colors font-medium cursor-pointer flex gap-1 items-center"
+              onClick={handleGoToHome}
+            >
+              <IoIosArrowRoundBack size={20} />
+              Back to Website
+            </Link>
           </div>
         </div>
       </div>
