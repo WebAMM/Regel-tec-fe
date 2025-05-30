@@ -37,23 +37,24 @@ const customIcon = L.icon({
 // });
 
 const MyMapWithSearch = ({ center }) => {
-    const [position, setPosition] = useState([23.634501, -102.552784]); // Default position
-    const [zoom, setZoom] = useState(4);
+    const [position, setPosition] = useState([33.9137, -98.4934]); // Default position
+    const [zoom, setZoom] = useState(5);
     const [zipcode, setZipcode] = useState("");
     const [radiusBaseedCenters, setRadiusBaseedCenters] = useState(null);
 
-    const [trigger, { isLoading }] = useLazyGetRadiusBasedStudyCenterQuery();
+    const [trigger, { isLoading, isFetching }] = useLazyGetRadiusBasedStudyCenterQuery();
 
     const handleSearch = async () => {
         try {
             // Get study centers first
             const studyCenter = await trigger(zipcode).unwrap();
+            console.log(studyCenter?.data?.coordinates, 'studyCenter')
 
-            if (studyCenter?.data && studyCenter.data.length > 0) {
+            if (studyCenter?.data) {
                 // Set position from study center data
                 setPosition([
-                    studyCenter.data[0].coordinates.lat,
-                    studyCenter.data[0].coordinates.long
+                    studyCenter?.data?.coordinates.lat,
+                    studyCenter?.data?.coordinates.long
                 ]);
                 setRadiusBaseedCenters(studyCenter.data);
             } else {
@@ -72,7 +73,7 @@ const MyMapWithSearch = ({ center }) => {
             }
 
             // Always zoom to 13 when searching
-            setZoom(4);
+            setZoom(5);
         } catch (error) {
             console.error("Error searching location:", error);
             alert("An error occurred while searching. Please try again.");
@@ -80,11 +81,11 @@ const MyMapWithSearch = ({ center }) => {
     };
     // const accessToken = process.env.MAP_ACCESS_TOKEN;
     const accessToken = import.meta.env.VITE_MAP_ACCESS_TOKEN;
-    console.log(accessToken, 'accessToken')
+    // console.log(center, 'center')
     console.log(radiusBaseedCenters, 'radiusBaseedCenters')
     return (
         <div className="flex flex-col gap-5 relative">
-            <div className="z-[999] absolute w-full flex items-center justify-center py-5">
+            <div className="z-[410] absolute w-full flex items-center justify-center py-5">
                 <div className="mx-auto p-4 flex gap-4">
                     <div className="relative flex items-center rounded-[12px] min-w-[420px]  bg-white shadow-sm overflow-hidden">
                         <div className="pl-4 text-gray-400">
@@ -107,7 +108,7 @@ const MyMapWithSearch = ({ center }) => {
                         className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600"
                         onClick={handleSearch}
                     >
-                        {isLoading ? <Loader /> : 'Search'}
+                        {isLoading || isFetching ? <Loader /> : 'Search'}
                     </button>
                 </div>
             </div>
@@ -124,7 +125,7 @@ const MyMapWithSearch = ({ center }) => {
                     attribution='<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     accessToken={accessToken}
                 />
-                <ChangeMapView position={position} zoom={zoom} />
+                {/* <ChangeMapView position={position} zoom={zoom} /> */}
                 {/* {radiusBaseedCenters && radiusBaseedCenters.map((center, index) => (
                     <Marker
                         key={index}
@@ -136,17 +137,16 @@ const MyMapWithSearch = ({ center }) => {
                         </Popup>
                     </Marker>
                 ))} */}
-                {radiusBaseedCenters ? (radiusBaseedCenters.map((center, index) => (
+                {radiusBaseedCenters ? (
                     <Marker
-                        key={index}
-                        position={[center?.coordinates?.lat, center?.coordinates?.long]}
+                        position={position}
                         icon={customIcon}
                     >
                         <Popup>
-                            <PopUpSection center={center} zipcode={zipcode} />
+                            <PopUpSection center={radiusBaseedCenters} zipcode={zipcode} />
                         </Popup>
                     </Marker>
-                ))) : (center?.map((center, index) => (
+                ) : (center?.map((center, index) => (
                     <Marker
                         key={index}
                         position={[center?.coordinates?.lat, center?.coordinates?.long]}
