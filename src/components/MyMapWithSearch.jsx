@@ -172,7 +172,7 @@ const MyMapWithSearch = ({ center }) => {
             top: popupPos.y,
             left: popupPos.x,
             transform: "translate(-50%, -120%)",
-            zIndex: 9999,
+            zIndex: 1000,
             backgroundColor: "white",
             padding: "12px",
             borderRadius: "8px",
