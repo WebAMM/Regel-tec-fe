@@ -60,7 +60,7 @@ const Header = () => {
           <button
             onClick={() => handleClickScroll("qualify")}
             type="button"
-            className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] text-[16px] rounded-full hover:bg-cyan-600 transition-colors font-normal"
+            className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] lg:text-[16px] md:text-sm sm:text-xs  text-xs rounded-full hover:bg-cyan-600 transition-colors font-normal"
           >
             See If You Qualify
           </button>
@@ -119,7 +119,7 @@ const Header = () => {
             ))}
             <button
               onClick={() => handleClickScroll("qualify")}
-              className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full"
+              className="cursor-pointer bg-cyan-500 text-white px-4 py-2 rounded-full hover:bg-cyan-600 transition-colors w-full lg:text-[16px] md:text-sm sm:text-xs  text-xs"
             >
               See If You Qualify
             </button>
