@@ -118,8 +118,8 @@ const MyMapWithSearch = ({ center }) => {
     <div className="flex flex-col gap-5 relative" style={{ height: "100vh", width: "100%" }}>
       {/* Search Bar */}
       <div className="z-[410] absolute w-full flex items-center justify-center py-5">
-        <div className="mx-auto p-4 flex gap-4">
-          <div className="relative flex items-center rounded-[12px] min-w-[420px] bg-white shadow-sm overflow-hidden">
+        <div className="mx-auto p-4 flex flex-wrap gap-4 lg:mt-0 sm:mt-[50px] mt-[50px]">
+          <div className="relative flex items-center rounded-[12px] lg:min-w-[420px] sm:min-w-[320px] min-w-[280px] bg-white shadow-sm overflow-hidden">
             <div className="pl-4 text-gray-400">
               <BiSearch size={20} />
             </div>
@@ -137,7 +137,7 @@ const MyMapWithSearch = ({ center }) => {
             />
           </div>
           <button
-            className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600"
+            className="px-4 py-2 bg-sky-500 text-white rounded-xl hover:bg-sky-600 "
             onClick={handleSearch}
           >
             {isLoading || isFetching ? <Loader /> : "Search"}

@@ -38,7 +38,7 @@ const CookiesModal = ({ handlePrivacyPolicyClick }) => {
     return null;
   }
   return (
-    <div className="fixed bottom-64 left-1/2 transform -translate-x-1/2 z-40 w-full">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-40 w-full">
       <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Our website uses cookies

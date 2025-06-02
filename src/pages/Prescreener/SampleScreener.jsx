@@ -304,14 +304,14 @@ const SampleScreener = () => {
     (section, index) => (
       <div
         key={section.sectionId}
-        className="flex gap-4 items-center lg:flex-row md:flex-row sm:flex-col flex-col"
+        className="flex gap-4 lg:items-center sm:items-start items-start lg:flex-row md:flex-row sm:flex-col flex-col"
       >
         {section.questions.map((question, questionIndex) => {
           switch (question.type) {
             case "TextBox":
               return (
                 <div
-                  className="flex lg:w-1/4 md:w-1/3 sm:w-100 w-50 flex-col"
+                  className="flex lg:w-1/2 md:w-1/3 sm:w-100 w-50 flex-col"
                   key={question.questionId}
                 >
                   <label className="text-sm font-normal text-start mb-1 text-[#39394A] font-relay">
@@ -416,9 +416,9 @@ const SampleScreener = () => {
                   <label className="lg:text-lg md:text-[16px] sm:text-sm text-sm font-normal text-start text-[#39394A] font-relay mb-1">
                     {question.title}
                   </label>
-                  <div className="flex text-[#39394A] font-relay items-center justify-between lg:w-[150px] sm:w-[100px] w-[100px] mt-[30px] mb-2">
+                  <div className="flex text-[#39394A] font-relay items-center justify-between lg:w-[150px] sm:w-[100px] w-[100px] mt-[30px] mb-2 gap-5">
                     {question.meta.options.map((option) => (
-                      <div className="flex gap-2" key={option._id}>
+                      <div className="flex lg:items-center sm:items-start items-start gap-2" key={option._id}>
                         <input
                           id={`radio-${question.questionId}-${option._id}`}
                           type="radio"
@@ -438,10 +438,9 @@ const SampleScreener = () => {
                           }
                           style={{
                             accentColor: "#00B4F1",
-                            border: "none",
-                            outline: "none",
+                            height: "20px",
+                            width: "20px",
                           }}
-                          
                         />
 
                         <label
@@ -523,7 +522,7 @@ const SampleScreener = () => {
       <div className="container mx-auto">
         <div className="text-center">
           <Header isQualified={submitForm} />
-          <div className="bg-white shadow-lg rounded-xl w-full p-8 border border-[#DDE2E5]">
+          <div className="bg-white shadow-lg rounded-xl w-full lg:h-[480px] md:h-[420px] sm:h-auto h-auto p-10 border border-[#DDE2E5]">
             <ProgressStepper submitForm={submitForm} />
             {!submitForm ? (
               <>
