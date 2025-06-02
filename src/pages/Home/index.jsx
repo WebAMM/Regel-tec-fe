@@ -836,7 +836,7 @@ const Home = () => {
         </div>
       )}
       {showPrivacyModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-60 shadow shadow-[#14142B14]">
+        <div className="fixed inset-0 flex items-center justify-center z-[501] shadow shadow-[#14142B14]">
           <div className="bg-white rounded-lg w-full max-w-2xl mx-4 h-[65vh] border-[#EFF0F6] flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
