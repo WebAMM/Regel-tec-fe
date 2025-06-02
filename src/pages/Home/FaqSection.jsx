@@ -15,7 +15,7 @@ const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
       setOpen(2); // Index 2 is "What is ReGelTec?" question
     }
   }, [openReGelTecFaq]);
-    useEffect(() => {
+  useEffect(() => {
     if (openHydrafil) {
       setOpen(1); // Index 1 is "What is HydraPhil" question
     }
@@ -76,7 +76,7 @@ const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
       {faqs.map((item, index) => (
         <Accordion className="mb-[18px]" key={index} open={open === index}>
           <AccordionHeader
-            className="bg-[#E5F7FE] !border-none text-[#39394A] flex px-[30px] h-[80px] rounded-[10px] cursor-pointer "
+            className="bg-[#E5F7FE] !border-none text-[#39394A] flex px-[30px] lg:h-[80px] md:h-[68px] h-[68px] rounded-[10px] cursor-pointer "
             onClick={() => handleOpen(index)}
           >
             <div className="flex items-center justify-between w-full ">
@@ -88,7 +88,7 @@ const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
           </AccordionHeader>
           <AccordionBody className="px-8 pt-[0px] bg-[#E5F7FE] pb-6 rounded">
             <div
-              className="text-[16px] font-[400] text-[#39394A] font-relay"
+              className="lg:text-[16px] md:text-sm text-sm font-[400] text-[#39394A] font-relay"
               dangerouslySetInnerHTML={{
                 __html: item?.answer.replace(/\n/g, "<br />"),
               }}

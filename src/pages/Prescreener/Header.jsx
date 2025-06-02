@@ -13,7 +13,7 @@ const Header = ({ isQualified = true }) => {
             </Typography>
             <Typography
                 variant="h3"
-                className="my-4 lg:text-[38px] md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
+                className="mb-14 mt-4 lg:text-[38px] md:text-3xl sm:text-2xl text-2xl font-bold text-gray-900"
             >
                 Do I Qualify?
             </Typography>
