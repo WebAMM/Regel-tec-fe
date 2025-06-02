@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <header className="w-full bg-white z-[1001] shadow-sm mb-2 fixed top-0 left-0">
-      <div className="container mx-auto px-4 flex items-center justify-between py-4">
+      <div className="container mx-auto px-8 flex items-center justify-between lg:pt-10 md:pt-8 pt-8 py-3">
         {/* Logo */}
         <div
           className="cursor-pointer"
@@ -77,7 +77,7 @@ const Header = () => {
               fill="none"
               className="h-6 w-6"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="#000000"
               strokeWidth={2}
             >
               <path
@@ -91,7 +91,7 @@ const Header = () => {
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
-              stroke="currentColor"
+              stroke="#000000"
               strokeWidth={2}
             >
               <path

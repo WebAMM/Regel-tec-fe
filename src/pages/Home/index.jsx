@@ -57,11 +57,27 @@ const Home = () => {
   const handleClickScroll = (id) => {
     const element = document.getElementById(`${id}`);
     if (element) {
-      const yOffset = -150; // Adjust this value as needed
+      const yOffset = -130; // Adjust this value as needed
       const y =
         element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
+  };
+  const handleReGelTecClick = () => {
+    handleClickScroll("FAQs");
+    // Reset both states first
+    setOpenReGelTecFaq(false);
+    setOpenHydrafil(false);
+    // Then set the correct one
+    setTimeout(() => setOpenReGelTecFaq(true), 500);
+  };
+  const handleHydrafilClick = () => {
+    handleClickScroll("FAQs");
+    // Reset both states first
+    setOpenReGelTecFaq(false);
+    setOpenHydrafil(false);
+    // Then set the correct one
+    setTimeout(() => setOpenHydrafil(true), 500);
   };
   const handleSubmit = (values) => {
     console.log(values, "values");
@@ -175,24 +191,24 @@ const Home = () => {
         >
           {/* Hero Section */}
           <div className="container mx-auto">
-            <div className=" mx-auto px-4 lg:py-12 md:py-10 sm:py-3 py-3">
-              <div className="flex relative flex-col lg:flex-row items-center">
+            <div className=" mx-auto px-6 lg:py-12 md:py-10 sm:py-3 py-3">
+              <div className="flex relative flex-col lg:flex-row items-start pt-4">
                 {/* Left Content */}
-                <div className="lg:w-[55%]">
+                <div className="lg:w-[55%] flex flex-col gap-4">
                   <div className="lg:mb-[10px] md:mb-[10px] sm:mb-0 mb-0">
                     <p className="text-[#00B4F1] lg:text-[20px] md:text-[16px] sm:text-sm text-sm font-[500] uppercase tracking-widest">
                       CLINICAL RESEARCH STUDY
                     </p>
                   </div>
 
-                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-xl xs:text-[15px] text-[15px] md:text-4xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px]">
+                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px]">
                     Investigating a New Treatment <br /> for People Suffering
                     from
                     <br />
                     Degenerative Disc Disease
                   </h1>
 
-                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay leading-[30px]">
+                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay leading-[30px] pt-[5px]">
                     Learn More About the HYDRAFIL-D Research Study for Patients{" "}
                     <br />
                     with Chronic Low Back Pain Caused by Degenerative Disc
@@ -201,10 +217,10 @@ const Home = () => {
 
                   {/* Features with Checkmarks */}
                   <div className="w-[85%]">
-                    <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 md:gap-3 sm:gap-2 gap-2 lg:mb-6 md:mb-4 sm:mb-2 mb-2">
+                    <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 sm:gap-[15px] gap-[15px] lg:mb-6 md:mb-4 sm:mb-2 mb-2">
                       {featureItems.map((item, index) => (
                         <div key={index} className="flex items-center">
-                          <div className="flex-shrink-0 h-6 w-6 bg-[#00B4F1] rounded-full flex items-center justify-center text-white">
+                          <div className="flex-shrink-0 lg:h-6 md:h-[20px] sm:h-4 h-4 lg:w-6 md:w-[20px] sm:w-4 w-4 bg-[#00B4F1] rounded-full flex items-center justify-center text-white">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-4 w-4"
@@ -218,7 +234,7 @@ const Home = () => {
                               />
                             </svg>
                           </div>
-                          <span className="ml-3 text-[#39394A] text-[16px] font-[700]">
+                          <span className="ml-3 text-[#39394A] lg:text-[16px] md:text-sm sm:text-xs text-xs font-[700]">
                             {item.text}
                           </span>
                         </div>
@@ -231,14 +247,14 @@ const Home = () => {
                     <button
                       type="button"
                       onClick={() => handleClickScroll("nearLocation")}
-                      className="cursor-pointer px-2 sm:px-5 py-3 border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-medium lg:text-[16px] md:text-sm sm:text-xs text-xs"
+                      className="cursor-pointer px-5 py-3 border-1 border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-medium lg:text-[16px] md:text-sm sm:text-xs text-xs"
                     >
                       Find A Study Location
                     </button>
                     <button
                       type="button"
                       onClick={() => handleClickScroll("qualify")}
-                      className="xl:h-[50px] lg:h-[46px] md:h-[44] h-[44px] cursor-pointer px-[28px] py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium text-md"
+                      className="xl:h-[50px] lg:h-[46px] md:h-[44px] sm:h-[42px] h-[42px] cursor-pointer lg:px-[28px] md:px-[24px] px-[24px] py-3 bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium lg:text-[16px] md:text-sm sm:text-xs text-xs"
                     >
                       See If You Qualify
                     </button>
@@ -248,7 +264,7 @@ const Home = () => {
                     <img
                       src={bgHome1}
                       alt=""
-                      className="block sm:hidden w-full object-cover"
+                      className="block sm:hidden w-full object-cover rounded-3xl responsive_bgimage"
                     />
                   </div>
                 </div>
@@ -259,15 +275,22 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="bg-[#E5F7FE] mt-[-76px] rounded-[12px]  container mx-auto py-5 responsive_infocards h-auto">
+        <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px]  container mx-auto py-5 responsive_infocards h-auto">
           <div className="p-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1  gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-10">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className="flex px-5 items-center gap-5"
+                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 pb-[28px] lg:mx-0 md:mx-0 sm:mx-5 mx-5"
                   style={{
-                    borderRight: index < 2 ? "2px dotted #8F8F95" : "none",
+                    borderRight:
+                      index < 2 && window.innerWidth > 992
+                        ? "2px dotted #8F8F95"
+                        : "none",
+                    borderBottom:
+                      index < 2 && window.innerWidth <= 992
+                        ? "2px dotted #8F8F95"
+                        : "none",
                   }}
                 >
                   {/* Icon placeholder */}
@@ -304,17 +327,17 @@ const Home = () => {
         </div>
         {/* Additional Section*/}
         <div
-          className="container mx-auto lg:pt-10 md:pt-5 sm:pt-3 pt-3 lg:px-0 md:px-5 sm:px-5 px-5"
+          className="container mx-auto lg:pt-10 md:pt-5 sm:pt-0 pt-0 lg:px-0 md:px-5 sm:px-5 px-5"
           id="Degenerative Disc"
         ></div>
         <div>
-          <div className="container mx-auto pt-10 lg:px-0 md:px-5 sm:px-5 px-5">
+          <div className="container mx-auto lg:pt-10 md:pt-5 sm:pt-0 pt-0 lg:px-0 md:px-0 sm:px-0 px-0">
             <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs px-5">
               CHRONIC LOW BACK PAIN DUE TO DDD
             </h2>
           </div>
           <div className="container mx-auto lg:mb-[50px] md:mb-[40px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-4 px-5">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-0 lg:px-5 md:px-0 px-0">
               <div className="lg:w-[55%] w-full">
                 <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[20px] mt-[5px]">
                   About Degenerative Disc Disease
@@ -363,19 +386,19 @@ const Home = () => {
                   <img
                     src={backpain}
                     alt="Person with lower back pain"
-                    className="w-full h-auto max-w-[400px]"
+                    className="backpain_img"
                   />
                 </div>
-                <div className="flex flex-col lg:mt-3 md:mt-3 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="flex lg:mt-3 md:mt-3 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-2 sm:space-x-6 space-x-4">
                   <button
                     onClick={() => handleClickScroll("nearLocation")}
-                    className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] text-[16px]"
+                    className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] lg:text-[16px] md:text-sm sm:text-xs text-xs"
                   >
                     Find A Study Location
                   </button>
                   <button
                     onClick={() => handleClickScroll("qualify")}
-                    className=" cursor-pointer px-[28px] h-[50px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] text-[16px]"
+                    className=" cursor-pointer px-[28px] h-[50px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-[500] lg:text-[16px] md:text-sm sm:text-xs text-xs"
                   >
                     See If You Qualify
                   </button>
@@ -391,27 +414,26 @@ const Home = () => {
           className="container mx-auto pt-[15px] lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className=" ">
-          <div className="bg-[#e5f7fe] mx-auto py-[60px] mt-4 px-4">
+          <div className="bg-[#e5f7fe] mx-auto lg:py-[65px] md:py-[30px] py-[30px] mt-4 px-4">
             <div className="container mx-auto">
-              <div className="flex flex-col lg:flex-row items-start gap-8">
+              <div className="flex lg:flex-row items-center gap-8 md:flex-col sm:flex-col-reverse flex-col-reverse">
                 {/* Left Side - Image of Device */}
-                {/* Left Side - Image of Device */}
-                <div className="pe-8">
-                  <img
-                    src={injection}
-                    alt="HYDRAFIL injection device"
-                    className="w-full h-auto xl:m-[-33px] lg:m-[-35px] md:m-[0px] m-0"
-                  />
-                </div>
+                {/* <div className="pe-8"> */}
+                <img
+                  src={injection}
+                  alt="HYDRAFIL injection device"
+                  className="w-auto h-auto xl:m-[-33px] lg:m-[-35px] md:m-[0px] m-0 lg:pe-14 md:pe-12 pe-10"
+                />
+                {/* </div> */}
 
                 {/* Right Side - Text Content */}
                 <div className="lg:w-[55%] flex flex-col">
                   <div className="mb-4">
-                    <div className="text-[#00B4F1] font-[500] uppercase tracking-wide text-[16px]">
+                    <div className="text-[#00B4F1] font-[500] uppercase tracking-widest text-[16px]">
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
                     </div>
                   </div>
-                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-4">
+                  <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg  tracking-normal font-[700] text-[#121229] mb-[8px]">
                     About The HYDRAFIL-D Study
                   </h2>
 
@@ -422,8 +444,7 @@ const Home = () => {
                       className="text-[#00B4F1] cursor-pointer"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleClickScroll("FAQs");
-                        setTimeout(() => setOpenReGelTecFaq(true), 500);
+                        handleReGelTecClick();
                       }}
                     >
                       ReGelTec, Inc.
@@ -437,8 +458,7 @@ const Home = () => {
                       className="text-[#00B4F1] cursor-pointer"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleClickScroll("FAQs");
-                        setTimeout(() => setOpenHydrafil(true), 500);
+                        handleHydrafilClick();
                       }}
                     >
                       HYDRAFIL
@@ -456,16 +476,45 @@ const Home = () => {
                     improve function for people with chronic low back pain due
                     to DDD.
                   </p>
+                  <div className="mt-[10px] responsive_about_hydra lg:hidden sm:block">
+                    <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
+                      Approximately 225 adults with chronic low back pain will
+                      participate in this research study at multiple study{" "}
+                      <span
+                        onClick={() => handleClickScroll("nearLocation")}
+                        className="text-[#00B4F1] hover:underline cursor-pointer underline"
+                      >
+                        site locations
+                      </span>{" "}
+                      (i.e., local study centers) in the United States. Adults
+                      with chronic low back pain due to DDD{" "}
+                      <span
+                        onClick={() => handleClickScroll("qualify")}
+                        className="text-[#00B4F1] hover:underline cursor-pointer underline"
+                      >
+                        may qualify
+                      </span>
+                      .
+                    </p>
+
+                    <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm leading-relaxed">
+                      If you qualify and participate, you will receive
+                      study-related medical care and treatment from a local
+                      spine specialist physician (i.e., the local study doctor).
+                      You will be asked to participate in this study for at
+                      least 24 months and up to 5 years.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-[10px] responsive_about_hydra">
+              <div className="mt-[15px] responsive_about_hydra lg:block sm:hidden visible_class">
                 <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
                   Approximately 225 adults with chronic low back pain will
                   participate in this research study at multiple study{" "}
                   <span
                     onClick={() => handleClickScroll("nearLocation")}
-                    className="text-[#00B4F1] hover:underline cursor-pointer"
+                    className="text-[#00B4F1] hover:underline cursor-pointer underline"
                   >
                     site locations
                   </span>{" "}
@@ -473,7 +522,7 @@ const Home = () => {
                   chronic low back pain due to DDD{" "}
                   <span
                     onClick={() => handleClickScroll("qualify")}
-                    className="text-[#00B4F1] hover:underline cursor-pointer"
+                    className="text-[#00B4F1] hover:underline cursor-pointer underline"
                   >
                     may qualify
                   </span>
@@ -491,21 +540,21 @@ const Home = () => {
             </div>
           </div>
           <div>
-            <div className="lg:my-[4.5rem] md:my-15 sm:my-10 my-10 container mx-auto">
+            <div className="lg:my-[4.5rem] md:my-15 sm:my-11 my-11 container mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2">
+                <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] text-[16px] mb-2">
                   ELIGIBILITY CRITERIA
                 </h2>
                 <h3 className="lg:text-[28px] md:text-[24px] sm:text-xl text-lg font-[700] text-[#121229] mb-2 text-center">
                   There are many important criteria that you must <br /> meet to
                   be eligible for this study, including*:
                 </h3>
-                <p className="text-[#39394A] text-[16px] font-[400] italic">
+                <p className="text-[#39394A] text-[18px] font-[400] italic">
                   *There are additional eligibility criteria
                 </p>
               </div>
               {/* Eligibility Icons Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-3 gap-3 mt-10">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 sm:gap-3 gap-3 mt-10">
                 {/* Icon 1 */}
                 <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
                   <div className="mb-[10px]">
@@ -515,7 +564,7 @@ const Home = () => {
                       className="h-auto w-auto"
                     />
                   </div>
-                  <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
+                  <p className="text-[#39394A] lg:text-[16px] md:text-sm sm:text-xs text-xs font-[500] leading-[1.2]">
                     You are 22 to 85
                     <br />
                     years old
@@ -523,7 +572,7 @@ const Home = () => {
                 </div>
 
                 {/* Icon 2 */}
-                <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted">
+                <div className="flex flex-col items-center text-center border-r-[2px] border-r-[#00B4F1] border-dotted max-[1024px]:border-r-0">
                   <div className="mb-[10px]">
                     <img
                       src={lowPain}
@@ -531,7 +580,7 @@ const Home = () => {
                       className="h-auto w-auto"
                     />
                   </div>
-                  <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
+                  <p className="text-[#39394A] lg:text-[16px] md:text-sm sm:text-xs text-xs font-[500] leading-[1.2]">
                     Your low back pain is
                     <br />
                     due to DDD
@@ -547,7 +596,7 @@ const Home = () => {
                       className="h-auto w-auto"
                     />
                   </div>
-                  <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
+                  <p className="text-[#39394A] lg:text-[16px] md:text-sm sm:text-xs text-xs font-[500] leading-[1.2]">
                     Your low back pain has lasted
                     <br />
                     for at least 6 months
@@ -563,7 +612,7 @@ const Home = () => {
                       className="h-auto w-auto"
                     />
                   </div>
-                  <p className="text-[#39394A] text-[16px] font-[500] leading-[1.2]">
+                  <p className="text-[#39394A] lg:text-[16px] md:text-sm sm:text-xs text-xs font-[500] leading-[1.2]">
                     You have not had any
                     <br />
                     lower back surgery
@@ -648,31 +697,31 @@ const Home = () => {
             </p>
 
             {/* Progress Steps */}
-            <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-4 p-2 shadow-sm lg:h-[34rem] md:h-[32rem] sm:h-[30rem] h-[30rem]">
-              <div className=" mx-auto mb-16">
+            <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-6 p-6 shadow-sm lg:h-[34rem] md:h-[32rem] sm:h-[30rem] h-[30rem]">
+              <div className=" mx-auto lg:mb-16 md:mb-8 mb-8">
                 <div className="flex justify-center items-center mb-8 pt-4">
                   <div className="text-center">
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-[20px] h-[20px]  mx-auto">
                       <div className="w-3 h-3 bg-[#00B4F1] rounded-full"></div>
                     </div>
-                    <div className="text-[14px] font-[400] font-relay text-[#00B4F1] mt-2">
+                    <div className="lg:text-[14px] md:text-xs text-xs font-[400] font-relay text-[#00B4F1] mt-2">
                       Select Location
                     </div>
                   </div>
-                  <div className="lg:w-[130px] md:w-20 sm:w-[200px] w-[200px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
+                  <div className="lg:w-[130px] md:w-20 sm:w-[70px] w-[70px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
 
                   <div className="text-center">
                     <div className="rounded-full bg-blue-100 w-[20px] h-[20px] mx-auto"></div>
 
-                    <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
+                    <div className="lg:text-[14px] md:text-xs text-xs font-[400] font-relay text-[#ABB7C2] mt-2">
                       Pre-Screener
                     </div>
                   </div>
-                  <div className="lg:w-[130px] md:w-20 sm:w-[200px] w-[200px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
+                  <div className="lg:w-[130px] md:w-20 sm:w-[70px] w-[70px] mb-2 h-[3px] bg-[#CFD6DC] rounded relative bottom-[10px]"></div>
 
                   <div className="text-center">
                     <div className="rounded-full bg-blue-100 w-[20px] h-[20px] mx-auto"></div>
-                    <div className="text-[14px] font-[400] font-relay text-[#ABB7C2] mt-2">
+                    <div className="lg:text-[14px] md:text-xs text-xs font-[400] font-relay text-[#ABB7C2] mt-2">
                       Contact Info
                     </div>
                   </div>
@@ -681,7 +730,7 @@ const Home = () => {
 
               {/* Location Selection Form */}
               <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
-                <h3 className="lg:text-[28px] md:text-[24px] sm:text-xl text-sm  font-[700] text-[#121229] mb-5 text-left">
+                <h3 className="lg:text-[28px] md:text-[24px] sm:text-lg text-lg  font-[700] text-[#121229] mb-5 text-left">
                   Select a Study Location
                 </h3>
 
@@ -740,7 +789,7 @@ const Home = () => {
             <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[5px]">
               FAQS
             </h3>
-            <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-6">
+            <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] lg:mb-6 md:mb-4 mb-4">
               Frequently Asked Questions
             </h2>
             <FaqSection
@@ -755,8 +804,8 @@ const Home = () => {
       <CookiesModal handlePrivacyPolicyClick={handlePrivacyPolicyClick} />
       {/* Location Modal */}
       {showLocationModal && (
-        <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-50">
-          <div className="bg-white rounded-lg p-6 w-[480px] shadow shadow-[#14142B14]">
+        <div className="fixed top-[180px] left-1/2 transform -translate-x-1/2 z-[500]">
+          <div className="bg-white rounded-lg p-6 lg:w-[480px] md:w-[400px] sm:w-[300px] w-[300px] shadow shadow-[#14142B14]">
             <p className="text-sm text-gray-700 mb-6 leading-relaxed">
               This website is only for use in the United States. By clicking OK
               you confirm that you are an adult over 18 years of age located in
@@ -856,8 +905,7 @@ const Home = () => {
                 <ul className="text-sm text-gray-600 space-y-2 ml-4">
                   <li>• City, state, and ZIP code</li>
                   <li>
-                    • Confirmation of age range (at least 22 years old) (Yes or
-                    No)
+                    • Confirmation of age range (at least 22-85 years old)
                   </li>
                   <li>
                     • Confirmation of duration of chronic low back pain (at
@@ -899,14 +947,14 @@ const Home = () => {
 
               <div>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  The contact information will be collected from you complete
+                  The contact information we collect from you contains
                   personally identifiable information, including your name.
                   Contact information will only be collected from you if you
-                  pre-qualify after completing our pre-screener. Your
-                  eligibility information and contact information will be stored
-                  and your identity will not be coded. Otherwise, if you do not
-                  pre-qualify, any eligibility information we collect from you
-                  will not be linked to any identifiable information about you.
+                  prequalify after completing our pre-screener. Your eligibility
+                  information and contact information will be linked and your
+                  identity will not be coded. Otherwise, if you do not
+                  prequalify, any eligibility information we collect from you
+                  will not be linked to any personally identifiable information.
                 </p>
               </div>
 
@@ -919,12 +967,12 @@ const Home = () => {
                 </p>
                 <ul className="text-sm text-gray-600 space-y-2 ml-4 mb-4">
                   <li>
-                    • Assess your eligibility for participation in the clinical
-                    trial and contact you with an appropriate local study center
-                    if applicable
+                    • Assess your potential eligibility for participation in the
+                    clinical trial and connect you with an appropriate local
+                    study center, if applicable
                   </li>
                   <li>
-                    • Communicate with you regarding trial details, updates, and
+                    •Communicate with you regarding trial details, updates, and
                     related opportunities
                   </li>
                   <li>
@@ -956,11 +1004,11 @@ const Home = () => {
                   4. Sharing Your Information
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  Every effort will be made to protect your privacy. This data
-                  we collect from you will only be shared in accordance with
-                  this Privacy Policy and will not be shared with anyone outside
-                  this research unless required by law or a valid court order.
-                  We may share your information only with:
+                  Every effort will be made to protect your privacy. The data we
+                  collect from you will only be shared in accordance with this
+                  Privacy Policy and will not be shared with anyone outside the
+                  research unless required by law or a valid court order. We may
+                  share your information with:
                 </p>
                 <ul className="text-sm text-gray-600 space-y-2 ml-4">
                   <li>
@@ -1001,8 +1049,8 @@ const Home = () => {
                 </p>
                 <ul className="text-sm text-gray-600 space-y-2 ml-4 mb-4">
                   <li>• Accessing the data we hold about you</li>
-                  <li>• Correcting inaccurate data</li>
-                  <li>• Withdrawing consent for data processing</li>
+                  <li>• Requesting corrections or updates </li>
+                  <li>• Withdrawing consent for data processing </li>
                 </ul>
                 <p className="text-sm text-gray-600 leading-relaxed">
                   To exercise these rights, please contact us using the
