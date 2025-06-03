@@ -7,7 +7,7 @@ import injection from "../../assets/images/injection.png";
 import lab from "../../assets/images/lab.svg";
 import refresh from "../../assets/images/refresh.svg";
 import FaqSection from "./FaqSection";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MyMapWithSearch from "../../components/MyMapWithSearch";
 import { useGetAllStudyCenterWithOutPaginationQuery } from "../../api/apiSlice";
 import bgHome from "../../assets/images/Background.png";
@@ -192,7 +192,7 @@ const Home = () => {
           {/* Hero Section */}
           <div className="container mx-auto">
             <div className=" mx-auto px-6 lg:py-12 md:py-10 sm:py-3 py-3">
-              <div className="flex relative flex-col lg:flex-row items-start pt-4">
+              <div className="flex relative flex-col lg:flex-row items-start lg:pt-4 md:pt-[10px] pt-[10px]">
                 {/* Left Content */}
                 <div className="lg:w-[55%] flex flex-col gap-4">
                   <div className="lg:mb-[10px] md:mb-[10px] sm:mb-0 mb-0">
@@ -208,18 +208,20 @@ const Home = () => {
                     Degenerative Disc Disease
                   </h1>
 
-                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay leading-[30px] pt-[5px]">
+                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay leading-[30px] pt-[5px]">
                     Learn More About the HYDRAFIL-D Research Study for Patients{" "}
-                    <br />
                     with Chronic Low Back Pain Caused by Degenerative Disc
                     Disease
                   </p>
 
                   {/* Features with Checkmarks */}
                   <div className="w-[85%]">
-                    <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 sm:gap-[15px] gap-[15px] lg:mb-6 md:mb-4 sm:mb-2 mb-2">
+                    <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 sm:gap-[15px] gap-[15px] lg:mb-6 md:mb-4 sm:mb-4 mb-4">
                       {featureItems.map((item, index) => (
-                        <div key={index} className="flex items-center">
+                        <div
+                          key={index}
+                          className="flex items-center lg:w-auto w-auto"
+                        >
                           <div className="flex-shrink-0 lg:h-6 md:h-[20px] sm:h-4 h-4 lg:w-6 md:w-[20px] sm:w-4 w-4 bg-[#00B4F1] rounded-full flex items-center justify-center text-white">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -275,26 +277,35 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px]  container mx-auto py-5 responsive_infocards h-auto">
+        <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px] container mx-auto lg:py-5 sm:py-0 py-0 responsive_infocards h-auto">
           <div className="p-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1  gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-6">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 pb-[28px] lg:mx-0 md:mx-0 sm:mx-5 mx-5"
+                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 pb-[28px] lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative"
                   style={{
-                    borderRight:
-                      index < 2 && window.innerWidth > 992
-                        ? "2px dotted #8F8F95"
-                        : "none",
                     borderBottom:
-                      index < 2 && window.innerWidth <= 992
+                      index < 2 && window.innerWidth <= 1023
                         ? "2px dotted #8F8F95"
                         : "none",
                   }}
                 >
+                  {/* Border right with fixed height for large devices */}
+                  {index < 2 && window.innerWidth > 1023 && (
+                    <div
+                      className="absolute right-0 top-[40px] transform -translate-y-1/2"
+                      style={{
+                        width: "1px",
+                        height: "70px",
+                        background:
+                          "repeating-linear-gradient(to bottom, #8F8F95 0, #8F8F95 4px, transparent 4px, transparent 8px)",
+                      }}
+                    />
+                  )}
+
                   {/* Icon placeholder */}
-                  <div className="flex-shrink-0 ">
+                  <div className="flex-shrink-0">
                     {card.icon === "person" && (
                       <div className="">
                         <img src={discIcon} alt="" />
@@ -331,12 +342,12 @@ const Home = () => {
           id="Degenerative Disc"
         ></div>
         <div>
-          <div className="container mx-auto lg:pt-10 md:pt-5 sm:pt-0 pt-0 lg:px-0 md:px-0 sm:px-0 px-0">
+          <div className="container mx-auto pt-[10px] lg:px-0 md:px-0 sm:px-0 px-0">
             <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs px-5">
               CHRONIC LOW BACK PAIN DUE TO DDD
             </h2>
           </div>
-          <div className="container mx-auto lg:mb-[50px] md:mb-[40px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
+          <div className="container mx-auto lg:mb-[40px] md:mb-[30px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-0 lg:px-5 md:px-0 px-0">
               <div className="lg:w-[55%] w-full">
                 <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[20px] mt-[5px]">
@@ -849,7 +860,7 @@ const Home = () => {
                     Privacy Policy
                   </h2>
                   <p className="text-sm text-[#00B4F1]">
-                    Updated: March 1, 2025
+                    Effective Date: March 1, 2025
                   </p>
                 </div>
               </div>
@@ -905,7 +916,7 @@ const Home = () => {
                 <ul className="text-sm text-gray-600 space-y-2 ml-4">
                   <li>• City, state, and ZIP code</li>
                   <li>
-                    • Confirmation of age range (at least 22-85 years old)
+                    • Confirmation of age range (22-85 years old) (Yes or No)
                   </li>
                   <li>
                     • Confirmation of duration of chronic low back pain (at
@@ -1152,7 +1163,15 @@ const Home = () => {
                   <p>323 West Camden Street</p>
                   <p>Suite 600</p>
                   <p>Baltimore, MD 21201</p>
-                  <p>Email: privacy@hydrafilstudy.com</p>
+                  <p>
+                    Email:{" "}
+                    <a
+                      href="mailto:privacy@hydrafilstudy.com"
+                      className="text-[#00B4F1] hover:underline cursor-pointer transition-colors"
+                    >
+                      privacy@hydrafilstudy.com
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
