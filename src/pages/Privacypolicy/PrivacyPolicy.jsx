@@ -1,6 +1,13 @@
+import { Link, useNavigate } from "react-router-dom";
 import PrivacyLogo from "../../assets/images/privacyLogo.png";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const PrivacyPolicy = () => {
+  const navigate = useNavigate();
+  const handleGoToHome = () => {
+    debugger;
+    navigate("/");
+  };
   return (
     <div className="max-w-[77%] mx-auto p-6 bg-white pt-[100px]">
       <div className="flex gap-8 items-center mb-8">
@@ -9,7 +16,10 @@ const PrivacyPolicy = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Privacy Policy
           </h1>
-          <p className="text-[14px] text-[#00B4F1]">Updated: March 1, 2025</p>
+          <p className="text-[14px] text-[#00B4F1]">
+            {" "}
+            Effective Date: March 1, 2025
+          </p>
         </div>
       </div>
 
@@ -275,9 +285,24 @@ const PrivacyPolicy = () => {
             <p className="font-medium">323 West Camden Street</p>
             <p className="font-medium">Suite 600</p>
             <p className="font-medium">Baltimore, MD 21201</p>
-            <p className="font-medium">
-              Email: privacy@hydrafilstudy.com
+            <p>
+              Email:{" "}
+              <a
+                href="mailto:privacy@hydrafilstudy.com"
+                className="text-[#00B4F1] hover:underline cursor-pointer transition-colors"
+              >
+                privacy@hydrafilstudy.com
+              </a>
             </p>
+          </div>
+          <div className="mt-5 flex justify-start">
+            <Link
+              className="py-2 text-[#00B4F1] rounded-full hover:underline transition-colors font-medium cursor-pointer flex gap-1 items-center"
+              onClick={handleGoToHome}
+            >
+              <IoIosArrowRoundBack size={20} />
+              Back to Website
+            </Link>
           </div>
         </section>
       </div>
