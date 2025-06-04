@@ -46,12 +46,12 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-6">
+        <nav className="hidden lg:flex items-center xl:space-x-6 lg:space-x-2 space-x-2">
           {navLinks.map((link, index) => (
             <div
               key={index}
               // href={link.href}
-              className="text-gray-700 hover:text-cyan-500 transition-colors font-medium cursor-pointer"
+              className="text-gray-700 hover:text-cyan-500 transition-colors font-medium cursor-pointer lg:text-center text-center"
               onClick={() => handleClickScroll(link.href)}
             >
               {link.text}
@@ -60,7 +60,7 @@ const Header = () => {
           <button
             onClick={() => handleClickScroll("qualify")}
             type="button"
-            className="cursor-pointer bg-[#00B4F1] text-white px-6 py-[12px] lg:text-[16px] md:text-sm sm:text-xs  text-xs rounded-full hover:bg-cyan-600 transition-colors font-normal"
+            className="cursor-pointer bg-[#00B4F1] text-white xl:px-6 lg:px-3 px-3 xl:py-[12px] lg:py-[10px] md:py-[8px] py-[8px] lg:text-[16px] md:text-sm sm:text-xs  text-xs rounded-full hover:bg-cyan-600 transition-colors font-normal header_qualify"
           >
             See If You Qualify
           </button>

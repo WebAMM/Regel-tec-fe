@@ -5,6 +5,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { FaAngleUp } from "react-icons/fa";
+import { IoChevronDownSharp } from "react-icons/io5";
 
 const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
   const [open, setOpen] = useState(null);
@@ -83,7 +84,7 @@ const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
               <div className="lg:text-xl md:text-lg sm:text-sm text-sm font-[600] text-[#39394A]">
                 {item?.question}
               </div>
-              <FaAngleUp />
+            {open === index ? <FaAngleUp /> : <IoChevronDownSharp />}
             </div>
           </AccordionHeader>
           <AccordionBody className="px-8 pt-[0px] bg-[#E5F7FE] pb-6 rounded">
