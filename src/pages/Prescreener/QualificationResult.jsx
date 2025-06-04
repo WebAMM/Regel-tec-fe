@@ -89,7 +89,7 @@ const QualificationResult = ({
         <span dangerouslySetInnerHTML={{ __html: content.description }} />
       </Typography>
       <Button
-        className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer mt-3"
+        className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer"
         onClick={content.buttonAction}
       >
         {content.buttonText}
