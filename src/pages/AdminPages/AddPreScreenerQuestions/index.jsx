@@ -65,7 +65,7 @@ const AddPreScreenerQuestions = () => {
         try {
             await addSectionsQuestions(values).unwrap()
             toast.success('Question Added Successfully')
-            // console.log(values, 'values');
+            console.log(values, 'values');
 
         } catch (error) {
             console.log(error)

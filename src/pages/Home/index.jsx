@@ -64,20 +64,60 @@ const Home = () => {
     }
   };
   const handleReGelTecClick = () => {
-    handleClickScroll("FAQs");
     // Reset both states first
     setOpenReGelTecFaq(false);
     setOpenHydrafil(false);
-    // Then set the correct one
-    setTimeout(() => setOpenReGelTecFaq(true), 500);
+
+    setTimeout(() => {
+      setOpenReGelTecFaq(true);
+
+      setTimeout(() => {
+        const element = document.getElementById("FAQs");
+        if (element) {
+          const viewportHeight = window.innerHeight;
+          const elementRect = element.getBoundingClientRect();
+          const elementTop = elementRect.top + window.pageYOffset;
+
+          // ReGelTec question appears later in the FAQ list, so needs a larger offset
+          const regelTecQuestionOffset = 350; // Increased offset for ReGelTec question
+          const targetScrollPosition =
+            elementTop + regelTecQuestionOffset - viewportHeight / 2;
+
+          window.scrollTo({
+            top: targetScrollPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }, 500);
   };
   const handleHydrafilClick = () => {
-    handleClickScroll("FAQs");
     // Reset both states first
     setOpenReGelTecFaq(false);
     setOpenHydrafil(false);
-    // Then set the correct one
-    setTimeout(() => setOpenHydrafil(true), 500);
+
+    setTimeout(() => {
+      setOpenHydrafil(true);
+
+      setTimeout(() => {
+        const element = document.getElementById("FAQs");
+        if (element) {
+          const viewportHeight = window.innerHeight;
+          const elementRect = element.getBoundingClientRect();
+          const elementTop = elementRect.top + window.pageYOffset;
+
+          // Adjust this offset based on where the Hydrafil question appears in your FAQ list
+          const hydrafilQuestionOffset = 200;
+          const targetScrollPosition =
+            elementTop + hydrafilQuestionOffset - viewportHeight / 2;
+
+          window.scrollTo({
+            top: targetScrollPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }, 500);
   };
   const handleSubmit = (values) => {
     console.log(values, "values");
@@ -180,7 +220,7 @@ const Home = () => {
     <>
       <div className="">
         <div
-          className="h-[730px] pt-[100px]  "
+          className="h-[730px] lg:pt-[100px]  sm:pt-[95px] pt-[95px]"
           style={{
             backgroundImage:
               window.innerWidth >= 640 ? `url(${bgHome})` : "none",
@@ -196,7 +236,7 @@ const Home = () => {
                 {/* Left Content */}
                 <div className="lg:w-[55%] flex flex-col gap-4">
                   <div className="lg:mb-[10px] md:mb-[10px] sm:mb-0 mb-0">
-                    <p className="text-[#00B4F1] lg:text-[20px] md:text-[16px] sm:text-sm text-sm font-[500] uppercase tracking-widest">
+                    <p className="text-[#00B4F1] lg:text-[20px] md:text-[16px] sm:text-xs text-xs font-[500] uppercase tracking-widest">
                       CLINICAL RESEARCH STUDY
                     </p>
                   </div>
@@ -208,7 +248,7 @@ const Home = () => {
                     Degenerative Disc Disease
                   </h1>
 
-                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay leading-[30px] pt-[5px]">
+                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay leading-[30px] pt-[10px]">
                     Learn More About the HYDRAFIL-D Research Study for Patients{" "}
                     with Chronic Low Back Pain Caused by Degenerative Disc
                     Disease
@@ -279,11 +319,11 @@ const Home = () => {
         </div>
         <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px] container mx-auto lg:py-5 sm:py-0 py-0 responsive_infocards h-auto">
           <div className="p-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-[38px] lg:px-5 md:px-5">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 pb-[28px] lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative"
+                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing"
                   style={{
                     borderBottom:
                       index < 2 && window.innerWidth <= 1023
@@ -294,7 +334,7 @@ const Home = () => {
                   {/* Border right with fixed height for large devices */}
                   {index < 2 && window.innerWidth > 1023 && (
                     <div
-                      className="absolute right-0 top-[40px] transform -translate-y-1/2"
+                      className="absolute right-0 top-1/2 transform -translate-y-1/2"
                       style={{
                         width: "1px",
                         height: "70px",
@@ -323,11 +363,11 @@ const Home = () => {
                     )}
                   </div>
                   <div>
-                    <h3 className="font-[700] text-[#121229] text-[18px]">
+                    <h3 className="font-[700] text-[#121229] lg:text-[18px] md:text-[16px] text-[16px]">
                       {card.title}
                     </h3>
                     <p
-                      className="text-[#39394A] font-relay font-[400] text-[16px]"
+                      className="text-[#39394A] font-relay font-[400] lg:text-[16px] md:text-sm text-sm"
                       dangerouslySetInnerHTML={{ __html: card.description }}
                     />
                   </div>
@@ -400,7 +440,7 @@ const Home = () => {
                     className="backpain_img"
                   />
                 </div>
-                <div className="flex lg:mt-3 md:mt-3 sm:mt-3 mt-3 sm:flex-row space-y-4 sm:space-y-2 sm:space-x-6 space-x-4">
+                <div className="flex lg:mt-3 md:mt-3 sm:mt-3 mt-[25px] sm:flex-row space-y-4 sm:space-y-2 sm:space-x-6 space-x-4">
                   <button
                     onClick={() => handleClickScroll("nearLocation")}
                     className="cursor-pointer px-5 border-1 h-[50px] border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-cyan-50 transition-colors font-[500] lg:text-[16px] md:text-sm sm:text-xs text-xs"
@@ -425,7 +465,7 @@ const Home = () => {
           className="container mx-auto pt-[15px] lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className=" ">
-          <div className="bg-[#e5f7fe] mx-auto lg:py-[65px] md:py-[30px] py-[30px] mt-4 px-4">
+          <div className="bg-[#e5f7fe] mx-auto lg:py-[65px] md:py-[30px] py-[30px] px-4">
             <div className="container mx-auto">
               <div className="flex lg:flex-row items-center gap-8 md:flex-col sm:flex-col-reverse flex-col-reverse">
                 {/* Left Side - Image of Device */}

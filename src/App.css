@@ -19,7 +19,7 @@ html,
 body {
   background: #fff;
 }
-
+ 
 .leaflet-popup-content-wrapper {
   width: 300px;
 }
@@ -32,7 +32,14 @@ body {
 ::placeholder {
   font-size: 14px !important;
 }
-
+.container {
+    @media (width >= 96rem) {
+        max-width: 96rem !important;
+    }
+      @media (width <= 96rem) {
+        max-width: 85rem !important;
+    }
+}
 @media (min-width: 1441px) {
   .responsive_about_hydra {
     padding-right: 10rem;
@@ -45,12 +52,23 @@ body {
   }
 }
 @media (max-width: 1440px) {
-  .container {
+ .container {
     max-width: 1250px !important;
   }
   .backpain_img {
     max-width: 100%;
   }
+}
+
+@media (max-width: 1024px) {
+.header_qualify{
+  width: 180px;
+}
+}
+@media (max-width: 992px) {
+.infocard_spacing{
+  padding-bottom: 30px;
+}
 }
 @media (max-width: 650px) {
   .responsive_bgimage {
@@ -72,8 +90,8 @@ body {
     display: none;
   }
   .responsive_logo {
-    /* width: 150px; */
-    height: 37px;
+    width: 123px;
+    height: 38px;
   }
 }
 @media (max-width: 475px) {
@@ -81,14 +99,14 @@ body {
     height: 250px;
   }
   .responsive_infocards {
-    margin-top: 0rem;
+    margin-top: 1rem;
   }
 }
-@media (max-width: 450px) {
+/* @media (max-width: 450px) {
   .responsive_infocards {
     margin-top: 3rem;
   }
-}
+} */
 
 @media (max-width: 425px) {
   .responsive_bgimage {

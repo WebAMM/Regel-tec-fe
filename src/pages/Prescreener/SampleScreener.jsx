@@ -418,7 +418,10 @@ const SampleScreener = () => {
                   </label>
                   <div className="flex text-[#39394A] font-relay items-center justify-between lg:w-[150px] sm:w-[100px] w-[100px] mt-[30px] mb-2 gap-5">
                     {question.meta.options.map((option) => (
-                      <div className="flex lg:items-center sm:items-start items-start gap-2" key={option._id}>
+                      <div
+                        className="flex lg:items-center sm:items-start items-start gap-2"
+                        key={option._id}
+                      >
                         <input
                           id={`radio-${question.questionId}-${option._id}`}
                           type="radio"
@@ -522,7 +525,7 @@ const SampleScreener = () => {
       <div className="container mx-auto">
         <div className="text-center">
           <Header isQualified={submitForm} />
-          <div className="bg-white shadow-lg rounded-xl w-full lg:h-[480px] md:h-[420px] sm:h-auto h-auto p-10 border border-[#DDE2E5]">
+          <div className="bg-white shadow-lg rounded-xl w-full h-auto p-10 border border-[#DDE2E5]">
             <ProgressStepper submitForm={submitForm} />
             {!submitForm ? (
               <>
