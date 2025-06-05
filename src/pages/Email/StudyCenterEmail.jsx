@@ -27,7 +27,7 @@ const StudyCenterEmail = () => {
 
     }
     const columns = [
-        { accessor: "to", header: "From" },
+        { accessor: "to", header: "To" },
         { accessor: "subject", header: "Subject" },
         { accessor: "date", header: "Date" },
 

@@ -220,7 +220,7 @@ const Home = () => {
     <>
       <div className="">
         <div
-          className="h-[730px] lg:pt-[100px]  sm:pt-[95px] pt-[95px]"
+          className="h-[730px] pt-[100px]"
           style={{
             backgroundImage:
               window.innerWidth >= 640 ? `url(${bgHome})` : "none",
@@ -230,11 +230,11 @@ const Home = () => {
           }}
         >
           {/* Hero Section */}
-          <div className="container mx-auto">
-            <div className=" mx-auto px-6 lg:py-12 md:py-10 sm:py-3 py-3">
+          <div className="container mx-auto xl:px-0 lg:px-8 md:px-5 px-5">
+            <div className=" mx-auto lg:py-12 md:py-10 sm:py-3 py-3">
               <div className="flex relative flex-col lg:flex-row items-start lg:pt-4 md:pt-[10px] pt-[10px]">
                 {/* Left Content */}
-                <div className="lg:w-[55%] flex flex-col gap-4">
+                <div className="lg:w-[55%] flex flex-col">
                   <div className="lg:mb-[10px] md:mb-[10px] sm:mb-0 mb-0">
                     <p className="text-[#00B4F1] lg:text-[20px] md:text-[16px] sm:text-xs text-xs font-[500] uppercase tracking-widest">
                       CLINICAL RESEARCH STUDY
@@ -242,14 +242,15 @@ const Home = () => {
                   </div>
 
                   <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px]">
-                    Investigating a New Treatment <br /> for People Suffering
-                    from
-                    <br />
-                    Degenerative Disc Disease
+                    Investigating a New Treatment{" "}
+                    <br className="sm:block hidden" /> for People Suffering from
+                    <br className="sm:block hidden" />
+                    { " "} Degenerative Disc Disease
                   </h1>
 
                   <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay leading-[30px] pt-[10px]">
                     Learn More About the HYDRAFIL-D Research Study for Patients{" "}
+                    <br className="2xl:hidden" />
                     with Chronic Low Back Pain Caused by Degenerative Disc
                     Disease
                   </p>
@@ -317,13 +318,13 @@ const Home = () => {
           </div>
           {/* Info Cards Section */}
         </div>
-        <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px] container mx-auto lg:py-5 sm:py-0 py-0 responsive_infocards h-auto">
-          <div className="p-4">
+        <div className="xl:mt-[-76px] lg:mt-[0px] mt-0 rounded-[12px] container mx-auto lg:py-5 sm:py-0 py-0 responsive_infocards h-auto lg:px-0 md:px-5 px-5">
+          <div className="py-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1 gap-y-10 gap-x-5 bg-[#E5F7FE] responsive_inner_info rounded-2xl py-[38px] lg:px-5 md:px-5">
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className="flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing"
+                className={`flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing ${index === infoCards.length - 1 ? 'last-infocard' : ''}`}
                   style={{
                     borderBottom:
                       index < 2 && window.innerWidth <= 1023
@@ -382,15 +383,15 @@ const Home = () => {
           id="Degenerative Disc"
         ></div>
         <div>
-          <div className="container mx-auto pt-[10px] lg:px-0 md:px-0 sm:px-0 px-0">
-            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs px-5">
+          <div className="container mx-auto pt-[10px] xl:px-0 lg:px-8 md:px-5 sm:px-5 px-5">
+            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-sm sm:text-xs text-xs">
               CHRONIC LOW BACK PAIN DUE TO DDD
             </h2>
           </div>
-          <div className="container mx-auto lg:mb-[40px] md:mb-[30px] sm:mb-[20px] mb-[20px] lg:px-0 md:px-5 sm:px-5 px-5">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-0 lg:px-5 md:px-0 px-0">
+          <div className="container mx-auto lg:mb-[40px] md:mb-[30px] sm:mb-[20px] mb-[20px] xl:px-0 lg:px-8 md:px-5 sm:px-5 px-5">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-0">
               <div className="lg:w-[55%] w-full">
-                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[20px] mt-[5px]">
+                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
                   About Degenerative Disc Disease
                 </h2>
 
@@ -462,11 +463,11 @@ const Home = () => {
         {/* About The HYDRAFIL-D Study Section */}
         <div
           id="Study Overview"
-          className="container mx-auto pt-[15px] lg:px-0 md:px-5 sm:px-5 px-5"
+          className="container mx-auto pt-[40px] lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className=" ">
           <div className="bg-[#e5f7fe] mx-auto lg:py-[65px] md:py-[30px] py-[30px] px-4">
-            <div className="container mx-auto">
+            <div className="container mx-auto lg:px-5 md:px-5 px-5">
               <div className="flex lg:flex-row items-center gap-8 md:flex-col sm:flex-col-reverse flex-col-reverse">
                 {/* Left Side - Image of Device */}
                 {/* <div className="pe-8"> */}
@@ -479,7 +480,7 @@ const Home = () => {
 
                 {/* Right Side - Text Content */}
                 <div className="lg:w-[55%] flex flex-col">
-                  <div className="mb-4">
+                  <div className="mb-[5px]">
                     <div className="text-[#00B4F1] font-[500] uppercase tracking-widest text-[16px]">
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
                     </div>
@@ -492,7 +493,7 @@ const Home = () => {
                     This research study is being sponsored by{" "}
                     <a
                       href="https://regeltec.com/"
-                      className="text-[#00B4F1] cursor-pointer"
+                      className="text-[#00B4F1] cursor-pointer underline"
                       onClick={(e) => {
                         e.preventDefault();
                         handleReGelTecClick();
@@ -506,7 +507,7 @@ const Home = () => {
 
                   <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm leading-relaxed">
                     <span
-                      className="text-[#00B4F1] cursor-pointer"
+                      className="text-[#00B4F1] cursor-pointer underline"
                       onClick={(e) => {
                         e.preventDefault();
                         handleHydrafilClick();
@@ -527,7 +528,7 @@ const Home = () => {
                     improve function for people with chronic low back pain due
                     to DDD.
                   </p>
-                  <div className="mt-[10px] responsive_about_hydra lg:hidden sm:block">
+                  <div className="mt-[10px] lg:hidden sm:block">
                     <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
                       Approximately 225 adults with chronic low back pain will
                       participate in this research study at multiple study{" "}
@@ -680,7 +681,7 @@ const Home = () => {
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div> */}
         <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px]">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto">
             <div className="text-center mb-6">
               <h2
                 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2 "
@@ -729,8 +730,8 @@ const Home = () => {
           className="container mx-auto pt-5 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
         <div className="bg-white lg:py-14 md:py-8 sm:py-4 py-4">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-2">
+          <div className="container mx-auto text-center">
+            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] sm:text-sm text-sm mb-2">
               TAKE THE PRE-SCREENER
             </h2>
 
@@ -835,8 +836,8 @@ const Home = () => {
           id="FAQs"
           className="container mx-auto lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-white lg:py-[15px] md:py-4 sm:py-2 py-2">
-          <div className="container mx-auto px-4">
+        <div className="bg-white lg:py-[30px] md:py-4 sm:py-2 py-2">
+          <div className="container mx-auto xl:px-0 lg:px-8 px-8">
             <h3 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[5px]">
               FAQS
             </h3>
@@ -869,16 +870,16 @@ const Home = () => {
               </span>
               .
             </p>
-            <div className="flex justify-end space-x-3">
+            <div className="flex justify-center space-x-3">
               <button
                 onClick={() => window.open("https://regeltec.com/", "_blank")}
-                className="px-6 py-2 border border-[#00B4F1] text-[#00B4F1] rounded text-sm font-medium hover:bg-blue-50"
+                className="px-5 py-[10px] border border-[#00B4F1] text-[#00B4F1] font-medium hover:bg-blue-50 rounded-full lg:text-[16px] md:text-sm text-sm"
               >
                 Leave Website
               </button>
               <button
                 onClick={handleLocationModalOk}
-                className="px-8 py-2 bg-[#00B4F1] text-white rounded text-sm font-medium hover:bg-[#00b5f1d0] cursor-pointer"
+                className="px-8 py-[10px] bg-[#00B4F1] text-white font-medium hover:bg-[#00b5f1d0] cursor-pointer rounded-full lg:text-[16px] md:text-sm text-sm"
               >
                 OK
               </button>
