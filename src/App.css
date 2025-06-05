@@ -19,7 +19,7 @@ html,
 body {
   background: #fff;
 }
- 
+
 .leaflet-popup-content-wrapper {
   width: 300px;
 }
@@ -33,16 +33,11 @@ body {
   font-size: 14px !important;
 }
 .container {
-    @media (width >= 96rem) {
-        max-width: 96rem !important;
-    }
-      @media (width <= 96rem) {
-        max-width: 85rem !important;
-    }
-}
-@media (min-width: 1441px) {
-  .responsive_about_hydra {
-    padding-right: 10rem;
+  @media (width >= 96rem) {
+    max-width: 96rem !important;
+  }
+  @media (width <= 96rem) {
+    max-width: 85rem !important;
   }
 }
 
@@ -52,7 +47,7 @@ body {
   }
 }
 @media (max-width: 1440px) {
- .container {
+  .container {
     max-width: 1250px !important;
   }
   .backpain_img {
@@ -61,25 +56,30 @@ body {
 }
 
 @media (max-width: 1024px) {
-.header_qualify{
-  width: 180px;
-}
+  .header_qualify {
+    width: 180px;
+  }
 }
 @media (max-width: 992px) {
-.infocard_spacing{
-  padding-bottom: 30px;
-}
+  .infocard_spacing {
+    padding-bottom: 30px;
+  }
+  
 }
 @media (max-width: 650px) {
   .responsive_bgimage {
-    height: 250px;
+    margin-top: 25px;
+    height: 300px;
     width: 600px;
-  }
-  .responsive_infocards {
-    margin-top: 2rem;
   }
 }
 @media (max-width: 576px) {
+  .responsive_bgimage {
+    margin-top: 5px;
+  }
+   .infocard_spacing.last-infocard {
+    padding-bottom: 8px !important;
+  }
   .hero-bg-mobile {
     background-size: 100% auto !important;
     background-position: center bottom !important;
@@ -94,33 +94,34 @@ body {
     height: 38px;
   }
 }
-@media (max-width: 475px) {
-  .responsive_bgimage {
-    height: 250px;
-  }
-  .responsive_infocards {
-    margin-top: 1rem;
-  }
-}
-/* @media (max-width: 450px) {
-  .responsive_infocards {
-    margin-top: 3rem;
-  }
-} */
 
 @media (max-width: 425px) {
   .responsive_bgimage {
+    height: 250px;
+  }
+}
+@media (max-width: 400px) {
+  .responsive_bgimage {
     height: 200px;
+  }
+   .responsive_infocards{
+    margin-top: 3rem;
+  }
+}
+@media (max-width: 375px) {
+  .responsive_bgimage {
+    height: 200px;
+  }
+  .responsive_infocards{
+    margin-top: 5rem;
   }
 }
 
-@media (max-width: 400px) {
-  .responsive_inner_info {
-    margin-top: 4rem;
-  }
-}
 @media (max-width: 350px) {
-  .responsive_inner_info {
-    margin-top: 12rem;
+  .responsive_bgimage {
+    height: 180px;
+  }
+  .responsive_infocards{
+    margin-top: 7rem;
   }
 }

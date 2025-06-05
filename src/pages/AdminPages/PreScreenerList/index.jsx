@@ -21,7 +21,7 @@ const columns = [
 
         <div className="flex items-center justify-center border rounded-sm border-gray-300">
           <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-          <p className="text-base text-gray-800">{questionStatus ? "Assined" : 'unAssined'}</p>
+          <p className="text-base text-gray-800">{questionStatus ? "Assigned" : 'unAssigned'}</p>
         </div>
       )
     }
