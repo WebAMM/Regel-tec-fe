@@ -234,21 +234,20 @@ const Home = () => {
             <div className=" mx-auto lg:py-12 md:py-10 sm:py-3 py-3">
               <div className="flex relative flex-col lg:flex-row items-start lg:pt-4 md:pt-[10px] pt-[10px]">
                 {/* Left Content */}
-                <div className="lg:w-[55%] flex flex-col">
+                <div className="lg:w-[55%] flex flex-col w-[100%]">
                   <div className="lg:mb-[10px] md:mb-[10px] sm:mb-0 mb-0">
                     <p className="text-[#00B4F1] lg:text-[20px] md:text-[16px] sm:text-xs text-xs font-[500] uppercase tracking-widest">
                       CLINICAL RESEARCH STUDY
                     </p>
                   </div>
 
-                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px]">
+                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px] lg:pt-0 sm:pt-5 pt-5">
                     Investigating a New Treatment{" "}
                     <br className="sm:block hidden" /> for People Suffering from
-                    <br className="sm:block hidden" />
-                    { " "} Degenerative Disc Disease
+                    <br className="sm:block hidden" /> Degenerative Disc Disease
                   </h1>
 
-                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay leading-[30px] pt-[10px]">
+                  <p className="text-[#39394A] font-[400] lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:text-[18px] md:text-[16px] sm:text-xs text-xs font-relay lg:leading-[30px] md:leading-[30px] sm:leading-[20px] leading-[20px] lg:pt-[10px] sm:pt-5 pt-6">
                     Learn More About the HYDRAFIL-D Research Study for Patients{" "}
                     <br className="2xl:hidden" />
                     with Chronic Low Back Pain Caused by Degenerative Disc
@@ -256,8 +255,8 @@ const Home = () => {
                   </p>
 
                   {/* Features with Checkmarks */}
-                  <div className="w-[85%]">
-                    <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 sm:gap-[15px] gap-[15px] lg:mb-6 md:mb-4 sm:mb-4 mb-4">
+                  <div className="lg:w-[85%] md:w-[100%] w-full">
+                    <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:gap-4 sm:gap-[15px] gap-[15px] lg:mb-6 md:mb-4 sm:mb-4 mb-4 lg:pt-0 sm:pt-[30px] pt-[30px]">
                       {featureItems.map((item, index) => (
                         <div
                           key={index}
@@ -324,7 +323,9 @@ const Home = () => {
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                className={`flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing ${index === infoCards.length - 1 ? 'last-infocard' : ''}`}
+                  className={`flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing ${
+                    index === infoCards.length - 1 ? "last-infocard" : ""
+                  }`}
                   style={{
                     borderBottom:
                       index < 2 && window.innerWidth <= 1023
@@ -391,7 +392,7 @@ const Home = () => {
           <div className="container mx-auto lg:mb-[40px] md:mb-[30px] sm:mb-[20px] mb-[20px] xl:px-0 lg:px-8 md:px-5 sm:px-5 px-5">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:gap-4 gap-0">
               <div className="lg:w-[55%] w-full">
-                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] mt-[5px]">
+                <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-[5px] lg:mt-[5px] sm:mt-[20px] mt-[15px]">
                   About Degenerative Disc Disease
                 </h2>
 
@@ -532,7 +533,7 @@ const Home = () => {
                     <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
                       Approximately 225 adults with chronic low back pain will
                       participate in this research study at multiple study{" "}
-                      <span
+                      <span 
                         onClick={() => handleClickScroll("nearLocation")}
                         className="text-[#00B4F1] hover:underline cursor-pointer underline"
                       >
