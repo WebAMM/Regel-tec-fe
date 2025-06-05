@@ -44,7 +44,7 @@ const PopUpSection = ({ center, zipcode, setSelectedMarker }) => {
         </span>
       </div>
       <button
-        className="w-full bg-cyan-500 text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-medium"
+        className="w-full bg-[#00B4F1] text-white rounded-full py-2 hover:bg-cyan-600 transition-colors font-normal text-sm"
         onClick={() => handleCenter(center)}
       >
         Select This Location

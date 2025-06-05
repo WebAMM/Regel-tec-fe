@@ -522,7 +522,7 @@ const SampleScreener = () => {
   // console.log(contactData, 'contactData')
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
-      <div className="container mx-auto">
+      <div className="container mx-auto lg:px-0 md:px-6 px-6">
         <div className="text-center">
           <Header isQualified={submitForm} />
           <div className="bg-white shadow-lg rounded-xl w-full h-auto p-10 border border-[#DDE2E5]">

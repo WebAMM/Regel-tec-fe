@@ -121,7 +121,7 @@ const ContactForm = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
-        <div className="container mx-auto">
+        <div className="container mx-auto xl:px-0 lg:px-6 md:px-6 px-6">
           <div className="text-center">
             <Typography
               variant="h6"

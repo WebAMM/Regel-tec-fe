@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <header className="w-full bg-white z-[1001] shadow-sm mb-2 fixed top-0 left-0">
-      <div className="container mx-auto px-8 flex items-center justify-between lg:pt-10 md:pt-8 pt-8 py-3">
+      <div className="container mx-auto xl:px-0 lg:px-8 md:px-5 px-5 flex items-center justify-between lg:pt-10 md:pt-8 pt-8 py-3">
         {/* Logo */}
         <div
           className="cursor-pointer"

@@ -50,13 +50,14 @@ const CookiesModal = ({ handlePrivacyPolicyClick }) => {
               computer. These cookies are used to improve your website
               experience and provide more personalized services to you, both on
               this website and through other media. To find out more about the
-              cookies we use, see our &nbsp;{" "}
+              cookies we use, see our{"  "}
               <span
                 className="text-[#00B4F1] underline cursor-pointer"
                 onClick={handlePrivacyPolicyClick}
               >
-                Privacy Policy.
-              </span>{" "}
+                Privacy Policy
+              </span>
+              <span className="text-[#39394A]">.</span>
             </p>
             <p className="text-sm text-gray-600 leading-relaxed">
               We won't track your information when you visit our website. But in
@@ -65,7 +66,7 @@ const CookiesModal = ({ handlePrivacyPolicyClick }) => {
             </p>
           </div>
         </div>
-        <div className="flex space-x-3 lg:justify-end mt-5"> 
+        <div className="flex space-x-3 lg:justify-end mt-5">
           <button
             onClick={handleDeclineCookies}
             className="px-8 py-2 border border-[#00B4F1] text-[#00B4F1] rounded-full hover:bg-blue-50 transition-colors font-medium"
