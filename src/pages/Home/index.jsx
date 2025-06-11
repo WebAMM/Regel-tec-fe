@@ -220,7 +220,7 @@ const Home = () => {
     <>
       <div className="">
         <div
-          className="h-[730px] pt-[100px]"
+          className="h-[730px] pt-[100px] my_cards_height"
           style={{
             backgroundImage:
               window.innerWidth >= 640 ? `url(${bgHome})` : "none",
@@ -241,7 +241,7 @@ const Home = () => {
                     </p>
                   </div>
 
-                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[35px] leading-[35px] lg:pt-0 sm:pt-5 pt-5">
+                  <h1 className="lg:text-[40px] md:text-[30px] sm:text-2xl text-2xl font-[700] text-gray-800 lg:mb-4 md:mb-3 sm:mb-0 mb-0 lg:leading-[50px] md:leading-[40px] sm:leading-[30px] leading-[30px] lg:pt-0 sm:pt-5 pt-5">
                     Investigating a New Treatment{" "}
                     <br className="sm:block hidden" /> for People Suffering from
                     <br className="sm:block hidden" /> Degenerative Disc Disease
@@ -285,7 +285,7 @@ const Home = () => {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="flex lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6 flex-wrap gap-3">
+                  <div className="flex lg:space-y-4 md:space-y-3 sm:space-y-2 space-y-2 sm:space-x-6 flex-wrap gap-3 pt-3">
                     <button
                       type="button"
                       onClick={() => handleClickScroll("nearLocation")}
@@ -468,7 +468,7 @@ const Home = () => {
         ></div>
         <div className=" ">
           <div className="bg-[#e5f7fe] mx-auto lg:py-[65px] md:py-[30px] py-[30px] px-4">
-            <div className="container mx-auto lg:px-5 md:px-5 px-5">
+            <div className="container mx-auto">
               <div className="flex lg:flex-row items-center gap-8 md:flex-col sm:flex-col-reverse flex-col-reverse">
                 {/* Left Side - Image of Device */}
                 {/* <div className="pe-8"> */}
@@ -480,7 +480,8 @@ const Home = () => {
                 {/* </div> */}
 
                 {/* Right Side - Text Content */}
-                <div className="lg:w-[55%] flex flex-col">
+                 {/* <div className="lg:w-[55%] flex flex-col"> */}
+                <div className="w-full flex flex-col">
                   <div className="mb-[5px]">
                     <div className="text-[#00B4F1] font-[500] uppercase tracking-widest text-[16px]">
                       HELP US EVALUATE A POTENTIAL NEW TREATMENT FOR DDD
@@ -864,7 +865,7 @@ const Home = () => {
               you confirm that you are an adult over 18 years of age located in
               the United States, and you agree to the terms of our
               <span
-                className="text-[#00B4F1] cursor-pointer"
+                className="text-[#00B4F1] cursor-pointer underline"
                 onClick={handlePrivacyPolicyClick}
               >
                 &nbsp; Privacy Policy
