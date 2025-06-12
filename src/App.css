@@ -65,6 +65,13 @@ body {
     padding-bottom: 30px;
   }
 }
+@media (max-width: 768px) {
+.copyright_class{
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
+}
 @media (max-width: 650px) {
   .responsive_bgimage {
     height: 300px;

@@ -599,11 +599,11 @@ const Home = () => {
                 <h2 className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] text-[16px] mb-2">
                   ELIGIBILITY CRITERIA
                 </h2>
-                <h3 className="lg:text-[28px] md:text-[24px] sm:text-xl text-lg font-[700] text-[#121229] mb-2 text-center">
-                  There are many important criteria that you must <br /> meet to
+                <h3 className="lg:text-[28px] md:text-[24px] sm:text-lg text-lg font-[700] text-[#121229] mb-2 text-center xl:px-0 lg:px-8 md:px-8 sm:px-8 px-8">
+                  There are many important criteria that you must meet to
                   be eligible for this study, including*:
                 </h3>
-                <p className="text-[#39394A] text-[18px] font-[400] italic">
+                <p className="text-[#39394A] lg:text-[16px] sm:text-sm text-sm font-[400] italic">
                   *There are additional eligibility criteria
                 </p>
               </div>
@@ -682,7 +682,7 @@ const Home = () => {
         
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div> */}
-        <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px]">
+        <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px] xl:px-0 lg:px-6 px-6">
           <div className="container mx-auto">
             <div className="text-center mb-6">
               <h2
