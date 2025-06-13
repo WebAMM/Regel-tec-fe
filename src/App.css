@@ -40,7 +40,9 @@ body {
     max-width: 85rem !important;
   }
 }
-
+.backdrop_class{
+  backdrop-filter: blur(5px);
+}
 @media (min-width: 1440px) {
   .backpain_img {
     max-width: 400px;
@@ -64,6 +66,13 @@ body {
   .infocard_spacing {
     padding-bottom: 30px;
   }
+}
+@media (max-width: 768px) {
+.copyright_class{
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
 }
 @media (max-width: 650px) {
   .responsive_bgimage {

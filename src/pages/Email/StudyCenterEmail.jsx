@@ -6,11 +6,11 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import EmailDetail from './EmailDetail';
 import { useState } from 'react';
 
-const StudyCenterEmail = () => {
+const StudyCenterEmail = ({ searchTerm }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [id, setId] = useState(false);
 
-    const { data: emails, isLoading } = useGetReferralEmailsQuery()
+    const { data: emails, isLoading } = useGetReferralEmailsQuery({ search: searchTerm })
     const [deleteEmailById] = useDeleteEmailByIdMutation()
     console.log(emails?.data, 'emails')
     const handleDetail = (row) => {

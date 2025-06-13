@@ -198,7 +198,24 @@ const SampleScreener = () => {
         }
         continue; // Skip this iteration and move to the next question
       }
+// Height validation
+    if (question.title === "How tall are you? (inches)") {
+      const questionAnswer = groupedData.data.find(
+        (item) => item.questionId === question.questionId
+      );
+      
+      if (!questionAnswer || questionAnswer.answer === "") {
+        setValidationError("Please complete all questions in this section.");
+        return false;
+      }
 
+      const height = parseInt(questionAnswer.answer);
+      if (isNaN(height) || height < 48 || height > 95) {
+        setValidationError("Height must be between 48 and 95 inches.");
+        return false;
+      }
+      continue;
+    }
       const questionAnswer = groupedData.data.find(
         (item) => item.questionId === question.questionId
       );
@@ -361,14 +378,29 @@ const SampleScreener = () => {
                             (item) => item.questionId === question.questionId
                           )?.answer || ""
                     }
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      if (
+                        question.title === "How tall are you? (inches)" &&
+                        e.target.value.includes(".")
+                      ) {
+                        return;
+                      }
                       handleInputChange(
                         question.questionId,
                         e.target.value,
                         section.sectionId,
                         question.title
-                      )
-                    }
+                      );
+                    }}
+                    onKeyDown={(e) => {
+                      // Prevent decimal point for height input
+                      if (
+                        question.title === "How tall are you? (inches)" &&
+                        e.key === "."
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="border border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
                     readOnly={
                       question.title === "Zip Code" && state?.userLocation
