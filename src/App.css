@@ -40,7 +40,9 @@ body {
     max-width: 85rem !important;
   }
 }
-
+.backdrop_class{
+  backdrop-filter: blur(5px);
+}
 @media (min-width: 1440px) {
   .backpain_img {
     max-width: 400px;

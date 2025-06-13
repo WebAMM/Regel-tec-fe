@@ -52,13 +52,25 @@ export const api = createApi({
     }),
     //////////////////////////// study center
     getAllStudyCenter: builder.query({
-      query: ({ status, page, limit }) => ({
+      query: ({
+        status,
+        page,
+        limit,
+        search,
+        location,
+        startDate,
+        endDate,
+      }) => ({
         url: `/studyCenter`,
         method: "GET",
         params: {
           status,
           page,
           limit,
+          search,
+          location,
+          startDate,
+          endDate,
         },
       }),
       providesTags: ["studyCenter"],
@@ -96,9 +108,14 @@ export const api = createApi({
     //////////////////////////// pre screener
 
     getAllQuestions: builder.query({
-      query: () => ({
+      query: ({ search, status, sectionName }) => ({
         url: `/question`,
         method: "GET",
+        params: {
+          search,
+          status,
+          sectionName,
+        },
       }),
       providesTags: ["allQuestions"],
     }),
@@ -174,13 +191,27 @@ export const api = createApi({
     }),
     //////////////////////////// Mvp
     getAllMvpList: builder.query({
-      query: ({ page, limit, studyCenterStatus }) => ({
+      query: ({
+        page,
+        limit,
+        studyCenterStatus,
+        search,
+        studyCenter,
+        gender,
+        startDate,
+        endDate,
+      }) => ({
         url: "/mvp",
         method: "GET",
         params: {
           page,
           limit,
           studyCenterStatus,
+          search,
+          studyCenter,
+          gender,
+          startDate,
+          endDate,
         },
       }),
       providesTags: ["Mvps"],
@@ -194,16 +225,22 @@ export const api = createApi({
 
     //////////////////////////// Emails
     getMvpEmails: builder.query({
-      query: () => ({
+      query: ({ search }) => ({
         url: "/email/mvp",
         method: "GET",
+        params: {
+          search,
+        },
       }),
       providesTags: ["MvpEmails"],
     }),
     getReferralEmails: builder.query({
-      query: () => ({
+      query: ({ search }) => ({
         url: "/email/referral",
         method: "GET",
+        params: {
+          search,
+        },
       }),
       providesTags: ["ReferralEmails"],
     }),
