@@ -6,7 +6,10 @@ import { GoPlusCircle } from 'react-icons/go';
 import Tabs from '../../components/Tabs'
 import StudyCenterEmail from './StudyCenterEmail';
 import MvpEmails from './MvpEmails';
+import { useDebounce } from "../../components/hooks/useDebounce";
 const Emails = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
     const [activeTab, setActiveTab] = useState(0);
     const tabs = ['Study Center Emails', 'MVP Emails'];
 
@@ -22,7 +25,9 @@ const Emails = () => {
                         <input
                             type="text"
                             className="border-[1px] border-[#B2B2B25E] px-[10px] ps-[30px] w-full h-[50px] rounded-[12px]"
-                            placeholder="search By Name..."
+                            placeholder="Search By Name..."
+                             value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                         <LuSearch className="absolute top-[18px] left-[8px]" />
                     </div>
@@ -43,11 +48,11 @@ const Emails = () => {
             />
             <div className="mt-6 p-4 ">
                 {activeTab === 0 && (
-                    <StudyCenterEmail />
+                    <StudyCenterEmail searchTerm={debouncedSearchTerm}/>
                 )}
 
                 {activeTab === 1 && (
-                    <MvpEmails />
+                    <MvpEmails searchTerm={debouncedSearchTerm}/>
                 )}
             </div>
         </>

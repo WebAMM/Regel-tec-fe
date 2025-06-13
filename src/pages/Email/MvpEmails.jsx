@@ -5,9 +5,9 @@ import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import EmailDetail from './EmailDetail';
 
-const MvpEmails = () => {
+const MvpEmails = ({ searchTerm }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const { data: emails, isLoading } = useGetMvpEmailsQuery()
+    const { data: emails, isLoading } = useGetMvpEmailsQuery({ search: searchTerm })
     const [deleteEmailById] = useDeleteEmailByIdMutation()
     const [id, setId] = useState(false);
 
