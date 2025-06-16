@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
+    // baseUrl: "https://regel-medical-be.vercel.app/api",
     baseUrl: "https://regel-medical-be.duckdns.org/api",
 
     prepareHeaders: (headers, { getState }) => {
@@ -108,15 +109,19 @@ export const api = createApi({
     //////////////////////////// pre screener
 
     getAllQuestions: builder.query({
-      query: ({ search, status, sectionName }) => ({
-        url: `/question`,
-        method: "GET",
-        params: {
-          search,
-          status,
-          sectionName,
-        },
-      }),
+      query: ({ search, status, sectionName }) => {
+        // Filter out empty parameters
+        const params = {};
+        if (search) params.search = search;
+        if (status) params.status = status;
+        if (sectionName) params.sectionName = sectionName;
+
+        return {
+          url: `/question`,
+          method: "GET",
+          params,
+        };
+      },
       providesTags: ["allQuestions"],
     }),
 
@@ -257,6 +262,31 @@ export const api = createApi({
       }),
       invalidatesTags: ["ReferralEmails", "MvpEmails"],
     }),
+    updateQuestionStatus: builder.mutation({
+      query: ({ questionId, isActive }) => ({
+        url: `/question/update-status`,
+        method: "PATCH",
+        body: { questionId, isActive },
+      }),
+      invalidatesTags: ["allQuestions"],
+    }),
+    deleteQuestion: builder.mutation({
+  query: (questionId) => ({
+    url: `/question/${questionId}/delete`,
+    method: "DELETE",
+  }),
+  invalidatesTags: ["allQuestions"],
+}),
+exportMvpPdfReport: builder.mutation({
+  query: (mvpId) => ({
+    url: `/report/exportMvpPdfReport/${mvpId}`,
+    method: "GET",
+    responseHandler: async (response) => {
+      const blob = await response.blob();
+      return blob;
+    },
+  }),
+}),
   }),
 });
 export const {
@@ -285,4 +315,7 @@ export const {
   useDeleteEmailByIdMutation,
   useLazyGeneratePreScreeningExcelReportQuery,
   useUpdateStudyCenterStatusMutation,
+  useUpdateQuestionStatusMutation,
+  useDeleteQuestionMutation,
+  useExportMvpPdfReportMutation 
 } = api;

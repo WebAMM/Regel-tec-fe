@@ -5,32 +5,18 @@ import { LuSearch } from "react-icons/lu";
 import filterIcon from "../../../assets/images/filter.png";
 import { SharedTable } from "../../../components";
 import { useNavigate } from "react-router-dom";
-import { useGetAllQuestionsQuery } from "../../../api/apiSlice";
+import {
+  useDeleteQuestionMutation,
+  useGetAllQuestionsQuery,
+  useUpdateQuestionStatusMutation,
+} from "../../../api/apiSlice";
 import Loader from "../../../components/Loader";
 import ReusableTable from "../../../components/ReusableTable";
 import Pagination from "../../../components/Pagination";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import PreScreenerFilterModal from "./PreScreenerFilterModal";
-
-const columns = [
-  { accessor: "sectionOrder", header: "Section ID" },
-  { accessor: "questionTitle", header: "Question" },
-  { accessor: "questionType", header: "Type" },
-  {
-    accessor: "questionStatus",
-    header: "Status",
-    render: ({ questionStatus }) => {
-      return (
-        <div className="flex items-center justify-center border rounded-sm border-gray-300">
-          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-          <p className="text-base text-gray-800">
-            {questionStatus ? "Assigned" : "unAssigned"}
-          </p>
-        </div>
-      );
-    },
-  },
-];
+import { RiDeleteBin6Line } from "react-icons/ri";
+import PreScreenerDeleteModal from "./PresScreenerDeleteModal";
 
 const PreScreenerList = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -50,9 +36,79 @@ const PreScreenerList = () => {
     status: appliedFilters.status || "",
     sectionName: appliedFilters.sectionName || "",
   });
+  console.log("allQuestions", allQuestions);
+  const [updateQuestionStatus] = useUpdateQuestionStatusMutation();
+  console.log("updateQuestionStatus", updateQuestionStatus);
+  const [deleteQuestion] = useDeleteQuestionMutation();
+  // const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  // const [deleteId, setDeleteId] = useState(null);
+  const columns = [
+    { accessor: "sectionOrder", header: "Section ID" },
+    { accessor: "questionTitle", header: "Question" },
+    { accessor: "questionType", header: "Type" },
+    {
+      accessor: "questionStatus",
+      header: "Status",
+      render: (row) => {
+        const handleStatusChange = async (e) => {
+          const newStatus = e.target.value === "true";
+          try {
+            await updateQuestionStatus({
+              questionId: row.questionId,
+              isActive: newStatus,
+            }).unwrap();
+          } catch (error) {
+            console.error("Failed to update status:", error);
+          }
+        };
+
+        return (
+          <select
+            value={row.questionStatus.toString()}
+            onChange={handleStatusChange}
+            className="border border-gray-300 rounded px-2 py-1 text-sm"
+          >
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        );
+      },
+    },
+    // {
+    //   accessor: "",
+    //   header: "Action",
+    //   render: (row) => {
+    //     return (
+    //       <div className="flex gap-2">
+    //         <button
+    //           type="button"
+    //           className="rounded-[99px] bg-[#f2f9ff] text-blue-500 text-[18px] flex items-center justify-center cursor-pointer hover:shadow-lg p-2"
+    //           onClick={() => handleDelete(row)}
+    //         >
+    //           <RiDeleteBin6Line color="red" size={18} />
+    //         </button>
+    //       </div>
+    //     );
+    //   },
+    // },
+  ];
   const navigate = useNavigate();
 
   if (isLoading) return <div>Loading...</div>;
+  const handleDelete = (row) => {
+    setDeleteId(row.questionId);
+    setDeleteModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await deleteQuestion(deleteId).unwrap();
+      setDeleteModalOpen(false);
+      setDeleteId(null);
+    } catch (error) {
+      console.error("Failed to delete question:", error);
+    }
+  };
   return (
     <>
       <div className="flex items-center justify-between mb-5">
@@ -61,7 +117,7 @@ const PreScreenerList = () => {
             <input
               type="text"
               className="border-[1px] border-[#B2B2B25E] px-[10px] ps-[30px] w-full h-[50px] rounded-[12px]"
-              placeholder="search By Name..."
+              placeholder="Search By Name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -139,6 +195,14 @@ const PreScreenerList = () => {
         onApplyFilters={handleApplyFilters}
         currentFilters={appliedFilters}
       />
+      {/* <PreScreenerDeleteModal
+        open={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+          setDeleteId(null);
+        }}
+        onConfirm={confirmDelete}
+      /> */}
     </>
   );
 };

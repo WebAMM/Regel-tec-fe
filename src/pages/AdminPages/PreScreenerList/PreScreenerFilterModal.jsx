@@ -122,7 +122,7 @@ const PreScreenerFilterModal = ({
           </div>
 
           {/* Section Name */}
-          {/* <div>
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Section Name
             </label>
@@ -142,9 +142,9 @@ const PreScreenerFilterModal = ({
             {questionsLoading && (
               <p className="text-sm text-gray-500 mt-1">Loading sections...</p>
             )}
-          </div> */}
+          </div>
 
-           <div>
+           {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Section Name
             </label>
@@ -163,7 +163,7 @@ const PreScreenerFilterModal = ({
               <option value="Section7">Section 7</option>
               <option value="Section8">Section 8</option>
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Footer */}
