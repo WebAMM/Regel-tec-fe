@@ -124,7 +124,7 @@ const MvpsList = () => {
           <input
             type="text"
             className="border-[1px] border-[#B2B2B25E] px-[10px] ps-[30px] w-full h-[50px] rounded-[12px]"
-            placeholder="search By Name..."
+            placeholder="Search By Name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

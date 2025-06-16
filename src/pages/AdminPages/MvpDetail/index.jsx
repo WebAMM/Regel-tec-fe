@@ -15,7 +15,10 @@ const MvpDetail = () => {
     }
     return (
         <div className="space-y-2">
-            <InfoHeader userName={mvpDetail?.data?.user?.name} />
+            <InfoHeader 
+                userName={mvpDetail?.data?.user?.name} 
+                mvpId={data?.id} 
+            />
             <MvpInformation mvpData={mvpDetail?.data?.user} />
             <ScreenerQuestions questions={mvpDetail?.data?.PreScreenerAnswers} />
         </div>
