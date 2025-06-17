@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://regel-medical-be.vercel.app/api",
-    // baseUrl: "https://regel-medical-be.duckdns.org/api",
+    // baseUrl: "https://regel-medical-be.vercel.app/api",
+    baseUrl: "https://regel-medical-be.duckdns.org/api",
 
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
@@ -271,22 +271,22 @@ export const api = createApi({
       invalidatesTags: ["allQuestions"],
     }),
     deleteQuestion: builder.mutation({
-  query: (questionId) => ({
-    url: `/question/${questionId}/delete`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["allQuestions"],
-}),
-exportMvpPdfReport: builder.mutation({
-  query: (mvpId) => ({
-    url: `/report/exportMvpPdfReport/${mvpId}`,
-    method: "GET",
-    responseHandler: async (response) => {
-      const blob = await response.blob();
-      return blob;
-    },
-  }),
-}),
+      query: (questionId) => ({
+        url: `/question/${questionId}/delete`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["allQuestions"],
+    }),
+    exportMvpPdfReport: builder.mutation({
+      query: (mvpId) => ({
+        url: `/report/exportMvpPdfReport/${mvpId}`,
+        method: "GET",
+        responseHandler: async (response) => {
+          const blob = await response.blob();
+          return blob;
+        },
+      }),
+    }),
   }),
 });
 export const {
@@ -317,5 +317,5 @@ export const {
   useUpdateStudyCenterStatusMutation,
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
-  useExportMvpPdfReportMutation 
+  useExportMvpPdfReportMutation,
 } = api;
