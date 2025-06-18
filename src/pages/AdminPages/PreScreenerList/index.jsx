@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { GoPlusCircle } from "react-icons/go";
 import { LuSearch } from "react-icons/lu";
 import filterIcon from "../../../assets/images/filter.png";
@@ -19,6 +19,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import PreScreenerDeleteModal from "./PresScreenerDeleteModal";
 
 const PreScreenerList = () => {
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,11 +32,14 @@ const PreScreenerList = () => {
   // 4. Add handleApplyFilters function
   const handleApplyFilters = (filters) => {
     setAppliedFilters(filters);
+    setCurrentPage(1);
   };
   const { data: allQuestions, isLoading } = useGetAllQuestionsQuery({
     search: debouncedSearchTerm,
     status: appliedFilters.status || "",
     sectionName: appliedFilters.sectionName || "",
+    page: currentPage,
+    limit: pageSize,
   });
   console.log("allQuestions", allQuestions);
   const [updateQuestionStatus] = useUpdateQuestionStatusMutation();
@@ -93,22 +98,28 @@ const PreScreenerList = () => {
     // },
   ];
   const navigate = useNavigate();
-
+  const handlePageSizeChange = (newPageSize) => {
+  setPageSize(newPageSize);
+  setCurrentPage(1); // Reset to first page when page size changes
+};
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearchTerm]);
   if (isLoading) return <div>Loading...</div>;
-  const handleDelete = (row) => {
-    setDeleteId(row.questionId);
-    setDeleteModalOpen(true);
-  };
+  // const handleDelete = (row) => {
+  //   setDeleteId(row.questionId);
+  //   setDeleteModalOpen(true);
+  // };
 
-  const confirmDelete = async () => {
-    try {
-      await deleteQuestion(deleteId).unwrap();
-      setDeleteModalOpen(false);
-      setDeleteId(null);
-    } catch (error) {
-      console.error("Failed to delete question:", error);
-    }
-  };
+  // const confirmDelete = async () => {
+  //   try {
+  //     await deleteQuestion(deleteId).unwrap();
+  //     setDeleteModalOpen(false);
+  //     setDeleteId(null);
+  //   } catch (error) {
+  //     console.error("Failed to delete question:", error);
+  //   }
+  // };
   return (
     <>
       <div className="flex items-center justify-between mb-5">
@@ -188,7 +199,14 @@ const PreScreenerList = () => {
         data={allQuestions?.data?.data}
         total={60}
       />
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={allQuestions?.data?.totalPages || 1}
+        total={allQuestions?.data?.totalCount || 0}
+       pageSize={pageSize}
+        onPageChange={setCurrentPage}
+         onPageSizeChange={handlePageSizeChange}
+      />
       <PreScreenerFilterModal
         open={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}

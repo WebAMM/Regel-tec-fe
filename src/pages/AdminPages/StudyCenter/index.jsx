@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 import { LuSearch } from "react-icons/lu";
 import {
@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import StudyCenterFilterModal from "./StudyCenterFilterModal";
 const StudyCenter = () => {
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState({});
   const [isOpen, setIsOpen] = useState(false);
@@ -21,24 +23,29 @@ const StudyCenter = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { data: studyCenter, isLoading } = useGetAllStudyCenterQuery({
     status: appliedFilters.status || "",
-    page: 1,
-    limit: 10,
+    page: currentPage,
+    limit: pageSize,
     search: debouncedSearchTerm,
     location: appliedFilters.location || "",
     startDate: appliedFilters.startDate || "",
     endDate: appliedFilters.endDate || "",
   });
   const [updateStudyCenter] = useUpdateStudyCenterStatusMutation();
-const hasActiveFilters = () => {
-  return (
-    appliedFilters.status ||
-    appliedFilters.location ||
-    appliedFilters.startDate ||
-    appliedFilters.endDate
-  );
-};
+  const hasActiveFilters = () => {
+    return (
+      appliedFilters.status ||
+      appliedFilters.location ||
+      appliedFilters.startDate ||
+      appliedFilters.endDate
+    );
+  };
   const handleApplyFilters = (filters) => {
     setAppliedFilters(filters);
+    setCurrentPage(1);
+  };
+  const handlePageSizeChange = (newPageSize) => {
+    setPageSize(newPageSize);
+    setCurrentPage(1); // Reset to first page when page size changes
   };
   const handleStatus = async (e, row) => {
     try {
@@ -52,6 +59,10 @@ const hasActiveFilters = () => {
       toast.error(error?.data?.message || "Status Added Successfully");
     }
   };
+  // Reset to first page when search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearchTerm]);
   const columns = [
     { accessor: "name", header: "Study Center Name" },
     { accessor: "address", header: "Address" },
@@ -91,7 +102,7 @@ const hasActiveFilters = () => {
             <input
               type="text"
               className="border-[1px] border-[#B2B2B25E] px-[10px] ps-[30px] w-full h-[50px] rounded-[12px]"
-              placeholder="search Centers..."
+              placeholder="Search Centers..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -167,7 +178,14 @@ const hasActiveFilters = () => {
         data={studyCenter?.data?.data}
         total={60}
       />
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={studyCenter?.data?.totalPages || 1}
+        total={studyCenter?.data?.totalCount || 0}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={handlePageSizeChange}
+      />
       <AddStudyCenterModal open={isOpen} onClose={() => setIsOpen(false)} />
       <StudyCenterFilterModal
         open={isFilterOpen}
