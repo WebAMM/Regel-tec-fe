@@ -1,5 +1,5 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LuSearch } from "react-icons/lu";
 import filterIcon from "../../../assets/images/filter.png";
 import { MdOutlineFileDownload, MdOutlineRemoveRedEye } from "react-icons/md";
@@ -13,15 +13,16 @@ import { useDebounce } from "../../../components/hooks/useDebounce";
 import FilterModal from "./FilterModal"; // Import the FilterModal component
 
 const MvpsList = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [pageSize, setPageSize] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
   const [filterModalOpen, setFilterModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     gender: [],
-    studyCenterStatus: '',
-    studyCenter: '',
-    startDate: '',
-    endDate: ''
+    studyCenterStatus: "",
+    studyCenter: "",
+    startDate: "",
+    endDate: "",
   });
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -31,8 +32,8 @@ const MvpsList = () => {
   const buildQueryParams = () => {
     const params = {
       page: currentPage,
-      limit: 10,
-      search: debouncedSearchTerm
+      limit: pageSize,
+      search: debouncedSearchTerm,
     };
 
     // Add filters to params
@@ -43,7 +44,7 @@ const MvpsList = () => {
       params.studyCenter = filters.studyCenter;
     }
     if (filters.gender.length > 0) {
-      params.gender = filters.gender.join(','); // Send as comma-separated string
+      params.gender = filters.gender.join(","); // Send as comma-separated string
     }
     if (filters.startDate) {
       params.startDate = filters.startDate;
@@ -55,14 +56,24 @@ const MvpsList = () => {
     return params;
   };
 
-  const { data: mvpList, isLoading } = useGetAllMvpListQuery(buildQueryParams());
+  const { data: mvpList, isLoading } = useGetAllMvpListQuery(
+    buildQueryParams()
+  );
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearchTerm]);
 
+  const handlePageSizeChange = (newPageSize) => {
+    setPageSize(newPageSize);
+    setCurrentPage(1); // Reset to first page when page size changes
+  };
   const handleDetail = (row) => {
-    console.log(row, 'row');
-    navigate('/admin/mvp/detail', { state: { data: row } });
+    console.log(row, "row");
+    navigate("/admin/mvp/detail", { state: { data: row } });
   };
 
   const handleApplyFilters = (newFilters) => {
+    setCurrentPage(1);
     setFilters(newFilters);
     setCurrentPage(1); // Reset to first page when filters change
   };
@@ -95,21 +106,21 @@ const MvpsList = () => {
     { accessor: "submittedDate", header: "Submitted Date" },
     { accessor: "studyCenter", header: "Study Center" },
     {
-      accessor: "", 
-      header: "Action", 
+      accessor: "",
+      header: "Action",
       render: (row) => {
         return (
-          <div className='flex gap-2'>
+          <div className="flex gap-2">
             <button
-              type='button'
-              className='rounded-[99px] bg-[#f2f9ff] text-blue-500 text-[18px] flex items-center justify-center cursor-pointer hover:shadow-lg p-2'
+              type="button"
+              className="rounded-[99px] bg-[#f2f9ff] text-blue-500 text-[18px] flex items-center justify-center cursor-pointer hover:shadow-lg p-2"
               onClick={() => handleDetail(row)}
             >
               <MdOutlineRemoveRedEye color="gray" size={18} />
             </button>
           </div>
         );
-      }
+      },
     },
   ];
 
@@ -134,7 +145,7 @@ const MvpsList = () => {
           <Button
             variant="outlined"
             className={`h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 relative ${
-              hasActiveFilters() ? 'border-blue-500 bg-blue-50' : ''
+              hasActiveFilters() ? "border-blue-500 bg-blue-50" : ""
             }`}
             onClick={handleOpenFilterModal}
           >
@@ -155,10 +166,12 @@ const MvpsList = () => {
       {hasActiveFilters() && (
         <div className="mb-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-sm font-medium text-gray-700">Active Filters:</span>
+            <span className="text-sm font-medium text-gray-700">
+              Active Filters:
+            </span>
             {filters.gender.length > 0 && (
               <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                Gender: {filters.gender.join(', ')}
+                Gender: {filters.gender.join(", ")}
               </span>
             )}
             {filters.studyCenterStatus && (
@@ -182,13 +195,15 @@ const MvpsList = () => {
               </span>
             )}
             <button
-              onClick={() => handleApplyFilters({
-                gender: [],
-                studyCenterStatus: '',
-                studyCenter: '',
-                startDate: '',
-                endDate: ''
-              })}
+              onClick={() =>
+                handleApplyFilters({
+                  gender: [],
+                  studyCenterStatus: "",
+                  studyCenter: "",
+                  startDate: "",
+                  endDate: "",
+                })
+              }
               className="text-xs text-red-600 hover:text-red-800 underline"
             >
               Clear All
@@ -197,16 +212,19 @@ const MvpsList = () => {
         </div>
       )}
 
-      <ReusableTable 
-        columns={mvpColumns} 
-        data={mvpList?.data?.data} 
-        total={mvpList?.data?.total || 0} 
+      <ReusableTable
+        columns={mvpColumns}
+        data={mvpList?.data?.data}
+        total={mvpList?.data?.totalPages || 0}
       />
-      
-      <Pagination 
+
+      <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil((mvpList?.data?.total || 0) / 10)}
+        totalPages={mvpList?.data?.totalPages || 1}
+        total={mvpList?.data?.total || 0}
+        pageSize={pageSize}
         onPageChange={setCurrentPage}
+        onPageSizeChange={handlePageSizeChange}
       />
 
       {/* Filter Modal */}
