@@ -21,6 +21,7 @@ export const api = createApi({
     "Mvps",
     "MvpEmails",
     "ReferralEmails",
+    "Notifications",
   ],
   endpoints: (builder) => ({
     //////////////////////////// auth
@@ -271,22 +272,30 @@ export const api = createApi({
       invalidatesTags: ["allQuestions"],
     }),
     deleteQuestion: builder.mutation({
-  query: (questionId) => ({
-    url: `/question/${questionId}/delete`,
-    method: "DELETE",
-  }),
-  invalidatesTags: ["allQuestions"],
-}),
-exportMvpPdfReport: builder.mutation({
-  query: (mvpId) => ({
-    url: `/report/exportMvpPdfReport/${mvpId}`,
-    method: "GET",
-    responseHandler: async (response) => {
-      const blob = await response.blob();
-      return blob;
-    },
-  }),
-}),
+      query: (questionId) => ({
+        url: `/question/${questionId}/delete`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["allQuestions"],
+    }),
+    exportMvpPdfReport: builder.mutation({
+      query: (mvpId) => ({
+        url: `/report/exportMvpPdfReport/${mvpId}`,
+        method: "GET",
+        responseHandler: async (response) => {
+          const blob = await response.blob();
+          return blob;
+        },
+      }),
+    }),
+
+    getNotifications: builder.query({
+      query: () => ({
+        url: "/notification",
+        method: "GET",
+      }),
+      providesTags: ["Notifications"],
+    }),
   }),
 });
 export const {
@@ -317,5 +326,7 @@ export const {
   useUpdateStudyCenterStatusMutation,
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
-  useExportMvpPdfReportMutation 
+  useExportMvpPdfReportMutation,
+
+  useGetNotificationsQuery,
 } = api;
