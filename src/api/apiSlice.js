@@ -21,7 +21,7 @@ export const api = createApi({
     "Mvps",
     "MvpEmails",
     "ReferralEmails",
-    "Notifications"
+    "Notifications",
   ],
   endpoints: (builder) => ({
     //////////////////////////// auth
@@ -288,8 +288,7 @@ export const api = createApi({
         },
       }),
     }),
-<<<<<<< HEAD
-=======
+
     getNotifications: builder.query({
       query: () => ({
         url: "/notification",
@@ -297,7 +296,6 @@ export const api = createApi({
       }),
       providesTags: ["Notifications"],
     }),
->>>>>>> 6d5b85ade6c88dcc7a7b0cca21084038297d7774
   }),
 });
 export const {
@@ -329,8 +327,6 @@ export const {
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
   useExportMvpPdfReportMutation,
-<<<<<<< HEAD
-=======
-  useGetNotificationsQuery
->>>>>>> 6d5b85ade6c88dcc7a7b0cca21084038297d7774
+
+  useGetNotificationsQuery,
 } = api;
