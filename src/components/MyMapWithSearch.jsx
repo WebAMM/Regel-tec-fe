@@ -6,72 +6,165 @@ import { BiSearch } from "react-icons/bi";
 import PopUpSection from "./PopUpSection";
 import { useLazyGetRadiusBasedStudyCenterQuery } from "../api/apiSlice";
 import Loader from "./Loader";
-import MarkerImage from '../assets/images/locationIcon.png';
- 
-const customIcon = L.icon({
-  iconUrl: MarkerImage,
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-});
- 
+
+// Import your profile images (add these to your assets)
+import profile1 from "../assets/images/profile1.png";
+import profile2 from "../assets/images/profile2.png";
+import profile3 from "../assets/images/profile3.png";
+import profile4 from "../assets/images/profile4.png";
+import profile5 from "../assets/images/profile5.png";
+import profile6 from "../assets/images/profile6.png";
+import profile7 from "../assets/images/profile7.png";
+import profile8 from "../assets/images/profile8.png";
+// import profile9 from '../assets/images/profiles/profile9.jpg';
+// import profile10 from '../assets/images/profiles/profile10.jpg';
+// import profile11 from '../assets/images/profiles/profile11.jpg';
+// import profile12 from '../assets/images/profiles/profile12.jpg';
+// import profile13 from '../assets/images/profiles/profile13.jpg';
+// import profile14 from '../assets/images/profiles/profile14.jpg';
+// import profile15 from '../assets/images/profiles/profile15.jpg';
+
+const profileImages = [
+  profile1,
+  profile2,
+  profile3,
+  profile4,
+  profile5,
+  profile6,
+  profile7,
+  profile8,
+  //  profile9, profile10,
+  // profile11, profile12, profile13, profile14, profile15
+];
+
+// Function to create custom marker with profile image
+const createCustomMarker = (profileImage) => {
+  const iconHtml = `
+    <div style="
+      width: 50px;
+      height: 60px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    ">
+      <div style="
+        width: 50px;
+        height: 50px;
+        background: #0ea5e9;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      ">
+        <div style="
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background-color: white;
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          overflow: hidden;
+          transform: rotate(45deg);
+        ">
+          <img src="${profileImage}" alt="Profile" style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          " />
+        </div>
+      </div>
+    </div>
+  `;
+
+  return L.divIcon({
+    html: iconHtml,
+    iconSize: [50, 60],
+    iconAnchor: [25, 60],
+    popupAnchor: [0, -60],
+    className: "custom-marker",
+  });
+};
+
 const MyMapWithSearch = ({ center }) => {
   const [position, setPosition] = useState([33.9137, -98.4934]);
   const [zoom, setZoom] = useState(5);
   const [zipcode, setZipcode] = useState("");
   const [radiusBasedCenters, setRadiusBasedCenters] = useState(null);
- 
-  const [trigger, { isLoading, isFetching }] = useLazyGetRadiusBasedStudyCenterQuery();
- 
+
+  const [trigger, { isLoading, isFetching }] =
+    useLazyGetRadiusBasedStudyCenterQuery();
+
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
- 
+
   const mapRef = useRef();
- 
+
+  // Function to get random profile image
+  const getRandomProfileImage = () => {
+    return profileImages[Math.floor(Math.random() * profileImages.length)];
+  };
+
+  // Function to assign profile images to centers
+  const assignProfileImages = (centers) => {
+    return centers?.map((center) => ({
+      ...center,
+      profileImage: center.profileImage || getRandomProfileImage(),
+    }));
+  };
+
   useEffect(() => {
     if (!selectedMarker || !mapRef.current) return;
- 
+
     const updatePopupPosition = () => {
       const map = mapRef.current;
-      const point = map.latLngToContainerPoint([selectedMarker.coordinates.lat, selectedMarker.coordinates.long]);
+      const point = map.latLngToContainerPoint([
+        selectedMarker.coordinates.lat,
+        selectedMarker.coordinates.long,
+      ]);
       setPopupPos({ x: point.x, y: point.y });
     };
- 
+
     updatePopupPosition();
- 
+
     const map = mapRef.current;
     map.on("move zoom", updatePopupPosition);
- 
+
     return () => {
       map.off("move zoom", updatePopupPosition);
     };
   }, [selectedMarker]);
- 
- 
+
   const Markers = ({ centers }) => {
     const map = useMapEvents({
       click: () => {
         setSelectedMarker(null);
       },
     });
- 
+
     useEffect(() => {
       mapRef.current = map;
     }, [map]);
- 
+
     const handleMarkerClick = (center) => {
       setSelectedMarker(center);
-      const point = map.latLngToContainerPoint([center.coordinates.lat, center.coordinates.long]);
+      const point = map.latLngToContainerPoint([
+        center.coordinates.lat,
+        center.coordinates.long,
+      ]);
       setPopupPos({ x: point.x, y: point.y });
     };
- 
+
+    const centersWithImages = assignProfileImages(centers);
+
     return (
       <>
-        {centers?.map((center, idx) => (
+        {centersWithImages?.map((center, idx) => (
           <Marker
             key={idx}
             position={[center.coordinates.lat, center.coordinates.long]}
-            icon={customIcon}
+            icon={createCustomMarker(center.profileImage)}
             eventHandlers={{
               click: () => handleMarkerClick(center),
             }}
@@ -80,11 +173,11 @@ const MyMapWithSearch = ({ center }) => {
       </>
     );
   };
- 
+
   const handleSearch = async () => {
     try {
       const studyCenter = await trigger(zipcode).unwrap();
- 
+
       if (studyCenter?.data) {
         setPosition([
           studyCenter.data.coordinates.lat,
@@ -96,7 +189,7 @@ const MyMapWithSearch = ({ center }) => {
           `https://nominatim.openstreetmap.org/search?postalcode=${zipcode}&format=json`
         );
         const data = await response.json();
- 
+
         if (data && data[0]) {
           const { lat, lon } = data[0];
           setPosition([parseFloat(lat), parseFloat(lon)]);
@@ -111,11 +204,14 @@ const MyMapWithSearch = ({ center }) => {
       alert("An error occurred while searching. Please try again.");
     }
   };
- 
+
   const accessToken = import.meta.env.VITE_MAP_ACCESS_TOKEN;
- 
+
   return (
-    <div className="flex flex-col gap-5 relative" style={{ height: "100vh", width: "100%" }}>
+    <div
+      className="flex flex-col gap-5 relative"
+      style={{ height: "100vh", width: "100%" }}
+    >
       {/* Search Bar */}
       <div className="z-[410] absolute w-full flex items-center justify-center py-5">
         <div className="mx-auto p-4 flex flex-wrap gap-4 lg:mt-0 sm:mt-[50px] mt-[50px]">
@@ -144,7 +240,7 @@ const MyMapWithSearch = ({ center }) => {
           </button>
         </div>
       </div>
- 
+
       {/* Leaflet Map */}
       <MapContainer
         center={position}
@@ -156,7 +252,7 @@ const MyMapWithSearch = ({ center }) => {
           url={`https://tile.jawg.io/jawg-lagoon/{z}/{x}/{y}{r}.png?access-token=${accessToken}`}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
- 
+
         {/* Markers */}
         {radiusBasedCenters ? (
           <Markers centers={radiusBasedCenters} />
@@ -164,14 +260,13 @@ const MyMapWithSearch = ({ center }) => {
           <Markers centers={center} />
         )}
       </MapContainer>
- 
+
       {selectedMarker && (
         <div
           style={{
             position: "absolute",
             top: popupPos.y,
-            left: popupPos.x < 100 ? '160px' : popupPos.x,
-
+            left: popupPos.x < 100 ? "160px" : popupPos.x,
             transform: "translate(-50%, -120%)",
             zIndex: 1000,
             backgroundColor: "white",
@@ -180,15 +275,19 @@ const MyMapWithSearch = ({ center }) => {
             boxShadow: "0 0 10px rgba(0,0,0,0.3)",
             pointerEvents: "auto",
             minWidth: "300px",
-            width: "auto"
+            width: "auto",
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          <PopUpSection center={selectedMarker} setSelectedMarker={setSelectedMarker} zipcode={zipcode} />
+          <PopUpSection
+            center={selectedMarker}
+            setSelectedMarker={setSelectedMarker}
+            zipcode={zipcode}
+          />
         </div>
       )}
     </div>
   );
 };
- 
+
 export default MyMapWithSearch;
