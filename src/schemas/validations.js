@@ -21,9 +21,21 @@ export const changePasswordValidation = Yup.object({
 });
 export const addStudyCenterValidation = Yup.object({
   name: Yup.string().required("Study Center Name is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
+  email: Yup.array()
+    .of(
+      Yup.string().email("Invalid email format").required("Email is required")
+    )
+    .min(1, "At least one email is required")
+    .test(
+      "non-empty-emails",
+      "At least one email is required",
+      function (emails) {
+        const validEmails = emails?.filter(
+          (email) => email && email.trim() !== ""
+        );
+        return validEmails && validEmails.length > 0;
+      }
+    ),
   phone: Yup.string().required("Phone number is required"),
   address: Yup.string().required("Address is required"),
   city: Yup.string().required("City is required"),

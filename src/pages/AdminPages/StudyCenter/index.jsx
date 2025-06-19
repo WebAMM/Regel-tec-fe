@@ -66,7 +66,16 @@ const StudyCenter = () => {
   const columns = [
     { accessor: "name", header: "Study Center Name" },
     { accessor: "address", header: "Address" },
-    { accessor: "email", header: "Email" },
+    {
+      accessor: "email",
+      header: "Email",
+      render: (row) => {
+        if (Array.isArray(row.email)) {
+          return row.email.join(", ");
+        }
+        return row.email;
+      },
+    },
     { accessor: "contactNumber", header: "Contact Number" },
     { accessor: "mvp_sent", header: "MVPs Sent" },
     {
