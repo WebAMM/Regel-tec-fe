@@ -21,7 +21,7 @@ export const api = createApi({
     "Mvps",
     "MvpEmails",
     "ReferralEmails",
-    "Notifications"
+    "Notifications",
   ],
   endpoints: (builder) => ({
     //////////////////////////// auth
@@ -110,13 +110,14 @@ export const api = createApi({
     //////////////////////////// pre screener
 
     getAllQuestions: builder.query({
-      query: ({ search, status, sectionName }) => {
+      query: ({ search, status, sectionName, page, limit }) => {
         // Filter out empty parameters
         const params = {};
         if (search) params.search = search;
         if (status) params.status = status;
         if (sectionName) params.sectionName = sectionName;
-
+        if (page) params.page = page;
+        if (limit) params.limit = limit;
         return {
           url: `/question`,
           method: "GET",
@@ -289,11 +290,35 @@ export const api = createApi({
       }),
     }),
     getNotifications: builder.query({
-      query: () => ({
+      query: ({
+        all = false,
+        page = 1,
+        limit = 10,
+        search,
+        type,
+        startDate,
+        endDate,
+      } = {}) => ({
         url: "/notification",
         method: "GET",
+        params: {
+          all,
+          page,
+          limit,
+          ...(search && { search }),
+          ...(type && { type }),
+          ...(startDate && { startDate }),
+          ...(endDate && { endDate }),
+        },
       }),
       providesTags: ["Notifications"],
+    }),
+    markNotificationAsRead: builder.query({
+      query: (notificationId) => ({
+        url: `/notification/read/${notificationId}`,
+        method: "GET",
+      }),
+      invalidatesTags: ["Notifications"],
     }),
   }),
 });
@@ -326,5 +351,6 @@ export const {
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
   useExportMvpPdfReportMutation,
-  useGetNotificationsQuery
+  useGetNotificationsQuery,
+  useMarkNotificationAsReadQuery,
 } = api;
