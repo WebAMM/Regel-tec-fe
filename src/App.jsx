@@ -14,6 +14,7 @@ import Reports from "./pages/Reports";
 import PreScreeningReport from "./pages/Reports/PreScreeningReport";
 import Settings from "./pages/Settings";
 import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
+import Notifications from "./pages/Notifications/Index"
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -118,6 +119,10 @@ function App() {
       {
         path: "settings",
         element: <Settings />
+      },
+       {
+        path: "notifications",
+        element: <Notifications />
       }
     ]
   }

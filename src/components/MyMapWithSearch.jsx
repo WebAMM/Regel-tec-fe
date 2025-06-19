@@ -16,13 +16,13 @@ import profile5 from "../assets/images/profile5.png";
 import profile6 from "../assets/images/profile6.png";
 import profile7 from "../assets/images/profile7.png";
 import profile8 from "../assets/images/profile8.png";
-// import profile9 from '../assets/images/profiles/profile9.jpg';
-// import profile10 from '../assets/images/profiles/profile10.jpg';
-// import profile11 from '../assets/images/profiles/profile11.jpg';
-// import profile12 from '../assets/images/profiles/profile12.jpg';
-// import profile13 from '../assets/images/profiles/profile13.jpg';
-// import profile14 from '../assets/images/profiles/profile14.jpg';
-// import profile15 from '../assets/images/profiles/profile15.jpg';
+import profile9 from '../assets/images/profile9.png';
+import profile10 from '../assets/images/profile10.png';
+import profile11 from '../assets/images/profile11.png';
+import profile12 from '../assets/images/profile12.png';
+import profile13 from '../assets/images/profile13.png';
+import profile14 from '../assets/images/profile14.png';
+import profile15 from '../assets/images/profile15.png';
 
 const profileImages = [
   profile1,
@@ -33,8 +33,8 @@ const profileImages = [
   profile6,
   profile7,
   profile8,
-  //  profile9, profile10,
-  // profile11, profile12, profile13, profile14, profile15
+   profile9, profile10,
+  profile11, profile12, profile13, profile14, profile15
 ];
 
 // Function to create custom marker with profile image

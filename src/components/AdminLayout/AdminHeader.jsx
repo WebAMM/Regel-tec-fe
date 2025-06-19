@@ -11,42 +11,48 @@ export default function AdminHeader() {
   const [showNotifications, setShowNotifications] = useState(false);
   
   // Fetch notifications
-  const { data: notificationsData, isLoading, error } = useGetNotificationsQuery();
-  
+  const { data: notificationsData, isLoading, error } = useGetNotificationsQuery({ all: false });
+  console.log("notificationsData", notificationsData)
   const notifications = notificationsData?.data?.notifications || [];
   const totalNotificationCount = notificationsData?.data?.totalNotificationCount || 0;
-  const unreadCount = notifications.filter(notification => !notification.isRead).length;
+ const unreadCount = totalNotificationCount;
 
-  const handleLogout = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You will be logged out of your account!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, logout!',
-      cancelButtonText: 'Cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Clear any stored authentication data
-        localStorage.removeItem('token');
-        sessionStorage.clear();
-       
-        // Show success message
-        Swal.fire({
-          title: 'Logged Out!',
-          text: 'You have been successfully logged out.',
-          icon: 'success',
-          timer: 1500,
-          showConfirmButton: false
-        }).then(() => {
-          // Navigate to home page
-          navigate('/');
-        });
-      }
-    });
-  };
+ const handleLogout = () => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You will be logged out of your account!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, logout!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Clear all persisted data
+      localStorage.removeItem('persist:root'); // This is the main persisted state
+      localStorage.removeItem('token'); // Remove any standalone token (if exists)
+      sessionStorage.clear();
+      
+      // Clear all localStorage items (optional - if you want to clear everything)
+      // localStorage.clear();
+     
+      // Show success message
+      Swal.fire({
+        title: 'Logged Out!',
+        text: 'You have been successfully logged out.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      }).then(() => {
+        // Navigate to home page
+        navigate('/');
+        // Optionally reload the page to ensure clean state
+        window.location.reload();
+      });
+    }
+  });
+};
 
   const formatNotificationTime = (createdAt) => {
   return moment(createdAt).fromNow();
@@ -157,7 +163,7 @@ export default function AdminHeader() {
               {/* Footer */}
               {notifications.length > 0 && (
                 <div className="p-3 border-t border-gray-200 text-center">
-                  <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                  <button className="text-sm text-[#24BEFE] hover:text-blue-300 font-medium cursor-pointer" onClick={()=> navigate("/admin/notifications")}>
                     View all notifications
                   </button>
                 </div>
