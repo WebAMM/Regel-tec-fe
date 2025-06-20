@@ -26,6 +26,7 @@ export const addStudyCenterValidation = Yup.object({
       Yup.string().email("Invalid email format").required("Email is required")
     )
     .min(1, "At least one email is required")
+    .max(5, "Maximum 5 emails are allowed")
     .test(
       "non-empty-emails",
       "At least one email is required",

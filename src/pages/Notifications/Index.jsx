@@ -8,7 +8,7 @@ import Pagination from "../../components/Pagination";
 import { useDebounce } from "../../components/hooks/useDebounce";
 import {
   useGetNotificationsQuery,
-  useMarkNotificationAsReadQuery,
+  useMarkNotificationAsReadMutation,
 } from "../../api/apiSlice";
 import moment from "moment";
 import NotificationFilterModal from "./NotificationFilterModal";
@@ -24,7 +24,8 @@ const Notifications = () => {
     startDate: "",
     endDate: "",
   });
-
+  const [markingNotificationId, setMarkingNotificationId] = useState(null);
+  const [markedNotifications, setMarkedNotifications] = useState(new Set());
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   // Build query parameters
@@ -54,39 +55,35 @@ const Notifications = () => {
     return params;
   };
 
-  const [markAsReadId, setMarkAsReadId] = useState(null);
-
   const { data: notificationsData, isLoading } = useGetNotificationsQuery(
     buildQueryParams()
   );
 
-  // Mark as read query - only runs when markAsReadId is set
-  const { data: markAsReadData, isLoading: isMarkingAsRead } =
-    useMarkNotificationAsReadQuery(markAsReadId, { skip: !markAsReadId });
+  const [markNotificationAsRead, { isLoading: isMarkingAsRead }] =
+    useMarkNotificationAsReadMutation();
 
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearchTerm]);
-
-  // Handle mark as read response
-  useEffect(() => {
-    if (markAsReadData && markAsReadId) {
-      console.log("Notification marked as read successfully");
-      setMarkAsReadId(null); // Reset the ID
-      // Optionally refetch notifications to update the UI
-      // You might want to use refetch() from the notifications query
-    }
-  }, [markAsReadData, markAsReadId]);
 
   const handlePageSizeChange = (newPageSize) => {
     setPageSize(newPageSize);
     setCurrentPage(1);
   };
 
-  const handleMarkAsRead = (row) => {
-    console.log("Mark as read:", row);
-    setMarkAsReadId(row._id);
-  };
+  const handleMarkAsRead = async (row) => {
+  console.log("Mark as read:", row);
+  setMarkingNotificationId(row._id);
+  try {
+    await markNotificationAsRead(row._id).unwrap();
+    console.log("Notification marked as read successfully");
+    setMarkedNotifications(prev => new Set([...prev, row._id]));
+  } catch (error) {
+    console.error("Failed to mark notification as read:", error);
+  } finally {
+    setMarkingNotificationId(null);
+  }
+};
 
   const handleApplyFilters = (newFilters) => {
     setCurrentPage(1);
@@ -103,11 +100,7 @@ const Notifications = () => {
 
   // Check if any filters are active
   const hasActiveFilters = () => {
-    return (
-      filters.type ||
-      filters.startDate ||
-      filters.endDate
-    );
+    return filters.type || filters.startDate || filters.endDate;
   };
 
   // Format notification type for display
@@ -117,8 +110,8 @@ const Notifications = () => {
         return "Pre-screener";
       case "referral":
         return "Referral";
-      case "study-center":
-        return "Study Center";
+      case "password-reset":
+        return "Password Reset";
       default:
         return type?.charAt(0).toUpperCase() + type?.slice(1);
     }
@@ -141,30 +134,37 @@ const Notifications = () => {
       header: "Date/Time",
       render: (row) => formatDate(row.createdAt),
     },
-    {
-      accessor: "",
-      header: "Action",
-      render: (row) => {
-        return (
-          <div className="flex gap-2">
-            <button
-              type="button"
-              className={`text-blue-500 text-sm hover:text-blue-700 cursor-pointer ${
-                isMarkingAsRead && markAsReadId === row._id
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-              onClick={() => handleMarkAsRead(row)}
-              disabled={isMarkingAsRead && markAsReadId === row._id}
-            >
-              {isMarkingAsRead && markAsReadId === row._id
-                ? "Marking..."
-                : "Mark as read"}
-            </button>
-          </div>
-        );
-      },
-    },
+   {
+  accessor: "",
+  header: "Action",
+  render: (row) => {
+    const isMarked = markedNotifications.has(row._id);
+    const isCurrentlyMarking = markingNotificationId === row._id;
+    
+    return (
+      <div className="flex gap-2">
+        <button
+          type="button"
+          className={`text-sm cursor-pointer ${
+            isMarked 
+              ? "text-green-600 cursor-default" 
+              : isCurrentlyMarking
+              ? "text-blue-300 cursor-not-allowed" 
+              : "text-blue-500 hover:text-blue-700"
+          }`}
+          onClick={() => !isMarked && !isCurrentlyMarking && handleMarkAsRead(row)}
+          disabled={isMarked || isCurrentlyMarking}
+        >
+          {isMarked 
+            ? "✓ Marked as read" 
+            : isCurrentlyMarking 
+            ? "Marking..." 
+            : "Mark as read"}
+        </button>
+      </div>
+    );
+  },
+},
   ];
 
   if (isLoading) {
