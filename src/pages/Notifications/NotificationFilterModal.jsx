@@ -96,7 +96,7 @@ const NotificationFilterModal = ({
               <option value="">All Types</option>
               <option value="pre-screener">Pre-screener</option>
               <option value="referral">Referral</option>
-              <option value="study-center">Study Center</option>
+              <option value="password-reset">Password Reset</option>
             </select>
           </div>
 

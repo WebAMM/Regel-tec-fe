@@ -50,6 +50,7 @@ const QualificationResult = ({
       (() =>
         navigate("/contact", {
           state: {
+            reportId: reportId,
             contactData: contactData,
             isStudyCenterInRadius: isStudyCenterInRadius,
             isQualified: isQualified,
