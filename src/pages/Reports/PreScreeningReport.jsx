@@ -17,7 +17,7 @@ const PreScreeningReport = () => {
     console.log(state, 'state')
     const { data: screeningReport, isLoading } = useGetPreScreeningReportQuery(values)
     const baseUrl = 'https://regel-medical-be.vercel.app/api'
-    // const baseUrl= "https://regel-medical-be.duckdns.org/api"
+    // const baseUrl = "https://regel-medical-be.duckdns.org/api"
     // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
     const totalCards = [
         {

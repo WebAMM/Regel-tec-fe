@@ -289,22 +289,15 @@ export const api = createApi({
         },
       }),
     }),
+
     getNotifications: builder.query({
-      query: ({
-        all = false,
-        page = 1,
-        limit = 10,
-        search,
-        type,
-        startDate,
-        endDate,
-      } = {}) => ({
+      query: ({ all, page, limit, search, type, startDate, endDate } = {}) => ({
         url: "/notification",
         method: "GET",
         params: {
-          all,
-          page,
-          limit,
+          ...(all !== undefined && { all }),
+          ...(page !== undefined && { page }),
+          ...(limit !== undefined && { limit }),
           ...(search && { search }),
           ...(type && { type }),
           ...(startDate && { startDate }),
@@ -313,7 +306,7 @@ export const api = createApi({
       }),
       providesTags: ["Notifications"],
     }),
-    markNotificationAsRead: builder.query({
+    markNotificationAsRead: builder.mutation({
       query: (notificationId) => ({
         url: `/notification/read/${notificationId}`,
         method: "GET",
@@ -352,5 +345,5 @@ export const {
   useDeleteQuestionMutation,
   useExportMvpPdfReportMutation,
   useGetNotificationsQuery,
-  useMarkNotificationAsReadQuery,
+  useMarkNotificationAsReadMutation ,
 } = api;
