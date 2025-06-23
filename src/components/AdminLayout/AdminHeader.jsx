@@ -12,6 +12,9 @@ import {
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
 } from "../../../src/api/apiSlice"; // Update path as needed
+import headerIcon1 from "../../assets/images/header-icon-1.png";
+import headerIcon2 from "../../assets/images/header-icon-2.png";
+import headerIcon3 from "../../assets/images/header-icon-3.png";
 
 export default function AdminHeader() {
   const headerinfo = localStorage.getItem("persist:root");
@@ -33,7 +36,7 @@ export default function AdminHeader() {
   console.log("userData", userData);
   const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
-
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   // Fetch notifications
   const {
     data: notificationsData,
@@ -257,7 +260,7 @@ export default function AdminHeader() {
         <div className="w-px h-6 bg-gray-300" />
 
         {/* Profile Info */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative">
           <Avatar
             src="https://i.pravatar.cc/40?img=3"
             alt="avatar"
@@ -285,8 +288,43 @@ export default function AdminHeader() {
           </div>
           <ChevronDownIcon
             className="h-4 w-4 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors"
-            onClick={handleLogout}
+            onClick={() => setShowProfileDropdown(!showProfileDropdown)}
           />
+
+          {/* Profile Dropdown */}
+          {showProfileDropdown && (
+            <div className="absolute top-12 right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              <div className="py-2">
+                <button
+                  onClick={() => {
+                    navigate("/admin/settings");
+                    setShowProfileDropdown(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 cursor-pointer"
+                >
+                  <img src={headerIcon1} />
+                  Profile
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("/admin/settings");
+                    setShowProfileDropdown(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 cursor-pointer"
+                >
+                  <img src={headerIcon2} />
+                  Settings
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 cursor-pointer"
+                >
+                  <img src={headerIcon3} />
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

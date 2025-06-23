@@ -119,7 +119,7 @@ const Notifications = () => {
 
   // Format date using moment
   const formatDate = (dateString) => {
-    return moment(dateString).format("MMM DD, h:mm A");
+    return moment(dateString).format("MMM DD, YYYY, h:mm A");
   };
 
   const notificationColumns = [
