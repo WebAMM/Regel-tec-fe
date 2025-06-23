@@ -6,7 +6,6 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
   UsersIcon,
   BuildingLibraryIcon,
   ClipboardDocumentListIcon,
@@ -16,41 +15,42 @@ import {
 } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom"; // Import NavLink for routing
 import logo from "../../assets/images/logo.png";
+import { MdDashboard } from "react-icons/md";
 
 const navItems = [
   {
     label: "Dashboard",
-    icon: <PresentationChartBarIcon className="h-5 w-5" />,
+    icon: <MdDashboard className="h-5 w-5 mx-3" />,
     path: "/admin/dashboard",
   },
   {
     label: "MVPs",
-    icon: <UsersIcon className="h-5 w-5 text-gray-600" />,
+    icon: <UsersIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/mvps",
   },
   {
     label: "Study Centers",
-    icon: <BuildingLibraryIcon className="h-5 w-5 text-gray-600" />,
+    icon: <BuildingLibraryIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/study-center",
   },
   {
     label: "Pre-Screeners",
-    icon: <ClipboardDocumentListIcon className="h-5 w-5 text-gray-600" />,
+    icon: <ClipboardDocumentListIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/prescreener",
   },
   {
     label: "Referral Emails",
-    icon: <EnvelopeIcon className="h-5 w-5 text-gray-600" />,
+    icon: <EnvelopeIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/referral-emails",
   },
   {
     label: "Reports",
-    icon: <DocumentIcon className="h-5 w-5 text-gray-600" />,
+    icon: <DocumentIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/reports",
   },
   {
     label: "Settings",
-    icon: <Cog6ToothIcon className="h-5 w-5 text-gray-600" />,
+    icon: <Cog6ToothIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/settings",
   },
 ];

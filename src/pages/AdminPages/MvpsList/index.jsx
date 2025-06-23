@@ -11,6 +11,7 @@ import Pagination from "../../../components/Pagination";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import FilterModal from "./FilterModal"; // Import the FilterModal component
+import moment from "moment";
 
 const MvpsList = () => {
   const [pageSize, setPageSize] = useState(5);
@@ -59,6 +60,7 @@ const MvpsList = () => {
   const { data: mvpList, isLoading } = useGetAllMvpListQuery(
     buildQueryParams()
   );
+
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearchTerm]);
@@ -96,14 +98,20 @@ const MvpsList = () => {
       filters.endDate
     );
   };
-
+  const formatDate = (dateString) => {
+    return moment(dateString).format("MMM DD, YYYY, h:mm A");
+  };
   const mvpColumns = [
     { accessor: "mvp_id", header: "MVP ID" },
     { accessor: "name", header: "Name" },
     { accessor: "contactNumber", header: "Contact Number" },
     { accessor: "email", header: "Email" },
     { accessor: "zipCode", header: "Zip Code" },
-    { accessor: "submittedDate", header: "Submitted Date" },
+    {
+      accessor: "submittedDate",
+      header: "Submitted Date",
+      render: (row) => formatDate(row.submittedDate),
+    },
     { accessor: "studyCenter", header: "Study Center" },
     {
       accessor: "",
@@ -186,12 +194,12 @@ const MvpsList = () => {
             )}
             {filters.startDate && (
               <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                From: {filters.startDate}
+                From: {moment(filters.startDate).format("MMM DD, YYYY")}
               </span>
             )}
             {filters.endDate && (
               <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                To: {filters.endDate}
+                To: {moment(filters.endDate).format("MMM DD, YYYY")}
               </span>
             )}
             <button
