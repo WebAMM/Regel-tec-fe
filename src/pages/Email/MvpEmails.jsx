@@ -8,6 +8,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import EmailDetail from "./EmailDetail";
 import MvpEmailsDeleteModal from "./MvpEmailsDeleteModal";
+import moment from "moment";
 
 const MvpEmails = ({ searchTerm }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,10 +38,17 @@ const MvpEmails = ({ searchTerm }) => {
       console.log(error);
     }
   };
+  const formatDate = (dateString) => {
+    return moment(dateString).format("MMM DD, YYYY, h:mm A");
+  };
   const columns = [
     { accessor: "to", header: "To" },
     { accessor: "subject", header: "Subject" },
-    { accessor: "date", header: "Date" },
+    {
+      accessor: "date",
+      header: "Date",
+      render: (row) => formatDate(row.date),
+    },
 
     {
       accessor: "",
@@ -72,14 +80,14 @@ const MvpEmails = ({ searchTerm }) => {
     <>
       <ReusableTable columns={columns} data={emails?.data} />
       <EmailDetail open={isOpen} onClose={() => setIsOpen(false)} id={id} />
-        <MvpEmailsDeleteModal 
-            open={deleteModalOpen} 
-            onClose={() => {
-                setDeleteModalOpen(false);
-                setDeleteId(null);
-            }} 
-            onConfirm={confirmDelete}
-        />
+      <MvpEmailsDeleteModal
+        open={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+          setDeleteId(null);
+        }}
+        onConfirm={confirmDelete}
+      />
     </>
   );
 };

@@ -9,6 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import EmailDetail from "./EmailDetail";
 import { useState } from "react";
 import DeleteModal from "./StudyCenterDeleteModal";
+import moment from "moment";
 
 const StudyCenterEmail = ({ searchTerm }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,24 +26,31 @@ const StudyCenterEmail = ({ searchTerm }) => {
     setId(row?.id);
     setIsOpen(true);
   };
-const handleDelete = (row) => {
+  const handleDelete = (row) => {
     setDeleteId(row?.id);
     setDeleteModalOpen(true);
-}
+  };
 
-const confirmDelete = async () => {
+  const confirmDelete = async () => {
     try {
-        await deleteEmailById(deleteId).unwrap();
-        setDeleteModalOpen(false);
-        setDeleteId(null);
+      await deleteEmailById(deleteId).unwrap();
+      setDeleteModalOpen(false);
+      setDeleteId(null);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
+  const formatDate = (dateString) => {
+    return moment(dateString).format("MMM DD, YYYY, h:mm A");
+  };
   const columns = [
     { accessor: "to", header: "To" },
     { accessor: "subject", header: "Subject" },
-    { accessor: "date", header: "Date" },
+    {
+      accessor: "date",
+      header: "Date",
+      render: (row) => formatDate(row.date),
+    },
 
     {
       accessor: "",
@@ -74,14 +82,14 @@ const confirmDelete = async () => {
     <>
       <ReusableTable columns={columns} data={emails?.data} />
       <EmailDetail open={isOpen} onClose={() => setIsOpen(false)} id={id} />
-         <DeleteModal 
-            open={deleteModalOpen} 
-            onClose={() => {
-                setDeleteModalOpen(false);
-                setDeleteId(null);
-            }} 
-            onConfirm={confirmDelete}
-        />
+      <DeleteModal
+        open={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+          setDeleteId(null);
+        }}
+        onConfirm={confirmDelete}
+      />
     </>
   );
 };
