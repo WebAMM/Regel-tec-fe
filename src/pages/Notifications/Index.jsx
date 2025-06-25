@@ -21,8 +21,8 @@ const Notifications = () => {
   const [appliedFilters, setAppliedFilters] = useState({});
   const [filters, setFilters] = useState({
     type: "",
-    startDate: "",
-    endDate: "",
+    fromDate: "",
+    toDate: "",
   });
   const [markingNotificationId, setMarkingNotificationId] = useState(null);
   const [markedNotifications, setMarkedNotifications] = useState(new Set());
@@ -34,6 +34,7 @@ const Notifications = () => {
       all: true,
       page: currentPage,
       limit: pageSize,
+      search: searchTerm
     };
 
     // Add search term if available
@@ -45,11 +46,11 @@ const Notifications = () => {
     if (filters.type) {
       params.type = filters.type;
     }
-    if (filters.startDate) {
-      params.startDate = filters.startDate;
+    if (filters.fromDate) {
+      params.fromDate = filters.fromDate;
     }
-    if (filters.endDate) {
-      params.endDate = filters.endDate;
+    if (filters.toDate) {
+      params.toDate = filters.toDate;
     }
 
     return params;
@@ -100,7 +101,7 @@ const Notifications = () => {
 
   // Check if any filters are active
   const hasActiveFilters = () => {
-    return filters.type || filters.startDate || filters.endDate;
+    return filters.type || filters.fromDate || filters.toDate;
   };
 
   // Format notification type for display
@@ -213,22 +214,22 @@ const Notifications = () => {
                 Type: {formatNotificationType(filters.type)}
               </span>
             )}
-            {filters.startDate && (
+            {filters.fromDate && (
               <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                From: {moment(filters.startDate).format("MMM DD, YYYY")}
+                From: {moment(filters.fromDate).format("MMM DD, YYYY")}
               </span>
             )}
-            {filters.endDate && (
+            {filters.toDate && (
               <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                To: {moment(filters.endDate).format("MMM DD, YYYY")}
+                To: {moment(filters.toDate).format("MMM DD, YYYY")}
               </span>
             )}
             <button
               onClick={() =>
                 handleApplyFilters({
                   type: "",
-                  startDate: "",
-                  endDate: "",
+                  fromDate: "",
+                  toDate: "",
                 })
               }
               className="text-xs text-red-600 hover:text-red-800 underline"

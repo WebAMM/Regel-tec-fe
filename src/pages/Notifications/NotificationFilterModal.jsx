@@ -10,8 +10,8 @@ const NotificationFilterModal = ({
 }) => {
   const [filters, setFilters] = useState({
     type: currentFilters.type || "",
-    startDate: currentFilters.startDate || "",
-    endDate: currentFilters.endDate || "",
+    fromDate: currentFilters.fromDate || "",
+    toDate: currentFilters.toDate || "",
     ...currentFilters,
   });
 
@@ -44,8 +44,8 @@ const NotificationFilterModal = ({
   const handleReset = () => {
     const resetFilters = {
       type: "",
-      startDate: "",
-      endDate: "",
+      fromDate: "",
+      toDate: "",
     };
     setFilters(resetFilters);
     onApplyFilters(resetFilters);
@@ -108,8 +108,8 @@ const NotificationFilterModal = ({
               </label>
               <input
                 type="date"
-                value={filters.startDate}
-                onChange={(e) => handleInputChange("startDate", e.target.value)}
+                value={filters.fromDate}
+                onChange={(e) => handleInputChange("fromDate", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 max="2025-12-31"
               />
@@ -120,8 +120,8 @@ const NotificationFilterModal = ({
               </label>
               <input
                 type="date"
-                value={filters.endDate}
-                onChange={(e) => handleInputChange("endDate", e.target.value)}
+                value={filters.toDate}
+                onChange={(e) => handleInputChange("toDate", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 max="2025-12-31"
               />
