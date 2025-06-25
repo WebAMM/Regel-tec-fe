@@ -146,14 +146,14 @@ const Login = () => {
           )}
         </Formik>
 
-        <div className="mt-6 text-sm text-gray-600">
+        {/* <div className="mt-6 text-sm text-gray-600">
           <p className="flex items-center justify-center gap-1">
             <span>Need help?</span>
             <button type="button" className="text-[#00AEEF] hover:underline">
               Contact Support
             </button>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

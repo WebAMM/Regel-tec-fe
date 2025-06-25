@@ -291,7 +291,7 @@ export const api = createApi({
     }),
 
     getNotifications: builder.query({
-      query: ({ all, page, limit, search, type, startDate, endDate } = {}) => ({
+      query: ({ all, page, limit, search, type, fromDate, toDate } = {}) => ({
         url: "/notification",
         method: "GET",
         params: {
@@ -300,8 +300,8 @@ export const api = createApi({
           ...(limit !== undefined && { limit }),
           ...(search && { search }),
           ...(type && { type }),
-          ...(startDate && { startDate }),
-          ...(endDate && { endDate }),
+          ...(fromDate && { fromDate }),
+          ...(toDate && { toDate }),
         },
       }),
       providesTags: ["Notifications"],
