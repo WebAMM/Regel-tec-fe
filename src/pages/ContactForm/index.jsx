@@ -94,7 +94,7 @@ const ContactForm = () => {
   const handleSubmit = async (values) => {
     try {
       await addNewMvp(values).unwrap();
-      toast.success("MVP added Successfully");
+      toast.success("Success!");
       isFinish(true);
     } catch (error) {
       console.log(error);

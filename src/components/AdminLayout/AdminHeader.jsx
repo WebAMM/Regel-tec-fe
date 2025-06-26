@@ -55,7 +55,6 @@ export default function AdminHeader() {
     useMarkNotificationAsReadMutation();
 
   const handleMarkAsRead = async (notificationId, event) => {
-    event.stopPropagation(); // Prevent dropdown from closing
     console.log("Mark as read:", notificationId);
 
     try {
@@ -179,6 +178,7 @@ export default function AdminHeader() {
                       className={`p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer ${
                         !notification.isRead ? "bg-blue-50" : ""
                       }`}
+                      onClick={(e) => handleMarkAsRead(notification._id, e)}
                     >
                       <div className="flex items-start gap-3">
                         <div className="text-lg mt-1">
@@ -214,26 +214,13 @@ export default function AdminHeader() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          {!notification.isRead && (
-                            <>
-                              <button
-                                onClick={(e) =>
-                                  handleMarkAsRead(notification._id, e)
-                                }
-                                disabled={isMarkingAsRead}
-                                className={`text-xs text-blue-600 hover:text-blue-800 underline ${
-                                  isMarkingAsRead
-                                    ? "opacity-50 cursor-not-allowed"
-                                    : ""
-                                }`}
-                              >
-                                {isMarkingAsRead
-                                  ? "Marking..."
-                                  : "Mark as read"}
-                              </button>
-                              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            </>
-                          )}
+                          <div
+                            className={`w-2 h-2 rounded-full ${
+                              !notification.isRead
+                                ? "bg-green-500"
+                                : "bg-blue-500"
+                            }`}
+                          ></div>
                         </div>
                       </div>
                     </div>
