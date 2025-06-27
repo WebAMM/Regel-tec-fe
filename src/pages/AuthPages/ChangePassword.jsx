@@ -1,51 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { changePasswordValidation } from '../../schemas/validations';
-import { useResetTokenQuery, useUpdatePasswordMutation } from '../../api/apiSlice';
-import Loader from '../../components/Loader';
-import { toast } from 'react-toastify';
+import { changePasswordValidation } from "../../schemas/validations";
+import {
+  useResetTokenQuery,
+  useUpdatePasswordMutation,
+} from "../../api/apiSlice";
+import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
+import { LoaderCenter } from "../../utilities/Loader";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const pathname = useLocation()
+  const pathname = useLocation();
   // console.log(pathname.search.split('=')[1], "pathname")
-  const token = pathname.search.split('=')[1]
-  const { data: tokenData, isLoading, isError } = useResetTokenQuery(token, {
+  const token = pathname.search.split("=")[1];
+  const {
+    data: tokenData,
+    isLoading,
+    isError,
+  } = useResetTokenQuery(token, {
     refetchOnMountOrArgChange: true,
-  })
-  const [updatePassword] = useUpdatePasswordMutation()
+  });
+  const [updatePassword] = useUpdatePasswordMutation();
   const initialValues = {
     token: tokenData?.data?.token,
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   };
 
   // Password validation schema
 
   const handleSubmit = async (values) => {
     try {
-      const response = await updatePassword(values).unwrap()
+      const response = await updatePassword(values).unwrap();
       console.log("Password updated successfully:", response);
-      toast.success("Password updated successfully!")
-      navigate("/admin/login")
-
+      toast.success("Password updated successfully!");
+      navigate("/admin/login");
     } catch (error) {
       console.error("Login failed:", error);
-      toast.error(error?.data?.message || "Login failed! Please check your credentials.")
-
+      toast.error(
+        error?.data?.message || "Login failed! Please check your credentials."
+      );
     }
   };
-  console.log(tokenData, "tokenData")
+  console.log(tokenData, "tokenData");
   if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
   }
   if (isError) {
-    return <div className="flex items-center justify-center min-h-screen">Something Went Wrong</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Something Went Wrong
+      </div>
+    );
   }
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
@@ -57,7 +74,6 @@ const ChangePassword = () => {
           <p className="text-lg mt-2 font-medium">Change Password</p>
           <p className="text-sm text-gray-500">Enter your new password</p>
         </div>
-
 
         <Formik
           initialValues={initialValues}
@@ -74,21 +90,27 @@ const ChangePassword = () => {
                   <Field
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    className={`w-full px-3 py-2 border ${errors.password && touched.password ? "border-red-500" : "border-gray-300"
-                      } rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10`}
+                    className={`w-full px-3 py-2 border ${
+                      errors.password && touched.password
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10`}
                   />
                   <span
                     className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-400"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? '🔒' : '👁️'}
+                    {showPassword ? "🔒" : "👁️"}
                   </span>
                 </div>
                 {errors.password && touched.password && (
-                  <div className="text-red-500 text-xs mt-1">{errors.password}</div>
+                  <div className="text-red-500 text-xs mt-1">
+                    {errors.password}
+                  </div>
                 )}
                 <div className="mt-1 text-xs text-gray-500">
-                  Password must be at least 8 characters with uppercase, lowercase, number, and special character
+                  Password must be at least 8 characters with uppercase,
+                  lowercase, number, and special character
                 </div>
               </div>
 
@@ -100,18 +122,23 @@ const ChangePassword = () => {
                   <Field
                     name="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    className={`w-full px-3 py-2 border ${errors.confirmPassword && touched.confirmPassword ? "border-red-500" : "border-gray-300"
-                      } rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10`}
+                    className={`w-full px-3 py-2 border ${
+                      errors.confirmPassword && touched.confirmPassword
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10`}
                   />
                   <span
                     className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-400"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
-                    {showConfirmPassword ? '🔒' : '👁️'}
+                    {showConfirmPassword ? "🔒" : "👁️"}
                   </span>
                 </div>
                 {errors.confirmPassword && touched.confirmPassword && (
-                  <div className="text-red-500 text-xs mt-1">{errors.confirmPassword}</div>
+                  <div className="text-red-500 text-xs mt-1">
+                    {errors.confirmPassword}
+                  </div>
                 )}
               </div>
 
@@ -119,11 +146,7 @@ const ChangePassword = () => {
                 type="submit"
                 className="w-full py-2 bg-[#00AEEF] text-white rounded hover:bg-[#00AEEF] transition flex items-center justify-center"
               >
-                {isSubmitting ? (
-                  <Loader />
-                ) : (
-                  "Reset Password"
-                )}
+                {isSubmitting ? <Loader /> : "Reset Password"}
               </button>
             </Form>
           )}

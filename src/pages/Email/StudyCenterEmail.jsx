@@ -10,6 +10,7 @@ import EmailDetail from "./EmailDetail";
 import { useState } from "react";
 import DeleteModal from "./StudyCenterDeleteModal";
 import moment from "moment";
+import { LoaderCenter } from "../../utilities/Loader";
 
 const StudyCenterEmail = ({ searchTerm }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +78,14 @@ const StudyCenterEmail = ({ searchTerm }) => {
       },
     },
   ];
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
+  }
   return (
     <>
       <ReusableTable columns={columns} data={emails?.data} />

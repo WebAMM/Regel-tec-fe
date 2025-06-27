@@ -13,8 +13,9 @@ import AddStudyCenterModal from "./AddStudyCenterModal";
 import { toast } from "react-toastify";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import StudyCenterFilterModal from "./StudyCenterFilterModal";
+import { LoaderCenter } from "../../../utilities/Loader";
 const StudyCenter = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState({});
@@ -102,7 +103,14 @@ const StudyCenter = () => {
       },
     },
   ];
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
+  }
   return (
     <>
       <div className="flex items-center justify-between mb-5">

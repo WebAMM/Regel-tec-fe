@@ -17,9 +17,10 @@ import { useDebounce } from "../../../components/hooks/useDebounce";
 import PreScreenerFilterModal from "./PreScreenerFilterModal";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import PreScreenerDeleteModal from "./PresScreenerDeleteModal";
+import { LoaderCenter } from "../../../utilities/Loader";
 
 const PreScreenerList = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState({});
@@ -105,7 +106,14 @@ const PreScreenerList = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [debouncedSearchTerm]);
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
+  }
   // const handleDelete = (row) => {
   //   setDeleteId(row.questionId);
   //   setDeleteModalOpen(true);

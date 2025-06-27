@@ -249,10 +249,10 @@ export default function AdminHeader() {
         {/* Profile Info */}
         <div className="flex items-center gap-2 relative">
           <Avatar
-            src="https://i.pravatar.cc/40?img=3"
+            src="https://ui-avatars.com/api/?name=A&length=1"
             alt="avatar"
             size="sm"
-            className="border border-gray-300"
+            className="border border-gray-300 rounded-full h-[50px]"
           />
           <div className="text-right">
             <Typography
