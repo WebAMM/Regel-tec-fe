@@ -5,15 +5,12 @@ import prescreenIcon from "../../../assets/images/prescreen-icon.png";
 import refferalIcon from "../../../assets/images/refferal-icon.png";
 import statesIcon from "../../../assets/images/states-icon.png";
 import { useGetDashboardReportQuery } from "../../../api/apiSlice";
+import { LoaderCenter } from "../../../utilities/Loader";
 // import { useSelector } from "react-redux";
 
-
-
-
-
 const Dashboard = () => {
-  const { data: dashBoardData, isLoading } = useGetDashboardReportQuery()
-  console.log(dashBoardData?.data?.mvpSummary, 'dashBoard')
+  const { data: dashBoardData, isLoading } = useGetDashboardReportQuery();
+  console.log(dashBoardData?.data?.mvpSummary, "dashBoard");
   const totalCards = [
     {
       icon: studyIcon,
@@ -51,40 +48,81 @@ const Dashboard = () => {
       title: "Study Centers Summary",
       action: "+Add New Study Center",
       data: [
-        { label: "Active Study Centers", value: dashBoardData?.data?.studyCenterSummary?.activeStudyCenters },
-        { label: "New Study Center Added", value: dashBoardData?.data?.studyCenterSummary?.newStudyCentersAdded },
-        { label: "Recently Added", value: dashBoardData?.data?.studyCenterSummary?.recentlyAddedStudyCenter },
+        {
+          label: "Active Study Centers",
+          value: dashBoardData?.data?.studyCenterSummary?.activeStudyCenters,
+        },
+        {
+          label: "New Study Center Added",
+          value: dashBoardData?.data?.studyCenterSummary?.newStudyCentersAdded,
+        },
+        {
+          label: "Recently Added",
+          value:
+            dashBoardData?.data?.studyCenterSummary?.recentlyAddedStudyCenter,
+        },
       ],
     },
     {
       title: "Pre-Screener Overview",
       action: "Manage Pre-Screener",
       data: [
-        { label: "Total Pre-Screeners Submitted", value: dashBoardData?.data?.preScreenerSummary?.totalPreScreenersSubmitted },
-        { label: "Newly Submitted Pre-Screeners", value: dashBoardData?.data?.preScreenerSummary?.newlySubbmitedPreScreeners },
-        { label: "Pre-Screener Questions", value: dashBoardData?.data?.preScreenerSummary?.preScreenerQuestions },
+        {
+          label: "Total Pre-Screeners Submitted",
+          value:
+            dashBoardData?.data?.preScreenerSummary?.totalPreScreenersSubmitted,
+        },
+        {
+          label: "Newly Submitted Pre-Screeners",
+          value:
+            dashBoardData?.data?.preScreenerSummary?.newlySubbmitedPreScreeners,
+        },
+        {
+          label: "Pre-Screener Questions",
+          value: dashBoardData?.data?.preScreenerSummary?.preScreenerQuestions,
+        },
       ],
     },
     {
       title: "MVP Management",
       action: "+Add New User",
       data: [
-        { label: "Total MVPs", value: dashBoardData?.data?.mvpSummary?.totalMVPs },
-        { label: "New MVPs Added", value: dashBoardData?.data?.mvpSummary?.newlyAddedMVPs },
-        { label: "MVPs Awaiting Local Study Center", value: dashBoardData?.data?.mvpSummary?.mvpAwaitingLocalStudyCenter },
+        {
+          label: "Total MVPs",
+          value: dashBoardData?.data?.mvpSummary?.totalMVPs,
+        },
+        {
+          label: "New MVPs Added",
+          value: dashBoardData?.data?.mvpSummary?.newlyAddedMVPs,
+        },
+        {
+          label: "MVPs Awaiting Local Study Center",
+          value: dashBoardData?.data?.mvpSummary?.mvpAwaitingLocalStudyCenter,
+        },
       ],
     },
     {
       title: "MVPs Emails Overview",
       action: "Manage Emails",
       data: [
-        { label: "Total Sent", value: dashBoardData?.data?.emailSummary?.totalEmailsSent },
-        { label: "Recently Sent Emails", value: dashBoardData?.data?.emailSummary?.recentlySentEmails },
+        {
+          label: "Total Sent",
+          value: dashBoardData?.data?.emailSummary?.totalEmailsSent,
+        },
+        {
+          label: "Recently Sent Emails",
+          value: dashBoardData?.data?.emailSummary?.recentlySentEmails,
+        },
       ],
     },
   ];
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
   }
   return (
     <>
@@ -120,7 +158,10 @@ const Dashboard = () => {
                   <div className="text-[20px] font-[400] text-[#000]">
                     {item?.title}
                   </div>
-                  <a href="javasscript:void(0)" className="text-[14px] font-[400] text-[#00B4F1]">
+                  <a
+                    href="javasscript:void(0)"
+                    className="text-[14px] font-[400] text-[#00B4F1]"
+                  >
                     {item?.action}
                   </a>
                 </div>
@@ -136,7 +177,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </>
-                  )
+                  );
                 })}
               </div>
             </>

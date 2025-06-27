@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import FilterModal from "./FilterModal"; // Import the FilterModal component
 import moment from "moment";
+import { LoaderCenter } from "../../../utilities/Loader";
 
 const MvpsList = () => {
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(15);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterModalOpen, setFilterModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -131,9 +132,13 @@ const MvpsList = () => {
       },
     },
   ];
-
-  if (isLoading) {
-    return <p>Loading...</p>;
+ if (isLoading) {
+    return (
+      <p>
+        <LoaderCenter />
+        <span className="ml-2">Loading...</span>
+      </p>
+    );
   }
 
   return (
