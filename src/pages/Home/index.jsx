@@ -817,7 +817,7 @@ const Home = () => {
                 {/* Continue Button */}
                 <div className="text-left">
                   <button
-                    className="lg:text-[16px] md:text-[16px] sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed"
+                    className="lg:text-[16px] md:text-[16px] sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed cursor-pointer"
                     onClick={() =>
                       navigate("/prescreen", {
                         state: { center: selectLocation },
