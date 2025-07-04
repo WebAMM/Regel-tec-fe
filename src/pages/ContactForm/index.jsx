@@ -304,7 +304,7 @@ const ContactForm = () => {
                           <div className="flex gap-4 mt-4 justify-start">
                             <Button
                               type="submit"
-                              // disabled={isSubmitting}
+                              disabled={isSubmitting}
                               className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                             >
                               {isSubmitting ? "loading..." : "Submit"}

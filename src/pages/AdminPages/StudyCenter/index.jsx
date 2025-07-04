@@ -107,7 +107,6 @@ const StudyCenter = () => {
     return (
       <p>
         <LoaderCenter />
-        <span className="ml-2">Loading...</span>
       </p>
     );
   }

@@ -12,6 +12,7 @@ import Header from "./Header";
 import ProgressStepper from "./ProgressStepper";
 import QualificationResult from "./QualificationResult";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { LoaderCenter } from "../../utilities/Loader";
 
 const SampleScreener = () => {
   const { data: sectionQuestions, isLoading } =
@@ -594,11 +595,12 @@ const SampleScreener = () => {
                       </Button>
                     ) : (
                       <Button
+                        disabled={addAnswersLoader}
                         className="bg-[#00B4F1] h-12 text-white rounded-full cursor-pointer"
                         onClick={handleNext}
                         type="button"
                       >
-                        {addAnswersLoader ? "Loading" : "Next"}
+                        {addAnswersLoader ? <LoaderCenter color="white" size='30'/> : "Next"}
                       </Button>
                     )}
                   </div>

@@ -80,7 +80,6 @@ const MvpEmails = ({ searchTerm }) => {
     return (
       <p>
         <LoaderCenter />
-        <span className="ml-2">Loading...</span>
       </p>
     );
   }
