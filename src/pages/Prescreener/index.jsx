@@ -2,9 +2,7 @@ import { Button, Typography } from "@material-tailwind/react";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  useGetAllQuestionsForWebViewQuery
-} from "../../api/apiSlice";
+import { useGetAllQuestionsForWebViewQuery } from "../../api/apiSlice";
 import circleCheck from "../../assets/images/check-circle.png";
 import CustomProgress from "./CustomProgress";
 import Header from "./Header";
@@ -231,6 +229,7 @@ const Prescreener = () => {
                     someone from the local study center can contact you.
                   </Typography>
                   <Button
+                    disabled={isLoading}
                     className="bg-[#00B4F1] h-12 text-white rounded-full"
                     onClick={() => navigate("/contact")}
                   >
