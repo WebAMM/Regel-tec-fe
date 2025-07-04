@@ -590,6 +590,7 @@ const SampleScreener = () => {
                         className="bg-[#00B4F1] h-12 text-white rounded-full cursor-pointer"
                         type="button"
                         onClick={handleSubmit}
+                       disabled={evaluateAnswersLoader || addAnswersLoader}
                       >
                         {evaluateAnswersLoader ? "loading" : "Submit"}
                       </Button>

@@ -118,7 +118,7 @@ const PreScreeningReport = () => {
     };
     const columns = [
         {
-            accessor: "userPublicId", header: "User ID", render: ({ userPublicId }) => {
+            accessor: "userPublicId", header: "Referral ID", render: ({ userPublicId }) => {
                 return (
                     <div>
                         {userPublicId ? userPublicId : '-'}
