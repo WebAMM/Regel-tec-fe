@@ -77,7 +77,7 @@ const FaqSection = ({ openReGelTecFaq, openHydrafil }) => {
       {faqs.map((item, index) => (
         <Accordion className="mb-[18px]" key={index} open={open === index}>
           <AccordionHeader
-            className="bg-[#E5F7FE] !border-none text-[#39394A] flex px-[30px] lg:h-[80px] md:h-[68px] h-[68px] rounded-[10px] cursor-pointer "
+            className="bg-[#E5F7FE] !border-none text-[#39394A] flex px-[30px] lg:h-[80px] md:h-[68px] h-[68px] rounded-t-[10px] cursor-pointer "
             onClick={() => handleOpen(index)}
           >
             <div className="flex items-center justify-between w-full ">

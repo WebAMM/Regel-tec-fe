@@ -12,6 +12,7 @@ import {
 } from "../../api/apiSlice";
 import moment from "moment";
 import NotificationFilterModal from "./NotificationFilterModal";
+import { LoaderCenter } from "../../utilities/Loader";
 
 const Notifications = () => {
   const [pageSize, setPageSize] = useState(5); // Default to 5 as shown in original
@@ -168,8 +169,12 @@ const Notifications = () => {
 },
   ];
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+ if (isLoading) {
+    return (
+      <p>
+        <LoaderCenter />
+      </p>
+    );
   }
 
   return (
