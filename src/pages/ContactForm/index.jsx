@@ -21,6 +21,7 @@ import { useAddNewMvpMutation } from "../../api/apiSlice";
 import { toast } from "react-toastify";
 import { ContactFormSchema } from "../../schemas/validations";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { LoaderCenter } from "../../utilities/Loader";
 
 const COUNTRIES = ["France (+33)", "Germany (+49)", "Spain (+34)", "USA (+1)"];
 const CODES = ["+33", "+49", "+34", "+1"];
@@ -307,7 +308,7 @@ const ContactForm = () => {
                               disabled={isSubmitting}
                               className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                             >
-                              {isSubmitting ? "loading..." : "Submit"}
+                              {isSubmitting ? <LoaderCenter/> : "Submit"}
                             </Button>
                           </div>
                         </div>

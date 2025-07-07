@@ -137,6 +137,7 @@ const Login = () => {
               </div>
 
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full py-2 bg-[#00AEEF] text-white rounded hover:[#0090c7] transition flex justify-center items-center cursor-pointer"
               >
