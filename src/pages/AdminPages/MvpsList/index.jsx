@@ -103,7 +103,7 @@ const MvpsList = () => {
     return moment(dateString).format("MMM DD, YYYY, h:mm A");
   };
   const mvpColumns = [
-    { accessor: "mvp_id", header: "MVP ID" },
+    { accessor: "mvp_id", header: "Referral ID" },
     { accessor: "name", header: "Name" },
     { accessor: "contactNumber", header: "Contact Number" },
     { accessor: "email", header: "Email" },
