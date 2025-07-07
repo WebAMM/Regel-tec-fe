@@ -308,7 +308,7 @@ const ContactForm = () => {
                               disabled={isSubmitting}
                               className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                             >
-                              {isSubmitting ? <LoaderCenter/> : "Submit"}
+                              {isSubmitting ? <LoaderCenter color='#FFFFFF' size='30'/> : "Submit"}
                             </Button>
                           </div>
                         </div>
