@@ -592,7 +592,7 @@ const SampleScreener = () => {
                         onClick={handleSubmit}
                        disabled={evaluateAnswersLoader || addAnswersLoader}
                       >
-                        {evaluateAnswersLoader ? "loading" : "Submit"}
+                        {evaluateAnswersLoader ? <LoaderCenter color="white" size='30'/> : "Submit"}
                       </Button>
                     ) : (
                       <Button
