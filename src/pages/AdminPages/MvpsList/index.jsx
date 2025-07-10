@@ -156,7 +156,7 @@ const MvpsList = () => {
         <div className="flex items-center gap-4">
           <Button
             variant="outlined"
-            className={`h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 relative ${
+            className={`h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 relative cursor-pointer ${
               hasActiveFilters() ? "border-blue-500 bg-blue-50" : ""
             }`}
             onClick={handleOpenFilterModal}
@@ -167,7 +167,7 @@ const MvpsList = () => {
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full"></span>
             )}
           </Button>
-          <Button className="bg-[#A2A1A833] border-[1px] border-[#A2A1A833] shadow-none h-[50px] text-[#000000] rounded-[12px] flex items-center gap-2">
+          <Button className="bg-[#A2A1A833] border-[1px] border-[#A2A1A833] shadow-none h-[50px] text-[#000000] rounded-[12px] flex items-center gap-2 cursor-pointer">
             <MdOutlineFileDownload />
             Export
           </Button>

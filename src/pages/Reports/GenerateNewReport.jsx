@@ -114,7 +114,7 @@ const GenerateNewReport = ({ open, onClose }) => {
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2 bg-[#00B4F1] text-white rounded-md"
+                    className="px-6 py-2 bg-[#00B4F1] text-white rounded-md cursor-pointer"
                   >
                     Generate Report
                   </button>

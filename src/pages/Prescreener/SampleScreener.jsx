@@ -476,6 +476,7 @@ const SampleScreener = () => {
                             accentColor: "#00B4F1",
                             height: "20px",
                             width: "20px",
+                            cursor: 'pointer'
                           }}
                         />
 
