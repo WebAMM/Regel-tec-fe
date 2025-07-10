@@ -15,7 +15,7 @@ const PreScreeningReportsPanel = ({ onClick }) => {
         <div className="w-full p-6 bg-white rounded-lg shadow-sm border border-gray-100">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-medium text-gray-800">Pre-Screening Reports</h1>
-                <button className="text-[#00B4F1] font-medium flex items-center" onClick={onClick}>
+                <button className="text-[#00B4F1] font-medium flex items-center cursor-pointer" onClick={onClick}>
                     <span className="mr-1">+</span> Generate Report
                 </button>
             </div>

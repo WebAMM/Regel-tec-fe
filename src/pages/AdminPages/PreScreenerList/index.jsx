@@ -143,7 +143,7 @@ const PreScreenerList = () => {
           </div>
           <Button
             variant="outlined"
-            className={`h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 relative ${
+            className={`h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 relative cursor-pointer ${
               hasActiveFilters() ? "border-blue-500 bg-blue-50" : ""
             }`}
             onClick={() => setIsFilterOpen(true)}
@@ -164,7 +164,7 @@ const PreScreenerList = () => {
               },
             })
           }
-          className="bg-[#00B4F1] h-[50px] text-white rounded-[12px] flex items-center gap-2"
+          className="bg-[#00B4F1] h-[50px] text-white rounded-[12px] flex items-center gap-2 cursor-pointer"
         >
           <GoPlusCircle />
           Add New Question
