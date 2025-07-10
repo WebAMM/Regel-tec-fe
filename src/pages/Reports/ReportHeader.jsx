@@ -8,7 +8,7 @@ const ReportHeader = ({ onClick }) => {
                 <h1 className='font-bold text-3xl'>Reports</h1>
                 <Button
                     onClick={onClick}
-                    className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2">
+                    className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 cursor-pointer">
                     <CgNotes size={22} />
                     Generate New Report
                 </Button>

@@ -129,7 +129,7 @@ const Login = () => {
                 </label>
                 <button
                   type="button"
-                  className="text-[#00AEEF] hover:underline"
+                  className="text-[#00AEEF] hover:underline cursor-pointer"
                   onClick={() => navigate("/admin/forgot-password")}
                 >
                   Forgot Password?
