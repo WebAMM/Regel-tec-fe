@@ -476,6 +476,7 @@ const SampleScreener = () => {
                             accentColor: "#00B4F1",
                             height: "20px",
                             width: "20px",
+                            cursor: 'pointer'
                           }}
                         />
 
@@ -592,7 +593,7 @@ const SampleScreener = () => {
                         onClick={handleSubmit}
                        disabled={evaluateAnswersLoader || addAnswersLoader}
                       >
-                        {evaluateAnswersLoader ? "loading" : "Submit"}
+                        {evaluateAnswersLoader ? <LoaderCenter color="white" size='30'/> : "Submit"}
                       </Button>
                     ) : (
                       <Button

@@ -33,7 +33,7 @@ const Emails = () => {
                     </div>
                     <Button
                         variant="outlined"
-                        className="h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2"
+                        className="h-[50px] border-[#A2A1A833] text-[#000] rounded-[12px] flex items-center gap-2 cursor-pointer"
                     >
                         <img src={filterIcon} alt="" />
                         Filter

@@ -239,7 +239,7 @@ const MyMapWithSearch = ({ center }) => {
           </div>
           <button
             disabled={isLoading}
-            className="px-4 py-2 bg-sky-500 text-white rounded-xl hover:bg-sky-600 "
+            className="px-4 py-2 bg-sky-500 text-white rounded-xl hover:bg-sky-600 cursor-pointer"
             onClick={handleSearch}
           >
             {isLoading || isFetching ? <Loader /> : "Search"}
