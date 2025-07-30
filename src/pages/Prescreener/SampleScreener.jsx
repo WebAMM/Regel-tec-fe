@@ -6,6 +6,7 @@ import {
   useEvaluateAnswersMutation,
   useGetAllQuestionsForWebViewQuery,
   useGetLatestBatchNoQuery,
+  useLazyGetStateCityByZipcodeQuery
 } from "../../api/apiSlice";
 import CustomProgress from "./CustomProgress";
 import Header from "./Header";
@@ -23,6 +24,7 @@ const SampleScreener = () => {
     useAddAnswersOfSectionsMutation();
   const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] =
     useEvaluateAnswersMutation();
+  const [getStateCityByZipcode] = useLazyGetStateCityByZipcodeQuery();
   const [qualificationStatus, setQualificationStatus] = useState(null);
   const isValidZipCode = (zip) => /^\d{5}$/.test(zip);
 
@@ -47,7 +49,7 @@ const SampleScreener = () => {
   const [contactData, setcontactData] = useState({
     city: "",
     state: "",
-    zipCode: null,
+    zipCode: state?.userLocation || "",
   });
 
   const [evaluateAnswersData, setEvaluateAnswersData] = useState({
@@ -59,6 +61,7 @@ const SampleScreener = () => {
 
   const [submitForm, setSubmitForm] = useState(false);
   const [validationError, setValidationError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const totalSteps = sectionQuestions?.data?.latestSectionOrder;
 
@@ -101,56 +104,98 @@ const SampleScreener = () => {
       }
     }
   };
+  // Add this new function after calculateBMI function
+  const handleZipcodeChange = async (zipCode, questionId, sectionId) => {
+    // Update the form data first
+    handleInputChange(questionId, zipCode, sectionId, "Zip Code");
+    // Clear previous API error
+    setApiError("");
+    // Update contact data
+    setcontactData(prev => ({
+      ...prev,
+      zipCode: zipCode,
+      city: "",
+      state: ""
+    }));
 
-  // Handle input changes and update groupedData
-  const handleInputChange = (questionId, value, sectionId, title) => {
-    // console.log(value, 'value')
-    // console.log(title, 'title')
-
-    if (!state?.userLocation && title === "Zip Code") {
-      setEvaluateAnswersData((prev) => {
-        return {
-          ...prev,
-          userZipcode: value,
-        };
-      });
-      setcontactData((prev) => {
-        return {
-          ...prev,
-          zipCode: value,
-        };
-      });
-    }
-    if (title === "City") {
-      if (state?.userLocation) {
-        setcontactData((prev) => {
-          return {
+    // If zipcode is 5 digits, fetch city and state
+    if (isValidZipCode(zipCode)) {
+      try {
+        const response = await getStateCityByZipcode(zipCode).unwrap();
+        if (response?.status === 200 && response?.data) {
+          setcontactData(prev => ({
             ...prev,
-            zipCode: state?.userLocation,
-          };
-        });
-      }
+            city: response.data.city,
+            state: response.data.state
+          }));
 
-      setcontactData((prev) => {
-        return {
-          ...prev,
-          city: value,
-        };
-      });
+          // ADD THESE LINES - Update groupedData with city and state
+          const currentSectionQuestions = sectionQuestions?.data?.sections.find(s => s.sectionId === sectionId)?.questions || [];
+          const cityQuestion = currentSectionQuestions.find(q => q.title === "City");
+          const stateQuestion = currentSectionQuestions.find(q => q.title === "State");
+
+          setGroupedData(prevData => {
+            const updatedData = [...prevData.data];
+
+            if (cityQuestion) {
+              const cityIndex = updatedData.findIndex(item => item.questionId === cityQuestion.questionId);
+              if (cityIndex !== -1) {
+                updatedData[cityIndex].answer = response.data.city;
+              } else {
+                updatedData.push({ questionId: cityQuestion.questionId, answer: response.data.city });
+              }
+            }
+
+            if (stateQuestion) {
+              const stateIndex = updatedData.findIndex(item => item.questionId === stateQuestion.questionId);
+              if (stateIndex !== -1) {
+                updatedData[stateIndex].answer = response.data.state;
+              } else {
+                updatedData.push({ questionId: stateQuestion.questionId, answer: response.data.state });
+              }
+            }
+
+            return { ...prevData, sectionId: sectionId, data: updatedData };
+          });
+        }
+      } catch (error) {
+        console.log("Error fetching city and state:", error);
+
+        // Handle API validation errors
+        if (error?.data?.status === 400 && error?.data?.message) {
+          setApiError(error.data.message);
+        } else {
+          setApiError("Error fetching location data. Please try again.");
+        }
+
+        // Clear city and state if zipcode is not valid but has some input
+        if (zipCode.length > 0) {
+          setcontactData(prev => ({
+            ...prev,
+            city: "",
+            state: ""
+          }));
+        }
+      }
     }
-    if (title === "State") {
-      setcontactData((prev) => {
-        return {
-          ...prev,
-          state: value,
-        };
-      });
+  };
+  // Replace the existing handleInputChange function
+  const handleInputChange = (questionId, value, sectionId, title) => {
+    if (!state?.userLocation && title === "Zip Code") {
+      setEvaluateAnswersData((prev) => ({
+        ...prev,
+        userZipcode: value,
+      }));
+    }
+
+    // Don't allow manual changes to City and State - they should be auto-filled
+    if (title === "City" || title === "State") {
+      return; // Exit early, don't update these fields manually
     }
 
     setValidationError(""); // Clear validation error when user makes changes
     setGroupedData((prevData) => {
       const updatedData = [...prevData.data];
-      // console.log(updatedData, 'updatedata')
       const questionIndex = updatedData.findIndex(
         (item) => item.questionId === questionId
       );
@@ -181,9 +226,6 @@ const SampleScreener = () => {
 
     // Check if all questions have answers
     for (const question of currentSectionQuestions) {
-      // console.log('evaluateAnswersData.userZipcode', evaluateAnswersData.userZipcode);
-      // const questionAnswer = evaluateAnswersData.userZipcode !== '' ? groupedData.data.filter((el) => el.title === 'Zip Code').find(item => item.questionId === question.questionId) : groupedData.data.find(item => item.questionId === question.questionId);
-
       if (
         question.title === "Zip Code" &&
         evaluateAnswersData.userZipcode !== ""
@@ -197,26 +239,40 @@ const SampleScreener = () => {
           setValidationError("Please enter a valid 5-digit Zip Code.");
           return false;
         }
-        continue; // Skip this iteration and move to the next question
-      }
-// Height validation
-    if (question.title === "How tall are you? (inches)") {
-      const questionAnswer = groupedData.data.find(
-        (item) => item.questionId === question.questionId
-      );
-      
-      if (!questionAnswer || questionAnswer.answer === "") {
-        setValidationError("Please complete all questions in this section.");
-        return false;
+        continue;
       }
 
-      const height = parseInt(questionAnswer.answer);
-      if (isNaN(height) || height < 48 || height > 95) {
-        setValidationError("Height must be between 48 and 95 inches.");
-        return false;
+      // ADD THESE LINES - Skip validation for City and State as they're auto-filled
+      if (question.title === "City" || question.title === "State") {
+        const questionAnswer = groupedData.data.find(
+          (item) => item.questionId === question.questionId
+        );
+        if (!questionAnswer || questionAnswer.answer === "") {
+          setValidationError("Please enter a valid US Zip code.");
+          return false;
+        }
+        continue;
       }
-      continue;
-    }
+
+      // Height validation
+      if (question.title === "How tall are you? (inches)") {
+        const questionAnswer = groupedData.data.find(
+          (item) => item.questionId === question.questionId
+        );
+
+        if (!questionAnswer || questionAnswer.answer === "") {
+          setValidationError("Please complete all questions in this section.");
+          return false;
+        }
+
+        const height = parseInt(questionAnswer.answer);
+        if (isNaN(height) || height < 48 || height > 95) {
+          setValidationError("Height must be between 48 and 95 inches.");
+          return false;
+        }
+        continue;
+      }
+
       const questionAnswer = groupedData.data.find(
         (item) => item.questionId === question.questionId
       );
@@ -318,13 +374,24 @@ const SampleScreener = () => {
     }
   };
 
-  const questionDivision = sectionQuestions?.data?.sections?.map(
-    (section, index) => (
+  const questionDivision = sectionQuestions?.data?.sections?.map((section, index) => {
+    // Reorder questions: Zip Code first, then State, then City, then others
+    const reorderedQuestions = [...section.questions].sort((a, b) => {
+      if (a.title === "Zip Code") return -1;
+      if (b.title === "Zip Code") return 1;
+      if (a.title === "City") return -1;
+      if (b.title === "City") return 1;
+      if (a.title === "State") return -1;
+      if (b.title === "State") return 1;
+      return 0;
+    });
+
+    return (
       <div
         key={section.sectionId}
         className="flex gap-4 lg:items-center sm:items-start items-start lg:flex-row md:flex-row sm:flex-col flex-col"
       >
-        {section.questions.map((question, questionIndex) => {
+        {reorderedQuestions.map((question, questionIndex) => {
           switch (question.type) {
             case "TextBox":
               return (
@@ -339,9 +406,13 @@ const SampleScreener = () => {
                     placeholder={question.meta.placeholder}
                     type="text"
                     value={
-                      groupedData.data.find(
-                        (item) => item.questionId === question.questionId
-                      )?.answer || ""
+                      question.title === "City"
+                        ? contactData.city
+                        : question.title === "State"
+                          ? contactData.state
+                          : groupedData.data.find(
+                            (item) => item.questionId === question.questionId
+                          )?.answer || ""
                     }
                     onChange={(e) =>
                       handleInputChange(
@@ -351,7 +422,11 @@ const SampleScreener = () => {
                         question.title
                       )
                     }
-                    className="border w-full border-gray-200 rounded-lg px-3 !h-[50px] outline-none"
+                    disabled={question.title === "City" || question.title === "State"}
+                    className={`border w-full border-gray-200 rounded-lg px-3 !h-[50px] outline-none ${(question.title === "City" || question.title === "State")
+                      ? "bg-gray-100 cursor-not-allowed"
+                      : ""
+                      }`}
                   />
                 </div>
               );
@@ -367,31 +442,39 @@ const SampleScreener = () => {
                   <input
                     placeholder={question.meta.placeholder}
                     type="number"
-                    // value={groupedData.data.find(item => item.questionId === question.questionId)?.answer || state?.userLocation || ''}
+                    maxLength={question.title === "Zip Code" ? 5 : undefined}
                     value={
                       question.title === "Zip Code"
                         ? groupedData.data.find(
-                            (item) => item.questionId === question.questionId
-                          )?.answer ||
-                          state?.userLocation ||
-                          ""
+                          (item) => item.questionId === question.questionId
+                        )?.answer ||
+                        state?.userLocation ||
+                        ""
                         : groupedData.data.find(
-                            (item) => item.questionId === question.questionId
-                          )?.answer || ""
+                          (item) => item.questionId === question.questionId
+                        )?.answer || ""
                     }
                     onChange={(e) => {
-                      if (
-                        question.title === "How tall are you? (inches)" &&
-                        e.target.value.includes(".")
-                      ) {
-                        return;
+                      if (question.title === "Zip Code") {
+                        // Restrict to 5 digits only
+                        const value = e.target.value.slice(0, 5);
+                        if (/^\d*$/.test(value)) {
+                          handleZipcodeChange(value, question.questionId, section.sectionId);
+                        }
+                      } else {
+                        if (
+                          question.title === "How tall are you? (inches)" &&
+                          e.target.value.includes(".")
+                        ) {
+                          return;
+                        }
+                        handleInputChange(
+                          question.questionId,
+                          e.target.value,
+                          section.sectionId,
+                          question.title
+                        );
                       }
-                      handleInputChange(
-                        question.questionId,
-                        e.target.value,
-                        section.sectionId,
-                        question.title
-                      );
                     }}
                     onKeyDown={(e) => {
                       // Prevent decimal point for height input
@@ -409,6 +492,7 @@ const SampleScreener = () => {
                   />
                 </div>
               );
+            // ... rest of the cases remain the same
             case "DropDown":
               return (
                 <div
@@ -479,7 +563,6 @@ const SampleScreener = () => {
                             cursor: 'pointer'
                           }}
                         />
-
                         <label
                           htmlFor={`radio-${question.questionId}-${option._id}`}
                           className="lg:text-lg md:text-[16px] sm:text-sm text-sm"
@@ -492,12 +575,12 @@ const SampleScreener = () => {
                 </div>
               );
             default:
-              return null; // Handle any unrecognized question types
+              return null;
           }
         })}
       </div>
-    )
-  );
+    );
+  });
 
   useEffect(() => {
     if (latesBatchNo?.data?.latestBatchNo !== undefined) {
@@ -591,9 +674,9 @@ const SampleScreener = () => {
                         className="bg-[#00B4F1] h-12 text-white rounded-full cursor-pointer"
                         type="button"
                         onClick={handleSubmit}
-                       disabled={evaluateAnswersLoader || addAnswersLoader}
+                        disabled={evaluateAnswersLoader || addAnswersLoader}
                       >
-                        {evaluateAnswersLoader ? <LoaderCenter color="white" size='30'/> : "Submit"}
+                        {evaluateAnswersLoader ? <LoaderCenter color="white" size='30' /> : "Submit"}
                       </Button>
                     ) : (
                       <Button
@@ -602,7 +685,7 @@ const SampleScreener = () => {
                         onClick={handleNext}
                         type="button"
                       >
-                        {addAnswersLoader ? <LoaderCenter color="white" size='30'/> : "Next"}
+                        {addAnswersLoader ? <LoaderCenter color="white" size='30' /> : "Next"}
                       </Button>
                     )}
                   </div>

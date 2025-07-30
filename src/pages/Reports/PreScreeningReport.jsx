@@ -10,6 +10,8 @@ import { CgNotes } from "react-icons/cg";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { LoaderCenter } from "../../utilities/Loader";
+import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 
 const PreScreeningReport = () => {
   const { state } = useLocation();
@@ -18,6 +20,7 @@ const PreScreeningReport = () => {
   const { data: screeningReport, isLoading } =
     useGetPreScreeningReportQuery(values);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isReferralDownloading, setIsReferralDownloading] = useState(false);
   const baseUrl = "https://regel-medical-be.vercel.app/api";
   // const baseUrl = "https://regel-medical-be.duckdns.org/api"        Don't use in any case
   // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
@@ -91,6 +94,77 @@ const PreScreeningReport = () => {
   //     { accessor: "assignedStudyCenterCenter", header: "Assigned Study Center" },
   //     { accessor: "date", header: "Date" },
   // ];
+  // Function to generate and download referral report
+  const downloadReferralReport = async () => {
+    if (!screeningReport?.data?.preScreeningReport) return;
+
+    // Create workbook and worksheet
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Referral Report');
+
+    // Add title
+    worksheet.mergeCells('A1:D1');
+    const titleRow = worksheet.getRow(1);
+    titleRow.getCell(1).value = 'Referral Tracking Report';
+    titleRow.getCell(1).font = { size: 16, bold: true };
+    titleRow.getCell(1).alignment = { vertical: 'middle', horizontal: 'center' };
+    titleRow.height = 30;
+
+    // Add empty row
+    worksheet.addRow([]);
+
+    // Add headers with styling
+    const headerRow = worksheet.addRow(['Referral ID', 'Assigned Center', 'MRI', 'Date']);
+    headerRow.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF00B4F1' }
+      };
+      cell.font = { color: { argb: 'FFFFFFFF' }, bold: true };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+    });
+
+    // Add data
+    screeningReport.data.preScreeningReport.forEach(record => {
+      const row = worksheet.addRow([
+        record.userPublicId || '-',
+        record.assignedStudyCenterCenter || '-',
+        getAnswer(record, 'MRI'),
+        record.date ? new Date(record.date).toLocaleString() : '-'
+      ]);
+
+      // Center align data cells
+      row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      });
+    });
+
+    // Set column widths
+    worksheet.columns = [
+      { width: 15 }, // Referral ID
+      { width: 25 }, // Assigned Center
+      { width: 30 }, // MRI
+      { width: 20 }  // Date
+    ];
+
+    // Generate and download
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Referral_Tracking_Report_${new Date().toISOString().split('T')[0]}.xlsx`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   // Define helper function to get answer by question title or section
   const getAnswer = (record, questionTitle) => {
     const question = record.answers.find((q) => {
@@ -209,25 +283,43 @@ const PreScreeningReport = () => {
 
   console.log(values, "values");
 
-  if (isLoading) return <div><LoaderCenter/></div>;
+  if (isLoading) return <div><LoaderCenter /></div>;
   return (
     <>
       <div className="flex justify-between items-center w-full my-4">
         <h1 className="font-bold text-3xl">Pre-Screening Report</h1>
-        <a
-          href={`${baseUrl}/report/generateExcelReport?fromDate=${values?.fromDate}&toDate=${values?.toDate}&studyCenterId=${values?.studyCenterId}`}
-          className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
-          onClick={() => {
-            if (!isDownloading) {
-              setIsDownloading(true);
-              setTimeout(() => setIsDownloading(false), 3000); // Re-enable after 3 seconds
-            }
-          }}
-          style={isDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
-        >
-          <CgNotes size={22} />
-          {isDownloading ? 'Downloading...' : 'Download Report'}
-        </a>
+        <div className="flex gap-3">
+          <a
+            href={`${baseUrl}/report/generateExcelReport?fromDate=${values?.fromDate}&toDate=${values?.toDate}&studyCenterId=${values?.studyCenterId}`}
+            className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
+            onClick={() => {
+              if (!isDownloading) {
+                setIsDownloading(true);
+                setTimeout(() => setIsDownloading(false), 3000); // Re-enable after 3 seconds
+              }
+            }}
+            style={isDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
+          >
+            <CgNotes size={22} />
+            {isDownloading ? 'Downloading...' : 'Download Report'}
+          </a>
+          <button
+            onClick={() => {
+              if (!isReferralDownloading) {
+                setIsReferralDownloading(true);
+                downloadReferralReport();
+                setTimeout(() => setIsReferralDownloading(false), 3000); // Re-enable after 3 seconds
+              }
+            }}
+            className="bg-[#28a745] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
+            style={isReferralDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
+            disabled={isReferralDownloading}
+          >
+            <CgNotes size={22} />
+            {isReferralDownloading ? 'Downloading...' : 'Download Referral Report'}
+          </button>
+
+        </div>
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {totalCards.map((item, i) => {
