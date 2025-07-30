@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
+    // baseUrl: "https://d97f77f6e3ca.ngrok-free.app/api",
     baseUrl: "https://regel-medical-be.vercel.app/api",
     // baseUrl: "https://regel-medical-be.duckdns.org/api",    Don't use in any case
 
@@ -313,6 +314,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["Notifications"],
     }),
+    // Add this endpoint with other endpoints
+    getStateCityByZipcode: builder.query({
+      query: (zipCode) => ({
+        url: "/user/get-state-city",
+        method: "POST",
+        body: { zipCode: parseInt(zipCode) },
+      }),
+    }),
   }),
 });
 export const {
@@ -346,4 +355,5 @@ export const {
   useExportMvpPdfReportMutation,
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
+  useLazyGetStateCityByZipcodeQuery,
 } = api;

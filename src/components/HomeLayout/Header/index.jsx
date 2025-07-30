@@ -4,7 +4,11 @@ import regel from "../../../assets/images/regel.svg";
 const Header = () => {
   const [openNav, setOpenNav] = useState(false);
 
-  const handleClickScroll = (id) => {
+  const handleClickScroll = (id, navigate = false) => {
+    if (navigate) {
+      window.location.href = '/prescreen';
+      return;
+    }
     const element = document.getElementById(`${id}`);
     if (element) {
       const navbarHeight = 100; // Adjust this based on your navbar height
@@ -30,7 +34,7 @@ const Header = () => {
     { text: "Degenerative Disc Disease", href: "Degenerative Disc" },
     { text: "Study Overview", href: "Study Overview" },
     { text: "Study Locations", href: "nearLocation" },
-    { text: "Do I Qualify", href: "qualify" },
+    { text: "Do I Qualify", href: "qualify", navigate: true },
     { text: "FAQs", href: "FAQs" },
   ];
 
@@ -52,7 +56,7 @@ const Header = () => {
               key={index}
               // href={link.href}
               className="text-gray-700 hover:text-cyan-500 transition-colors font-medium cursor-pointer lg:text-center text-center"
-              onClick={() => handleClickScroll(link.href)}
+              onClick={() => handleClickScroll(link.href, link.navigate)}
             >
               {link.text}
             </div>
@@ -109,13 +113,23 @@ const Header = () => {
         <div className="lg:hidden px-4 py-2 bg-white shadow-md">
           <nav className="flex flex-col space-y-3 pb-3">
             {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                className="text-gray-700 hover:text-cyan-500 py-1"
-              >
-                {link.text}
-              </a>
+              link.navigate ? (
+                <div
+                  key={index}
+                  className="text-gray-700 hover:text-cyan-500 py-1 cursor-pointer"
+                  onClick={() => handleClickScroll(link.href, link.navigate)}
+                >
+                  {link.text}
+                </div>
+              ) : (
+                <a
+                  key={index}
+                  href={`#${link.href}`}
+                  className="text-gray-700 hover:text-cyan-500 py-1"
+                >
+                  {link.text}
+                </a>
+              )
             ))}
             <button
               onClick={() => handleClickScroll("qualify")}
