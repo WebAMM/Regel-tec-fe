@@ -42,12 +42,12 @@ const Home = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
-  // Check if user has already made a choice for location modal
-  const locationConsent = localStorage.getItem("locationConsent");
-  if (!locationConsent) {
-    setShowLocationModal(true);
-  }
-}, []);
+    // Check if user has already made a choice for location modal
+    const locationConsent = localStorage.getItem("locationConsent");
+    if (!locationConsent) {
+      setShowLocationModal(true);
+    }
+  }, []);
   const mapRef = useRef(null);
   const navigate = useNavigate();
   const [selectLocation, setSelectLocation] = useState(null);
@@ -127,18 +127,18 @@ const Home = () => {
     }, 500);
   };
   const handleLeaveWebsite = () => {
-  // Store decline in localStorage
-  localStorage.setItem(
-    "locationConsent",
-    JSON.stringify({
-      accepted: false,
-      timestamp: new Date().toISOString(),
-      version: "1.0",
-    })
-  );
-  setShowLocationModal(false);
-  window.open("https://regeltec.com/", "_blank");
-};
+    // Store decline in localStorage
+    localStorage.setItem(
+      "locationConsent",
+      JSON.stringify({
+        accepted: false,
+        timestamp: new Date().toISOString(),
+        version: "1.0",
+      })
+    );
+    setShowLocationModal(false);
+    window.open("https://regeltec.com/", "_blank");
+  };
   const handleSubmit = (values) => {
     console.log(values, "values");
     if (!values.email || !values.password) {
@@ -163,18 +163,18 @@ const Home = () => {
     setShowCookiesModal(false);
   };
 
-const handleLocationModalOk = () => {
-  // Store acceptance in localStorage
-  localStorage.setItem(
-    "locationConsent",
-    JSON.stringify({
-      accepted: true,
-      timestamp: new Date().toISOString(),
-      version: "1.0",
-    })
-  );
-  setShowLocationModal(false);
-};
+  const handleLocationModalOk = () => {
+    // Store acceptance in localStorage
+    localStorage.setItem(
+      "locationConsent",
+      JSON.stringify({
+        accepted: true,
+        timestamp: new Date().toISOString(),
+        version: "1.0",
+      })
+    );
+    setShowLocationModal(false);
+  };
   const handlePrivacyPolicyClick = () => {
     setShowPrivacyModal(true);
   };
@@ -352,9 +352,8 @@ const handleLocationModalOk = () => {
               {infoCards.map((card, index) => (
                 <div
                   key={index}
-                  className={`flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing ${
-                    index === infoCards.length - 1 ? "last-infocard" : ""
-                  }`}
+                  className={`flex lg:px-5 sm:px-0 px-0 items-center gap-5 lg:mx-0 md:mx-0 sm:mx-5 mx-5 relative infocard_spacing ${index === infoCards.length - 1 ? "last-infocard" : ""
+                    }`}
                   style={{
                     borderBottom:
                       index < 2 && window.innerWidth <= 1023
@@ -509,7 +508,7 @@ const handleLocationModalOk = () => {
                 {/* </div> */}
 
                 {/* Right Side - Text Content */}
-                 {/* <div className="lg:w-[55%] flex flex-col"> */}
+                {/* <div className="lg:w-[55%] flex flex-col"> */}
                 <div className="w-full flex flex-col">
                   <div className="mb-[5px]">
                     <div className="text-[#00B4F1] font-[500] uppercase tracking-widest text-[16px]">
@@ -563,7 +562,7 @@ const handleLocationModalOk = () => {
                     <p className="font-relay text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm mb-[10px] leading-relaxed">
                       Approximately 225 adults with chronic low back pain will
                       participate in this research study at multiple study{" "}
-                      <span 
+                      <span
                         onClick={() => handleClickScroll("nearLocation")}
                         className="text-[#00B4F1] hover:underline cursor-pointer underline"
                       >
@@ -711,7 +710,7 @@ const handleLocationModalOk = () => {
         
           className="container mx-auto pt-4 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div> */}
-       
+
 
         {/* Qualification Section */}
         <div
@@ -738,8 +737,8 @@ const handleLocationModalOk = () => {
             </p>
 
             {/* Progress Steps */}
-            <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-6 p-6 shadow-sm lg:h-[25rem] md:h-[20rem] sm:h-[18rem] h-[18rem]">
-              {/* <div className=" mx-auto lg:mb-16 md:mb-8 mb-8">
+            {/* <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-6 p-6 shadow-sm lg:h-[25rem] md:h-[20rem] sm:h-[18rem] h-[18rem]"> */}
+            {/* <div className=" mx-auto lg:mb-16 md:mb-8 mb-8">
                 <div className="flex justify-center items-center mb-8 pt-4">
                   <div className="text-center">
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-[20px] h-[20px]  mx-auto">
@@ -769,8 +768,8 @@ const handleLocationModalOk = () => {
                 </div>
               </div> */}
 
-              {/* Location Selection Form */}
-              <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
+            {/* Location Selection Form */}
+            {/* <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
                 <h3 className="lg:text-[28px] md:text-[24px] sm:text-lg text-lg  font-[700] text-[#121229] mb-5 text-left">
                   Select a Study Location
                 </h3>
@@ -778,10 +777,10 @@ const handleLocationModalOk = () => {
                 <p className="text-[#39394A] lg:text-[18px] md:text-[16px] sm:text-sm text-sms font-[400] font-relay mb-5 text-left">
                   Please select a study location near you to begin the
                   pre-screening process.
-                </p>
+                </p> */}
 
-                {/* Location Dropdown */}
-                <div className="mb-8 pt-3">
+            {/* Location Dropdown */}
+            {/* <div className="mb-8 pt-3">
                   <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[320px]">
                     <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1] text-[20px] ml-[5px]" />
                     <select
@@ -792,17 +791,17 @@ const handleLocationModalOk = () => {
                     >
                       <option value="">Select a location...</option>
                       {studyCentersWithCoordinates?.map((center) => (
-                        <option key={center?.id} value={center?.id}>
-                          {/* {center?.name},  */}
-                          {center?.city}, {center.state}
+                        <option key={center?.id} value={center?.id}> */}
+            {/* {center?.name},  */}
+            {/* {center?.city}, {center.state}
                         </option>
                       ))}
                     </select>
                   </div>
-                </div>
+                </div> */}
 
-                {/* Continue Button */}
-                <div className="text-left">
+            {/* Continue Button */}
+            {/* <div className="text-left">
                   <button
                     className="lg:text-[16px] md:text-[16px] sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed cursor-pointer"
                     onClick={() =>
@@ -814,9 +813,9 @@ const handleLocationModalOk = () => {
                   >
                     Continue To Pre-Screener
                   </button>
-                </div>
-              </div>
-            </div>
+                </div> */}
+            {/* </div> */}
+            {/* </div> */}
           </div>
         </div>
 
@@ -840,49 +839,49 @@ const handleLocationModalOk = () => {
           </div>
         </div>
       </div>
-       <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px] xl:px-0 lg:px-6 px-6">
-          <div className="container mx-auto">
-            <div className="text-center mb-6">
-              <h2
-                className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2 "
-                id="nearLocation"
-              >
-                STUDY UNDERWAY AT MULTIPLE STUDY CENTERS IN THE US
-              </h2>
+      <div className="bg-[#e5f7fe] pt-[60px] pb-12 h-[1000px] xl:px-0 lg:px-6 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-6">
+            <h2
+              className="text-[#00B4F1] font-[500] uppercase tracking-widest lg:text-[16px] md:text-[16px] sm:text-sm text-sm mb-2 "
+              id="nearLocation"
+            >
+              STUDY UNDERWAY AT MULTIPLE STUDY CENTERS IN THE US
+            </h2>
 
-              <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-4 ">
-                Find A Study Location Near You
-              </h2>
+            <h2 className="lg:text-[38px] md:text-[30px] sm:text-lg xs:text-lg text-lg font-[700] text-[#121229] mb-4 ">
+              Find A Study Location Near You
+            </h2>
 
-              <p className="text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-1 text-center">
-                Find a local study center in your area then see if you may be
-                eligible to participate.
-              </p>
+            <p className="text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay mb-1 text-center">
+              Find a local study center in your area then see if you may be
+              eligible to participate.
+            </p>
 
-              <p className="text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay text-center">
-                If you don't see a local study center available in your area at
-                this time, please check back regularly, as new <br /> study
-                centers may be added in the future.
-              </p>
-            </div>
+            <p className="text-[#39394A] font-[400] lg:text-[18px] md:text-[16px] sm:text-sm text-sm font-relay text-center">
+              If you don't see a local study center available in your area at
+              this time, please check back regularly, as new <br /> study
+              centers may be added in the future.
+            </p>
+          </div>
 
-            {/* Map Section */}
-            <div className="rounded-lg overflow-hidden shadow-md mb-16 relative mt-[50px]">
-              {/* US Map */}
-              <div className="relative ">
-                <div className="h-[630px] w-full rounded-xl overflow-hidden">
-                  <div ref={mapRef} className="h-full w-full relative">
-                    {/* Fallback content if Google Maps fails to load */}
-                    <MyMapWithSearch
-                      center={studyCentersWithCoordinates}
-                      className="p-10"
-                    />
-                  </div>
+          {/* Map Section */}
+          <div className="rounded-lg overflow-hidden shadow-md mb-16 relative mt-[50px]">
+            {/* US Map */}
+            <div className="relative ">
+              <div className="h-[630px] w-full rounded-xl overflow-hidden">
+                <div ref={mapRef} className="h-full w-full relative">
+                  {/* Fallback content if Google Maps fails to load */}
+                  <MyMapWithSearch
+                    center={studyCentersWithCoordinates}
+                    className="p-10"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       {/* <LandingPageLogin open={isOpen} handleSubmit={handleSubmit} /> */}
       {/* Cookies Modal */}
       <CookiesModal handlePrivacyPolicyClick={handlePrivacyPolicyClick} />
@@ -904,7 +903,7 @@ const handleLocationModalOk = () => {
             </p>
             <div className="flex justify-center space-x-3">
               <button
-                 onClick={handleLeaveWebsite}
+                onClick={handleLeaveWebsite}
                 className="px-5 py-[10px] border border-[#00B4F1] text-[#00B4F1] font-medium hover:bg-blue-50 rounded-full lg:text-[16px] md:text-sm text-sm"
               >
                 Leave Website
