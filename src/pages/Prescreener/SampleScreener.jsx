@@ -30,6 +30,7 @@ const SampleScreener = () => {
 
   const navigate = useNavigate();
   const { state } = useLocation();
+  console.log("state", state)
   const batchNumber = latesBatchNo?.data?.latestBatchNo + 1;
 
   const [currentStep, setCurrentStep] = useState(1);
