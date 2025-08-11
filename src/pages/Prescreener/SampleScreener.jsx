@@ -62,7 +62,6 @@ const SampleScreener = () => {
 
   const [submitForm, setSubmitForm] = useState(false);
   const [validationError, setValidationError] = useState("");
-  const [apiError, setApiError] = useState("");
 
   const totalSteps = sectionQuestions?.data?.latestSectionOrder;
 
@@ -110,7 +109,7 @@ const SampleScreener = () => {
     // Update the form data first
     handleInputChange(questionId, zipCode, sectionId, "Zip Code");
     // Clear previous API error
-    setApiError("");
+    // setApiError("");
     // Update contact data
     setcontactData(prev => ({
       ...prev,
@@ -164,9 +163,9 @@ const SampleScreener = () => {
 
         // Handle API validation errors
         if (error?.data?.status === 400 && error?.data?.message) {
-          setApiError(error.data.message);
+          // setApiError(error.data.message);
         } else {
-          setApiError("Error fetching location data. Please try again.");
+          // setApiError("Error fetching location data. Please try again.");
         }
 
         // Clear city and state if zipcode is not valid but has some input
@@ -375,7 +374,7 @@ const SampleScreener = () => {
     }
   };
 
-  const questionDivision = sectionQuestions?.data?.sections?.map((section, index) => {
+  const questionDivision = sectionQuestions?.data?.sections?.map((section) => {
     // Reorder questions: Zip Code first, then State, then City, then others
     const reorderedQuestions = [...section.questions].sort((a, b) => {
       if (a.title === "Zip Code") return -1;
@@ -392,7 +391,7 @@ const SampleScreener = () => {
         key={section.sectionId}
         className="flex gap-4 lg:items-center sm:items-start items-start lg:flex-row md:flex-row sm:flex-col flex-col"
       >
-        {reorderedQuestions.map((question, questionIndex) => {
+        {reorderedQuestions.map((question) => {
           switch (question.type) {
             case "TextBox":
               return (
@@ -592,6 +591,67 @@ const SampleScreener = () => {
       }));
     }
   }, [latesBatchNo]);
+
+  // Populate city and state from center data when navigating from map
+  useEffect(() => {
+    if (state?.center && sectionQuestions?.data?.sections) {
+      const center = state.center;
+      
+      // Update contactData with city and state from center
+      setcontactData(prev => ({
+        ...prev,
+        city: center.city || "",
+        state: center.state || "",
+        zipCode: prev.zipCode || center.zipCode || ""
+      }));
+
+      // Find questions that need to be populated across all sections
+      sectionQuestions.data.sections.forEach(section => {
+        const cityQuestion = section.questions.find(q => q.title === "City");
+        const stateQuestion = section.questions.find(q => q.title === "State");
+
+        if (cityQuestion || stateQuestion) {
+          setGroupedData(prevData => {
+            const updatedData = [...(prevData.data || [])];
+
+            if (cityQuestion && center.city) {
+              const cityIndex = updatedData.findIndex(item => item.questionId === cityQuestion.questionId);
+              if (cityIndex !== -1) {
+                updatedData[cityIndex].answer = center.city;
+              } else {
+                updatedData.push({ questionId: cityQuestion.questionId, answer: center.city });
+              }
+            }
+
+            if (stateQuestion && center.state) {
+              const stateIndex = updatedData.findIndex(item => item.questionId === stateQuestion.questionId);
+              if (stateIndex !== -1) {
+                updatedData[stateIndex].answer = center.state;
+              } else {
+                updatedData.push({ questionId: stateQuestion.questionId, answer: center.state });
+              }
+            }
+
+            return { ...prevData, data: updatedData };
+          });
+        }
+      });
+    }
+  }, [state?.center, sectionQuestions?.data?.sections]);
+
+  // Set the sectionId when data is populated from center selection
+  useEffect(() => {
+    if (state?.center && sectionQuestions?.data?.sections && groupedData.data.length > 0 && !groupedData.sectionId) {
+      // Find the current section ID
+      const currentSectionId = sectionQuestions?.data?.sections[currentStep - 1]?.sectionId;
+      if (currentSectionId) {
+        setGroupedData(prev => ({
+          ...prev,
+          sectionId: currentSectionId
+        }));
+      }
+    }
+  }, [state?.center, sectionQuestions?.data?.sections, groupedData.data, currentStep, groupedData.sectionId]);
   // useEffect(() => {
   //     if (groupedData.bmi !== null && groupedData.bmi !== undefined) {
   //         // Proceed to the next step or call the API
