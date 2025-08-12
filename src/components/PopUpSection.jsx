@@ -1,6 +1,6 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
- 
+
 const PopUpSection = ({ center, zipcode, setSelectedMarker }) => {
   const navigate = useNavigate();
   const handleCenter = (item) => {
@@ -30,12 +30,12 @@ const PopUpSection = ({ center, zipcode, setSelectedMarker }) => {
           &times;
         </button>
       </div>
- 
+
       <p className="text-gray-700 text-[14px] mb-5">
         {center?.city}, {center?.state}, {center?.zipCode}
       </p>
       <div className="flex items-center text-gray-600 mb-5 gap-2">
-       <FaMapMarkerAlt />
+        <FaMapMarkerAlt />
         <span className="text-[14px] font-[400]">
           {center?.distanceFromUserLocation?.distance ||
             center?.distanceFromUser?.distance ||
@@ -52,5 +52,5 @@ const PopUpSection = ({ center, zipcode, setSelectedMarker }) => {
     </div>
   );
 };
- 
+
 export default PopUpSection;

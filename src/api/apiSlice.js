@@ -313,6 +313,15 @@ export const api = createApi({
       }),
       invalidatesTags: ["Notifications"],
     }),
+    // Add this endpoint with other endpoints
+    getStateCityByZipcode: builder.query({
+      query: (zipCode) => ({
+        url: "/user/get-state-city",
+        method: "POST",
+        body: { zipCode: zipCode },
+        // body: { zipCode: parseInt(zipCode) },
+      }),
+    }),
   }),
 });
 export const {
@@ -346,4 +355,5 @@ export const {
   useExportMvpPdfReportMutation,
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
+  useLazyGetStateCityByZipcodeQuery,
 } = api;

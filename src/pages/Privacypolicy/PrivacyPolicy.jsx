@@ -5,7 +5,6 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
   const handleGoToHome = () => {
-    debugger;
     navigate("/");
   };
   return (

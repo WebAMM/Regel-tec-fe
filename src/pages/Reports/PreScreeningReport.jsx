@@ -10,255 +10,347 @@ import { CgNotes } from "react-icons/cg";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { LoaderCenter } from "../../utilities/Loader";
+import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 
 const PreScreeningReport = () => {
-    const { state } = useLocation();
-    const { values } = state;
-    console.log(state, "state");
-    const { data: screeningReport, isLoading } =
-        useGetPreScreeningReportQuery(values);
-    const [isDownloading, setIsDownloading] = useState(false);
-    // const baseUrl = "https://regel-medical-be.vercel.app/api";
-    const baseUrl = "https://regel-medical-be.duckdns.org/api"
-    // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
-    const totalCards = [
-        {
-            icon: studyIcon,
-            number: screeningReport?.data?.totalStudyCenters,
-            name: "Total Study Centers",
-        },
-        {
-            icon: mvpIcon,
-            number: screeningReport?.data?.registeredMVP,
-            name: "Registered MVPs",
-        },
-        {
-            icon: prescreenIcon,
-            number: screeningReport?.data?.totalPreScreenersSubmitted,
-            name: "Pre-Screeners Submitted",
-        },
-        {
-            icon: refferalIcon,
-            number: screeningReport?.data?.referralEmailsCount,
-            name: "Total Referral Emails Sent",
-        },
-        {
-            icon: statesIcon,
-            number: screeningReport?.data?.totalStatesCovered,
-            name: "States Covered",
-        },
-        {
-            icon: mvpIcon,
-            number: screeningReport?.data?.awaitingMvpCount,
-            name: "MVPs Awaiting Local Study Center",
-        },
+  const { state } = useLocation();
+  const { values } = state;
+  console.log(state, "state");
+  const { data: screeningReport, isLoading } =
+    useGetPreScreeningReportQuery(values);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isReferralDownloading, setIsReferralDownloading] = useState(false);
+  // const baseUrl = "https://regel-medical-be.vercel.app/api";
+  const baseUrl = "https://regel-medical-be.duckdns.org/api"
+  // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
+  const totalCards = [
+    {
+      icon: studyIcon,
+      number: screeningReport?.data?.totalStudyCenters,
+      name: "Total Study Centers",
+    },
+    {
+      icon: mvpIcon,
+      number: screeningReport?.data?.registeredMVP,
+      name: "Registered MVPs",
+    },
+    {
+      icon: prescreenIcon,
+      number: screeningReport?.data?.totalPreScreenersSubmitted,
+      name: "Pre-Screeners Submitted",
+    },
+    {
+      icon: refferalIcon,
+      number: screeningReport?.data?.referralEmailsCount,
+      name: "Total Referral Emails Sent",
+    },
+    {
+      icon: statesIcon,
+      number: screeningReport?.data?.totalStatesCovered,
+      name: "States Covered",
+    },
+    {
+      icon: mvpIcon,
+      number: screeningReport?.data?.awaitingMvpCount,
+      name: "MVPs Awaiting Local Study Center",
+    },
+  ];
+
+  // const downLoadExcel = async () => {
+  //     // try {
+  //     //     const response = await trigger().unwrap()
+  //     //     console.log(response?.header, 'response')
+  //     // } catch (error) {
+  //     //     console.log(error)
+  //     // }
+  //     <a href="https://regel-medical-be.vercel.app/api/report/generateExcelReport" class="download-button">
+  //         Download Excel Report
+  //     </a>
+  // }
+  // const columns = [
+
+  //     { accessor: "userPublicId", header: "User ID" },
+  //     { accessor: "name", header: "Name" },
+  //     { accessor: "email", header: "Email" },
+  //     { accessor: "locationSelected", header: "Location Selected" },
+  //     {
+  //         accessor: "answers", header: "Q1: Zip", render: (value) => {
+  //             console.log(value, 'value')
+  //             return (
+  //                 <div>{value ? 'value' : '-'}</div>
+  //             )
+  //         }
+  //     },
+  //     { accessor: "", header: "Q2: Age" },
+  //     { accessor: "to", header: "Q3: Pain" },
+  //     { accessor: "subject", header: "Q4: Surgery" },
+  //     { accessor: "", header: "Q5: BMI (G/H/W)" },
+  //     { accessor: "bmi", header: "BMI" },
+  //     { accessor: "subject", header: "Q6: Tobacco" },
+  //     { accessor: "", header: "Q7: T1 Diabetes" },
+  //     { accessor: "", header: "Q8: MRI" },
+  //     { accessor: "to", header: "% Complete" },
+  //     { accessor: "assignedStudyCenterCenter", header: "Assigned Study Center" },
+  //     { accessor: "date", header: "Date" },
+  // ];
+  // Function to generate and download referral report
+  const downloadReferralReport = async () => {
+    if (!screeningReport?.data?.preScreeningReport) return;
+
+    // Create workbook and worksheet
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Referral Report');
+
+    // Add title
+    worksheet.mergeCells('A1:D1');
+    const titleRow = worksheet.getRow(1);
+    titleRow.getCell(1).value = 'Referral Tracking Report';
+    titleRow.getCell(1).font = { size: 16, bold: true };
+    titleRow.getCell(1).alignment = { vertical: 'middle', horizontal: 'center' };
+    titleRow.height = 30;
+
+    // Add empty row
+    worksheet.addRow([]);
+
+    // Add headers with styling
+    const headerRow = worksheet.addRow(['Referral ID', 'Assigned Center', 'MRI', 'Date']);
+    headerRow.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF00B4F1' }
+      };
+      cell.font = { color: { argb: 'FFFFFFFF' }, bold: true };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
+      };
+    });
+
+    // Add data
+    screeningReport.data.preScreeningReport.forEach(record => {
+      const row = worksheet.addRow([
+        record.userPublicId || '-',
+        record.assignedStudyCenterCenter || '-',
+        getAnswer(record, 'MRI'),
+        record.date ? new Date(record.date).toLocaleString() : '-'
+      ]);
+
+      // Center align data cells
+      row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      });
+    });
+
+    // Set column widths
+    worksheet.columns = [
+      { width: 15 }, // Referral ID
+      { width: 25 }, // Assigned Center
+      { width: 30 }, // MRI
+      { width: 20 }  // Date
     ];
 
-    // const downLoadExcel = async () => {
-    //     // try {
-    //     //     const response = await trigger().unwrap()
-    //     //     console.log(response?.header, 'response')
-    //     // } catch (error) {
-    //     //     console.log(error)
-    //     // }
-    //     <a href="https://regel-medical-be.vercel.app/api/report/generateExcelReport" class="download-button">
-    //         Download Excel Report
-    //     </a>
-    // }
-    // const columns = [
+    // Generate and download
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Referral_Tracking_Report_${new Date().toISOString().split('T')[0]}.xlsx`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  };
 
-    //     { accessor: "userPublicId", header: "User ID" },
-    //     { accessor: "name", header: "Name" },
-    //     { accessor: "email", header: "Email" },
-    //     { accessor: "locationSelected", header: "Location Selected" },
-    //     {
-    //         accessor: "answers", header: "Q1: Zip", render: (value) => {
-    //             console.log(value, 'value')
-    //             return (
-    //                 <div>{value ? 'value' : '-'}</div>
-    //             )
-    //         }
-    //     },
-    //     { accessor: "", header: "Q2: Age" },
-    //     { accessor: "to", header: "Q3: Pain" },
-    //     { accessor: "subject", header: "Q4: Surgery" },
-    //     { accessor: "", header: "Q5: BMI (G/H/W)" },
-    //     { accessor: "bmi", header: "BMI" },
-    //     { accessor: "subject", header: "Q6: Tobacco" },
-    //     { accessor: "", header: "Q7: T1 Diabetes" },
-    //     { accessor: "", header: "Q8: MRI" },
-    //     { accessor: "to", header: "% Complete" },
-    //     { accessor: "assignedStudyCenterCenter", header: "Assigned Study Center" },
-    //     { accessor: "date", header: "Date" },
-    // ];
-    // Define helper function to get answer by question title or section
-    const getAnswer = (record, questionTitle) => {
-        const question = record.answers.find((q) => {
-            if (questionTitle === "Zip") return q.title === "Zip Code";
-            if (questionTitle === "Age")
-                return q.title.includes("22 and 85 years old");
-            if (questionTitle === "Pain")
-                return q.title.includes("chronic low back pain");
-            if (questionTitle === "Surgery") return q.title.includes("back surgery");
-            if (questionTitle === "BMI (G/H/W)") {
-                return (
-                    q.title === "Gender" ||
-                    q.title.includes("tall") ||
-                    q.title.includes("weigh")
-                );
-            }
-            if (questionTitle === "Tobacco")
-                return q.title.includes("smoke") || q.title.includes("tobacco");
-            if (questionTitle === "T1 Diabetes") return q.title.includes("diabetes");
-            if (questionTitle === "MRI") return q.title.includes("MRI");
-            return false;
-        });
+  // Define helper function to get answer by question title or section
+  const getAnswer = (record, questionTitle) => {
+    const question = record.answers.find((q) => {
+      if (questionTitle === "Zip") return q.title === "Zip Code";
+      if (questionTitle === "Age")
+        return q.title.includes("22 and 85 years old");
+      if (questionTitle === "Pain")
+        return q.title.includes("chronic low back pain");
+      if (questionTitle === "Surgery") return q.title.includes("back surgery");
+      if (questionTitle === "BMI (G/H/W)") {
+        return (
+          q.title === "Gender" ||
+          q.title.includes("tall") ||
+          q.title.includes("weigh")
+        );
+      }
+      if (questionTitle === "Tobacco")
+        return q.title.includes("smoke") || q.title.includes("tobacco");
+      if (questionTitle === "T1 Diabetes") return q.title.includes("diabetes");
+      if (questionTitle === "MRI") return q.title.includes("MRI");
+      return false;
+    });
 
-        if (!question) return "-";
+    if (!question) return "-";
 
-        if (questionTitle === "BMI (G/H/W)") {
-            const gender =
-                record.answers.find((q) => q.title === "Gender")?.answer || "-";
-            const height =
-                record.answers.find((q) => q.title.includes("tall"))?.answer || "-";
-            const weight =
-                record.answers.find((q) => q.title.includes("weigh"))?.answer || "-";
-            return `${gender}/${height}"/${weight}lbs`;
-        }
+    if (questionTitle === "BMI (G/H/W)") {
+      const gender =
+        record.answers.find((q) => q.title === "Gender")?.answer || "-";
+      const height =
+        record.answers.find((q) => q.title.includes("tall"))?.answer || "-";
+      const weight =
+        record.answers.find((q) => q.title.includes("weigh"))?.answer || "-";
+      return `${gender}/${height}"/${weight}lbs`;
+    }
 
-        return question.answer || "-";
-    };
-    const columns = [
-        {
-            accessor: "userPublicId",
-            header: "Referral ID",
-            render: ({ userPublicId }) => {
-                return <div>{userPublicId ? userPublicId : "-"}</div>;
-            },
-        },
-        {
-            accessor: "name",
-            header: "Name",
-            render: ({ name }) => {
-                return <div>{name === " " ? "-" : name}</div>;
-            },
-        },
-        {
-            accessor: "email",
-            header: "Email",
-            render: ({ email }) => {
-                return <div className="text-center">{email ? email : "-"}</div>;
-            },
-        },
-        {
-            accessor: "locationSelected",
-            header: "Location Selected",
-            render: ({ locationSelected }) => {
-                return (
-                    <div className="text-center">
-                        {locationSelected ? locationSelected : "-"}
-                    </div>
-                );
-            },
-        },
-        { accessor: (row) => getAnswer(row, "Zip"), header: "Q1: Zip" },
-        { accessor: (row) => getAnswer(row, "Age"), header: "Q2: Age" },
-        { accessor: (row) => getAnswer(row, "Pain"), header: "Q3: Pain" },
-        { accessor: (row) => getAnswer(row, "Surgery"), header: "Q4: Surgery" },
-        {
-            accessor: (row) => getAnswer(row, "BMI (G/H/W)"),
-            header: "Q5: BMI (G/H/W)",
-        },
-        {
-            accessor: "bmi",
-            header: "BMI",
-            render: ({ bmi }) => {
-                return <div className="text-center">{bmi ? bmi : "-"}</div>;
-            },
-        },
-        { accessor: (row) => getAnswer(row, "Tobacco"), header: "Q6: Tobacco" },
-        {
-            accessor: (row) => getAnswer(row, "T1 Diabetes"),
-            header: "Q7: T1 Diabetes",
-        },
-        { accessor: (row) => getAnswer(row, "MRI"), header: "Q8: MRI" },
-        // { accessor: (row) => calculateCompletion(row), header: "% Complete" },
-        {
-            accessor: "assignedStudyCenterCenter",
-            header: "Assigned Study Center",
-            render: ({ assignedStudyCenterCenter }) => {
-                return (
-                    <div className="text-center">
-                        {assignedStudyCenterCenter ? assignedStudyCenterCenter : "-"}
-                    </div>
-                );
-            },
-        },
-        {
-            // accessor: (row) => new Date(row.date).toLocaleDateString(),
-            header: "Date",
-            render: (row) => {
-                return (
-                    <span>
-                        {row.date ? new Date(row.date).toLocaleDateString() : "-"}
-                    </span>
-                );
-            },
-        },
-    ];
+    return question.answer || "-";
+  };
+  const columns = [
+    {
+      accessor: "userPublicId",
+      header: "Referral ID",
+      render: ({ userPublicId }) => {
+        return <div>{userPublicId ? userPublicId : "-"}</div>;
+      },
+    },
+    {
+      accessor: "name",
+      header: "Name",
+      render: ({ name }) => {
+        return <div>{name === " " ? "-" : name}</div>;
+      },
+    },
+    {
+      accessor: "email",
+      header: "Email",
+      render: ({ email }) => {
+        return <div className="text-center">{email ? email : "-"}</div>;
+      },
+    },
+    {
+      accessor: "locationSelected",
+      header: "Location Selected",
+      render: ({ locationSelected }) => {
+        return (
+          <div className="text-center">
+            {locationSelected ? locationSelected : "-"}
+          </div>
+        );
+      },
+    },
+    { accessor: (row) => getAnswer(row, "Zip"), header: "Q1: Zip" },
+    { accessor: (row) => getAnswer(row, "Age"), header: "Q2: Age" },
+    { accessor: (row) => getAnswer(row, "Pain"), header: "Q3: Pain" },
+    { accessor: (row) => getAnswer(row, "Surgery"), header: "Q4: Surgery" },
+    {
+      accessor: (row) => getAnswer(row, "BMI (G/H/W)"),
+      header: "Q5: BMI (G/H/W)",
+    },
+    {
+      accessor: "bmi",
+      header: "BMI",
+      render: ({ bmi }) => {
+        return <div className="text-center">{bmi ? bmi : "-"}</div>;
+      },
+    },
+    { accessor: (row) => getAnswer(row, "Tobacco"), header: "Q6: Tobacco" },
+    {
+      accessor: (row) => getAnswer(row, "T1 Diabetes"),
+      header: "Q7: T1 Diabetes",
+    },
+    { accessor: (row) => getAnswer(row, "MRI"), header: "Q8: MRI" },
+    // { accessor: (row) => calculateCompletion(row), header: "% Complete" },
+    {
+      accessor: "assignedStudyCenterCenter",
+      header: "Assigned Study Center",
+      render: ({ assignedStudyCenterCenter }) => {
+        return (
+          <div className="text-center">
+            {assignedStudyCenterCenter ? assignedStudyCenterCenter : "-"}
+          </div>
+        );
+      },
+    },
+    {
+      // accessor: (row) => new Date(row.date).toLocaleDateString(),
+      header: "Date",
+      render: (row) => {
+        return (
+          <span>
+            {row.date ? new Date(row.date).toLocaleDateString() : "-"}
+          </span>
+        );
+      },
+    },
+  ];
 
-    console.log(values, "values");
+  console.log(values, "values");
 
-    if (isLoading) return <div><LoaderCenter /></div>;
-    return (
-        <>
-            <div className="flex justify-between items-center w-full my-4">
-                <h1 className="font-bold text-3xl">Pre-Screening Report</h1>
-                <a
-                    href={`${baseUrl}/report/generateExcelReport?fromDate=${values?.fromDate}&toDate=${values?.toDate}&studyCenterId=${values?.studyCenterId}`}
-                    className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
-                    onClick={() => {
-                        if (!isDownloading) {
-                            setIsDownloading(true);
-                            setTimeout(() => setIsDownloading(false), 3000); // Re-enable after 3 seconds
-                        }
-                    }}
-                    style={isDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
-                >
-                    <CgNotes size={22} />
-                    {isDownloading ? 'Downloading...' : 'Download Report'}
-                </a>
-            </div>
-            <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                {totalCards.map((item, i) => {
-                    return (
-                        <>
-                            <div
-                                key={i}
-                                className="bg-[#fff] border-[1px] border-[#0000001F] rounded-[12px] p-5 flex items-center gap-3"
-                            >
-                                <img src={item.icon} alt="" />
-                                <div>
-                                    <div className="text-[24px] font-[400] text-[#000]">
-                                        {item.number}
-                                    </div>
-                                    <div className="text-[14px] font-[400] text-[#00000099]">
-                                        {item.name}
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    );
-                })}
-            </div>
-            <div className="max-w-[1600px]">
-                <ReusableTable
-                    columns={columns}
-                    data={screeningReport?.data?.preScreeningReport}
-                />
-            </div>
-        </>
-    );
+  if (isLoading) return <div><LoaderCenter /></div>;
+  return (
+    <>
+      <div className="flex justify-between items-center w-full my-4">
+        <h1 className="font-bold text-3xl">Pre-Screening Report</h1>
+        <div className="flex gap-3">
+          <a
+            href={`${baseUrl}/report/generateExcelReport?fromDate=${values?.fromDate}&toDate=${values?.toDate}&studyCenterId=${values?.studyCenterId}`}
+            className="bg-[#00B4F1] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
+            onClick={() => {
+              if (!isDownloading) {
+                setIsDownloading(true);
+                setTimeout(() => setIsDownloading(false), 3000); // Re-enable after 3 seconds
+              }
+            }}
+            style={isDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
+          >
+            <CgNotes size={22} />
+            {isDownloading ? 'Downloading...' : 'Download Report'}
+          </a>
+          <button
+            onClick={() => {
+              if (!isReferralDownloading) {
+                setIsReferralDownloading(true);
+                downloadReferralReport();
+                setTimeout(() => setIsReferralDownloading(false), 3000); // Re-enable after 3 seconds
+              }
+            }}
+            className="bg-[#28a745] border-[1px] border-[#A2A1A833] shadow-none  h-[50px] text-white  rounded-[12px] flex items-center gap-2 p-2"
+            style={isReferralDownloading ? { pointerEvents: 'disabled', cursor: 'not-allowed' } : {}}
+            disabled={isReferralDownloading}
+          >
+            <CgNotes size={22} />
+            {isReferralDownloading ? 'Downloading...' : 'Download Referral Report'}
+          </button>
+
+        </div>
+      </div>
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {totalCards.map((item, i) => {
+          return (
+            <>
+              <div
+                key={i}
+                className="bg-[#fff] border-[1px] border-[#0000001F] rounded-[12px] p-5 flex items-center gap-3"
+              >
+                <img src={item.icon} alt="" />
+                <div>
+                  <div className="text-[24px] font-[400] text-[#000]">
+                    {item.number}
+                  </div>
+                  <div className="text-[14px] font-[400] text-[#00000099]">
+                    {item.name}
+                  </div>
+                </div>
+              </div>
+            </>
+          );
+        })}
+      </div>
+      <div className="max-w-[1600px]">
+        <ReusableTable
+          columns={columns}
+          data={screeningReport?.data?.preScreeningReport}
+        />
+      </div>
+    </>
+  );
 };
 
 export default PreScreeningReport;

@@ -103,7 +103,6 @@ const ContactForm = () => {
     }
   };
   const handleGoToHome = () => {
-    debugger;
     navigate("/");
   };
 
@@ -165,11 +164,10 @@ const ContactForm = () => {
                               <Field
                                 name="mvp.city"
                                 disabled
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.city && touched.mvp?.city
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.city && touched.mvp?.city
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
+                                  } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                               />
                               {errors.mvp?.city && touched.mvp?.city && (
                                 <div className="text-red-500 text-xs mt-1 text-left">
@@ -184,11 +182,10 @@ const ContactForm = () => {
                               <Field
                                 name="mvp.state"
                                 disabled
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.state && touched.mvp?.state
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.state && touched.mvp?.state
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
+                                  } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                               />
                               {errors.mvp?.state && touched.mvp?.state && (
                                 <div className="text-red-500 text-xs mt-1 text-left">
@@ -203,11 +200,10 @@ const ContactForm = () => {
                               <Field
                                 name="mvp.zipCode"
                                 disabled
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.zipCode && touched.mvp?.zipCode
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.zipCode && touched.mvp?.zipCode
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
+                                  } rounded-lg px-3 !h-[50px] outline-none cursor-not-allowed`}
                               />
                               {errors.mvp?.zipCode && touched.mvp?.zipCode && (
                                 <div className="text-red-500 text-xs mt-1 text-left">
@@ -221,12 +217,11 @@ const ContactForm = () => {
                               </label>
                               <Field
                                 name="mvp.firstName"
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.firstName &&
-                                  touched.mvp?.firstName
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.firstName &&
+                                    touched.mvp?.firstName
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none`}
+                                  } rounded-lg px-3 !h-[50px] outline-none`}
                               />
                               {errors.mvp?.firstName &&
                                 touched.mvp?.firstName && (
@@ -241,11 +236,10 @@ const ContactForm = () => {
                               </label>
                               <Field
                                 name="mvp.lastName"
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.lastName && touched.mvp?.lastName
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.lastName && touched.mvp?.lastName
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none`}
+                                  } rounded-lg px-3 !h-[50px] outline-none`}
                               />
                               {errors.mvp?.lastName &&
                                 touched.mvp?.lastName && (
@@ -261,11 +255,10 @@ const ContactForm = () => {
                               <Field
                                 name="mvp.email"
                                 type="email"
-                                className={`border text-[#39394A] font-relay ${
-                                  errors.mvp?.email && touched.mvp?.email
+                                className={`border text-[#39394A] font-relay ${errors.mvp?.email && touched.mvp?.email
                                     ? "border-red-500"
                                     : "border-gray-200"
-                                } rounded-lg px-3 !h-[50px] outline-none`}
+                                  } rounded-lg px-3 !h-[50px] outline-none`}
                               />
                               {errors.mvp?.email && touched.mvp?.email && (
                                 <div className="text-red-500 text-xs mt-1 text-left">
@@ -287,11 +280,10 @@ const ContactForm = () => {
                                     form={form}
                                     type="tel"
                                     placeholder="(555) 000-0000"
-                                    className={`border text-[#39394A] font-relay ${
-                                      errors.mvp?.phone && touched.mvp?.phone
+                                    className={`border text-[#39394A] font-relay ${errors.mvp?.phone && touched.mvp?.phone
                                         ? "border-red-500"
                                         : "border-gray-200"
-                                    } rounded-lg px-3 !h-[50px] outline-none`}
+                                      } rounded-lg px-3 !h-[50px] outline-none`}
                                   />
                                 )}
                               </Field>
@@ -308,7 +300,7 @@ const ContactForm = () => {
                               disabled={isSubmitting}
                               className="bg-[#00B4F1] h-12 text-white rounded-full flex items-center justify-center cursor-pointer"
                             >
-                              {isSubmitting ? <LoaderCenter color='#FFFFFF' size='30'/> : "Submit"}
+                              {isSubmitting ? <LoaderCenter color='#FFFFFF' size='30' /> : "Submit"}
                             </Button>
                           </div>
                         </div>
