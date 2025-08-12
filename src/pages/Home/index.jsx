@@ -717,9 +717,9 @@ const Home = () => {
           id="qualify"
           className="container mx-auto pt-5 lg:px-0 md:px-5 sm:px-5 px-5"
         ></div>
-        <div className="bg-white lg:py-14 md:py-8 sm:py-4 py-4">
-          <div className="container mx-auto text-center">
-            <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] sm:text-sm text-sm mb-2">
+        {/* <div className="bg-white lg:py-14 md:py-8 sm:py-4 py-4">
+          <div className="container mx-auto text-center"> */}
+        {/* <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] sm:text-sm text-sm mb-2">
               TAKE THE PRE-SCREENER
             </h2>
 
@@ -734,11 +734,11 @@ const Home = () => {
               study center. A study representative may contact you to tell you{" "}
               more about the study, ask you more questions, answer your
               questions, and possibly schedule an office visit.
-            </p>
+            </p> */}
 
-            {/* Progress Steps */}
-            {/* <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-6 p-6 shadow-sm lg:h-[25rem] md:h-[20rem] sm:h-[18rem] h-[18rem]"> */}
-            {/* <div className=" mx-auto lg:mb-16 md:mb-8 mb-8">
+        {/* Progress Steps */}
+        {/* <div className="mx-auto border border-[#DDE2E5] rounded-lg lg:p-10 md:p-8 sm:p-6 p-6 shadow-sm lg:h-[25rem] md:h-[20rem] sm:h-[18rem] h-[18rem]"> */}
+        {/* <div className=" mx-auto lg:mb-16 md:mb-8 mb-8">
                 <div className="flex justify-center items-center mb-8 pt-4">
                   <div className="text-center">
                     <div className="rounded-full border border-[#00B4F1] flex items-center justify-center w-[20px] h-[20px]  mx-auto">
@@ -768,8 +768,8 @@ const Home = () => {
                 </div>
               </div> */}
 
-            {/* Location Selection Form */}
-            {/* <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
+        {/* Location Selection Form */}
+        {/* <div className="lg:px-20 md:px-20 sm:px-3 px-3 mx-auto lg:pt-5 md:pt-3 pt-3">
                 <h3 className="lg:text-[28px] md:text-[24px] sm:text-lg text-lg  font-[700] text-[#121229] mb-5 text-left">
                   Select a Study Location
                 </h3>
@@ -779,8 +779,8 @@ const Home = () => {
                   pre-screening process.
                 </p> */}
 
-            {/* Location Dropdown */}
-            {/* <div className="mb-8 pt-3">
+        {/* Location Dropdown */}
+        {/* <div className="mb-8 pt-3">
                   <div className="relative w-full sm:min-w-[360px] md:min-w-[360px] md:max-w-[300px] lg:max-w-[320px]">
                     <LuMapPin className="absolute left-[10px] top-[16px] text-[#ABAFB1] text-[20px] ml-[5px]" />
                     <select
@@ -792,16 +792,16 @@ const Home = () => {
                       <option value="">Select a location...</option>
                       {studyCentersWithCoordinates?.map((center) => (
                         <option key={center?.id} value={center?.id}> */}
-            {/* {center?.name},  */}
-            {/* {center?.city}, {center.state}
+        {/* {center?.name},  */}
+        {/* {center?.city}, {center.state}
                         </option>
                       ))}
                     </select>
                   </div>
                 </div> */}
 
-            {/* Continue Button */}
-            {/* <div className="text-left">
+        {/* Continue Button */}
+        {/* <div className="text-left">
                   <button
                     className="lg:text-[16px] md:text-[16px] sm:text-sm text-xs lg:px-5 md:px-5 sm:px-3 px-3 h-[48px] bg-[#00B4F1] text-white rounded-full hover:bg-cyan-600 transition-colors font-medium disabled:cursor-not-allowed cursor-pointer"
                     onClick={() =>
@@ -814,10 +814,10 @@ const Home = () => {
                     Continue To Pre-Screener
                   </button>
                 </div> */}
-            {/* </div> */}
-            {/* </div> */}
-          </div>
-        </div>
+        {/* </div> */}
+        {/* </div> */}
+        {/* </div>
+        </div> */}
 
         {/* FAQ Section */}
         <div
