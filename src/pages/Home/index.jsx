@@ -23,6 +23,7 @@ import { RxCross2 } from "react-icons/rx";
 import LandingPageLogin from "./LandingPageLogin";
 import { toast } from "react-toastify";
 import CookiesModal from "./CookiesModal";
+import SampleScreener from "../Prescreener/SampleScreener";
 
 const Home = () => {
   const [showCookiesModal, setShowCookiesModal] = useState(true);
@@ -715,8 +716,11 @@ const Home = () => {
         {/* Qualification Section */}
         <div
           id="qualify"
-          className="container mx-auto pt-5 lg:px-0 md:px-5 sm:px-5 px-5"
-        ></div>
+          className="container mx-auto  lg:px-0 md:px-5 sm:px-5 px-5"
+        >
+
+          <SampleScreener />
+        </div>
         {/* <div className="bg-white lg:py-14 md:py-8 sm:py-4 py-4">
           <div className="container mx-auto text-center"> */}
         {/* <h2 className="text-[#00B4F1] font-[500] uppercase tracking-wide lg:text-[16px] sm:text-sm text-sm mb-2">

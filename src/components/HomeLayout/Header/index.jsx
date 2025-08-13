@@ -56,7 +56,7 @@ const Header = () => {
               key={index}
               // href={link.href}
               className="text-gray-700 hover:text-cyan-500 transition-colors font-medium cursor-pointer lg:text-center text-center"
-              onClick={() => handleClickScroll(link.href, link.navigate)}
+              onClick={() => handleClickScroll(link.href,)}
             >
               {link.text}
             </div>

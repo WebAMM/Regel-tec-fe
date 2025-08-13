@@ -596,7 +596,7 @@ const SampleScreener = () => {
   useEffect(() => {
     if (state?.center && sectionQuestions?.data?.sections) {
       const center = state.center;
-      
+
       // Update contactData with city and state from center
       setcontactData(prev => ({
         ...prev,
@@ -699,7 +699,7 @@ const SampleScreener = () => {
   // console.log(evaluateAnswersData, 'evaluateAnswersData')
   // console.log(contactData, 'contactData')
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
+    <div className="flex flex-col items-center">
       <div className="container mx-auto lg:px-0 md:px-6 px-6">
         <div className="text-center">
           <Header isQualified={submitForm} />
@@ -771,13 +771,13 @@ const SampleScreener = () => {
             )}
           </div>
           <div className="mt-5 flex justify-end items-end">
-            <Link
+            {/* <Link
               className="px-4 py-2 text-[#00B4F1] rounded-full hover:underline transition-colors font-medium cursor-pointer flex gap-1 items-center"
               onClick={handleGoToHome}
             >
               <IoIosArrowRoundBack size={20} />
               Back to Website
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
