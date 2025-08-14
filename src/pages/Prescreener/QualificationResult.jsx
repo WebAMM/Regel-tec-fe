@@ -68,7 +68,14 @@ const QualificationResult = ({
   } else {
     content = nonQualifiedContent;
   }
-  // console.log(reportId, 'reportId')
+  // console.log(isQualified, 'isQualified')
+  // console.log(isStudyCenterInRadius, 'isStudyCenterInRadius')
+  // console.log(content, 'content')
+  const showButton = content === qualifiedContent || content === studyCenterNotFoundContent;
+  console.log(showButton, 'showButton')
+
+
+
   return (
     <div className="">
       <div className="flex justify-center">
@@ -89,12 +96,14 @@ const QualificationResult = ({
       >
         <span dangerouslySetInnerHTML={{ __html: content.description }} />
       </Typography>
-      <Button
-        className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer"
-        onClick={content.buttonAction}
-      >
-        {content.buttonText}
-      </Button>
+      {showButton && (
+        <Button
+          className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer"
+          onClick={content.buttonAction}
+        >
+          {content.buttonText}
+        </Button>
+      )}
     </div>
   );
 };

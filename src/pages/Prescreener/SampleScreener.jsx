@@ -6,7 +6,8 @@ import {
   useEvaluateAnswersMutation,
   useGetAllQuestionsForWebViewQuery,
   useGetLatestBatchNoQuery,
-  useLazyGetStateCityByZipcodeQuery
+  useLazyGetStateCityByZipcodeQuery,
+  useLazyGetRadiusBasedStudyCenterQuery
 } from "../../api/apiSlice";
 import CustomProgress from "./CustomProgress";
 import Header from "./Header";
@@ -25,7 +26,9 @@ const SampleScreener = () => {
   const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] =
     useEvaluateAnswersMutation();
   const [getStateCityByZipcode] = useLazyGetStateCityByZipcodeQuery();
+  const [getRadiusBasedStudyCenter] = useLazyGetRadiusBasedStudyCenterQuery();
   const [qualificationStatus, setQualificationStatus] = useState(null);
+  const [evaluateResponse, setEvaluateResponse] = useState(null);
   const isValidZipCode = (zip) => /^\d{5}$/.test(zip);
 
   const navigate = useNavigate();
@@ -118,9 +121,21 @@ const SampleScreener = () => {
       state: ""
     }));
 
-    // If zipcode is 5 digits, fetch city and state
+    // If zipcode is 5 digits, fetch radius-based study centers first, then city and state
     if (isValidZipCode(zipCode)) {
       try {
+        // First call: Get radius-based study centers
+        const radiusResponse = await getRadiusBasedStudyCenter(zipCode).unwrap();
+
+        // Update studyCenterId with the id from radius-based study center response
+        if (radiusResponse?.data?.id) {
+          setEvaluateAnswersData(prev => ({
+            ...prev,
+            studyCenterId: radiusResponse?.data?.id
+          }));
+        }
+
+        // Second call: Get state and city (existing flow)
         const response = await getStateCityByZipcode(zipCode).unwrap();
         if (response?.status === 200 && response?.data) {
           setcontactData(prev => ({
@@ -349,6 +364,12 @@ const SampleScreener = () => {
         const response = await evaluateAnswers(
           evaluateAnswersDataForm
         ).unwrap();
+
+        // Store the complete response in state
+        setEvaluateResponse(response);
+
+        // Console log the full response
+        console.log("Full Evaluate Response:", response);
         console.log(
           "response",
           response?.result?.data?.preScreenerResult,
@@ -356,17 +377,17 @@ const SampleScreener = () => {
         );
         if (response?.result) {
           setQualificationStatus(response.result);
-          if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
-            if (
-              response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius
-            ) {
-              navigate("/prescreen/ps", { replace: true });
-            } else {
-              navigate("/prescreen/pns", { replace: true });
-            }
-          } else {
-            navigate("/prescreen/dq", { replace: true });
-          }
+          // if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
+          //   if (
+          //     response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius
+          //   ) {
+          //     navigate("/prescreen/ps", { replace: true });
+          //   } else {
+          //     navigate("/prescreen/pns", { replace: true });
+          //   }
+          // } else {
+          //   navigate("/prescreen/dq", { replace: true });
+          // }
         }
       }
     } catch (error) {
@@ -596,7 +617,7 @@ const SampleScreener = () => {
   useEffect(() => {
     if (state?.center && sectionQuestions?.data?.sections) {
       const center = state.center;
-      
+
       // Update contactData with city and state from center
       setcontactData(prev => ({
         ...prev,
@@ -682,6 +703,8 @@ const SampleScreener = () => {
   //         proceedWithApiCall();
   //     }
   // }, [groupedData.bmi, addAnswersOfSections, batchNumber, currentStep, evaluateAnswersData, groupedData, totalSteps6]);
+
+  console.log(qualificationStatus, 'qualificationStatus')
   if (isLoading || BatchNoLoader)
     return (
       <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center bg-gray-50">
@@ -699,7 +722,7 @@ const SampleScreener = () => {
   // console.log(evaluateAnswersData, 'evaluateAnswersData')
   // console.log(contactData, 'contactData')
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 p-4">
+    <div className="flex flex-col items-center">
       <div className="container mx-auto lg:px-0 md:px-6 px-6">
         <div className="text-center">
           <Header isQualified={submitForm} />
@@ -771,13 +794,13 @@ const SampleScreener = () => {
             )}
           </div>
           <div className="mt-5 flex justify-end items-end">
-            <Link
+            {/* <Link
               className="px-4 py-2 text-[#00B4F1] rounded-full hover:underline transition-colors font-medium cursor-pointer flex gap-1 items-center"
               onClick={handleGoToHome}
             >
               <IoIosArrowRoundBack size={20} />
               Back to Website
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
