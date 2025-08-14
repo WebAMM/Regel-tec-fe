@@ -6,7 +6,8 @@ import {
   useEvaluateAnswersMutation,
   useGetAllQuestionsForWebViewQuery,
   useGetLatestBatchNoQuery,
-  useLazyGetStateCityByZipcodeQuery
+  useLazyGetStateCityByZipcodeQuery,
+  useLazyGetRadiusBasedStudyCenterQuery
 } from "../../api/apiSlice";
 import CustomProgress from "./CustomProgress";
 import Header from "./Header";
@@ -25,7 +26,9 @@ const SampleScreener = () => {
   const [evaluateAnswers, { isLoading: evaluateAnswersLoader }] =
     useEvaluateAnswersMutation();
   const [getStateCityByZipcode] = useLazyGetStateCityByZipcodeQuery();
+  const [getRadiusBasedStudyCenter] = useLazyGetRadiusBasedStudyCenterQuery();
   const [qualificationStatus, setQualificationStatus] = useState(null);
+  const [evaluateResponse, setEvaluateResponse] = useState(null);
   const isValidZipCode = (zip) => /^\d{5}$/.test(zip);
 
   const navigate = useNavigate();
@@ -118,9 +121,21 @@ const SampleScreener = () => {
       state: ""
     }));
 
-    // If zipcode is 5 digits, fetch city and state
+    // If zipcode is 5 digits, fetch radius-based study centers first, then city and state
     if (isValidZipCode(zipCode)) {
       try {
+        // First call: Get radius-based study centers
+        const radiusResponse = await getRadiusBasedStudyCenter(zipCode).unwrap();
+
+        // Update studyCenterId with the id from radius-based study center response
+        if (radiusResponse?.data?.id) {
+          setEvaluateAnswersData(prev => ({
+            ...prev,
+            studyCenterId: radiusResponse?.data?.id
+          }));
+        }
+
+        // Second call: Get state and city (existing flow)
         const response = await getStateCityByZipcode(zipCode).unwrap();
         if (response?.status === 200 && response?.data) {
           setcontactData(prev => ({
@@ -349,6 +364,12 @@ const SampleScreener = () => {
         const response = await evaluateAnswers(
           evaluateAnswersDataForm
         ).unwrap();
+
+        // Store the complete response in state
+        setEvaluateResponse(response);
+
+        // Console log the full response
+        console.log("Full Evaluate Response:", response);
         console.log(
           "response",
           response?.result?.data?.preScreenerResult,
@@ -356,17 +377,17 @@ const SampleScreener = () => {
         );
         if (response?.result) {
           setQualificationStatus(response.result);
-          if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
-            if (
-              response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius
-            ) {
-              navigate("/prescreen/ps", { replace: true });
-            } else {
-              navigate("/prescreen/pns", { replace: true });
-            }
-          } else {
-            navigate("/prescreen/dq", { replace: true });
-          }
+          // if (response?.result?.data?.preScreenerResult?.isAnswersPassed) {
+          //   if (
+          //     response?.result?.data?.preScreenerResult?.isUserZipcodeInRadius
+          //   ) {
+          //     navigate("/prescreen/ps", { replace: true });
+          //   } else {
+          //     navigate("/prescreen/pns", { replace: true });
+          //   }
+          // } else {
+          //   navigate("/prescreen/dq", { replace: true });
+          // }
         }
       }
     } catch (error) {
