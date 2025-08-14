@@ -22,7 +22,7 @@ const PreScreeningReport = () => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isReferralDownloading, setIsReferralDownloading] = useState(false);
   const baseUrl = "https://regel-medical-be.vercel.app/api";
-  // const baseUrl = "https://regel-medical-be.duckdns.org/api"        Don't use in any case
+  // const baseUrl = "https://regel-medical-be.duckdns.org/api"
   // const [trigger, { isLoading: excelLoader }] = useLazyGeneratePreScreeningExcelReportQuery()
   const totalCards = [
     {

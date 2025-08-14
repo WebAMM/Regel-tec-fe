@@ -89,12 +89,12 @@ const QualificationResult = ({
       >
         <span dangerouslySetInnerHTML={{ __html: content.description }} />
       </Typography>
-      <Button
+      {/* <Button
         className="bg-[#00B4F1] text-white rounded-full px-[35px] capitalize text-[16px] font-medium cursor-pointer"
         onClick={content.buttonAction}
       >
         {content.buttonText}
-      </Button>
+      </Button> */}
     </div>
   );
 };
