@@ -703,6 +703,8 @@ const SampleScreener = () => {
   //         proceedWithApiCall();
   //     }
   // }, [groupedData.bmi, addAnswersOfSections, batchNumber, currentStep, evaluateAnswersData, groupedData, totalSteps6]);
+
+  console.log(qualificationStatus, 'qualificationStatus')
   if (isLoading || BatchNoLoader)
     return (
       <div className="fixed left-0 top-0 z-[11111] w-full h-[100vh] flex items-center justify-center bg-gray-50">
