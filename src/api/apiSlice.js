@@ -3,7 +3,6 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://regel-medical-be.vercel.app/api",
-    // baseUrl: "https://e7b96cf8f4d2.ngrok-free.app/api",
     // baseUrl: "https://regel-medical-be.duckdns.org/api",
 
     prepareHeaders: (headers, { getState }) => {
