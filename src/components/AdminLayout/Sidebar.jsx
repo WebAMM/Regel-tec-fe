@@ -49,6 +49,11 @@ const navItems = [
     path: "/admin/reports",
   },
   {
+    label: "Designated Users",
+    icon: <UsersIcon className="h-5 w-5 text-gray-600 mx-3" />,
+    path: "/admin/designated-users",
+  },
+  {
     label: "Settings",
     icon: <Cog6ToothIcon className="h-5 w-5 text-gray-600 mx-3" />,
     path: "/admin/settings",
@@ -67,7 +72,8 @@ export default function Sidebar() {
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `block rounded-md mb-2 ${isActive ? "bg-[#00B4F1] text-white" : "text-gray-900"
+              `block rounded-md mb-2 ${
+                isActive ? "bg-[#00B4F1] text-white" : "text-gray-900"
               }`
             }
           >

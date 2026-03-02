@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://regel-medical-be.vercel.app/api",
-    baseUrl: "https://regel-medical-be.duckdns.org/api",
+    baseUrl: "https://regel-medical-be.vercel.app/api",
+    // baseUrl: "https://regel-medical-be.duckdns.org/api",
 
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
@@ -22,6 +22,7 @@ export const api = createApi({
     "MvpEmails",
     "ReferralEmails",
     "Notifications",
+    "DesignatedUsers",
   ],
   endpoints: (builder) => ({
     //////////////////////////// auth
@@ -322,6 +323,15 @@ export const api = createApi({
         // body: { zipCode: parseInt(zipCode) },
       }),
     }),
+    //////////////////////////// Designated Users
+    fetchDesignatedUsers: builder.query({
+      query: ({ searchByEmail = "", page = 1, dataPerPage = 5 }) => ({
+        url: "/designated-users/fetch-listing",
+        method: "POST",
+        body: { searchByEmail, page, dataPerPage },
+      }),
+      providesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -356,4 +366,5 @@ export const {
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
   useLazyGetStateCityByZipcodeQuery,
+  useFetchDesignatedUsersQuery,
 } = api;
