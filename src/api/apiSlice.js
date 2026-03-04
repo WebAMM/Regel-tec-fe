@@ -332,6 +332,22 @@ export const api = createApi({
       }),
       providesTags: ["DesignatedUsers"],
     }),
+    removeDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/remove-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
+    updateDesignatedUser: builder.mutation({
+      query: ({ email, updatedEmail }) => ({
+        url: "/designated-users/update-user",
+        method: "POST",
+        body: { email, updatedEmail },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -367,4 +383,6 @@ export const {
   useMarkNotificationAsReadMutation,
   useLazyGetStateCityByZipcodeQuery,
   useFetchDesignatedUsersQuery,
+  useRemoveDesignatedUserMutation,
+  useUpdateDesignatedUserMutation,
 } = api;
