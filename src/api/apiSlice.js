@@ -22,6 +22,7 @@ export const api = createApi({
     "MvpEmails",
     "ReferralEmails",
     "Notifications",
+    "DesignatedUsers",
   ],
   endpoints: (builder) => ({
     //////////////////////////// auth
@@ -322,6 +323,31 @@ export const api = createApi({
         // body: { zipCode: parseInt(zipCode) },
       }),
     }),
+    //////////////////////////// Designated Users
+    fetchDesignatedUsers: builder.query({
+      query: ({ searchByEmail = "", page = 1, dataPerPage = 5 }) => ({
+        url: "/designated-users/fetch-listing",
+        method: "POST",
+        body: { searchByEmail, page, dataPerPage },
+      }),
+      providesTags: ["DesignatedUsers"],
+    }),
+    removeDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/remove-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
+    updateDesignatedUser: builder.mutation({
+      query: ({ email, updatedEmail }) => ({
+        url: "/designated-users/update-user",
+        method: "POST",
+        body: { email, updatedEmail },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -356,4 +382,7 @@ export const {
   useGetNotificationsQuery,
   useMarkNotificationAsReadMutation,
   useLazyGetStateCityByZipcodeQuery,
+  useFetchDesignatedUsersQuery,
+  useRemoveDesignatedUserMutation,
+  useUpdateDesignatedUserMutation,
 } = api;

@@ -2,7 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { HomeLayout, AdminLayout } from "./components";
 import { ContactForm, Home, Prescreener } from "./pages";
-import { AddPrescreener, Dashboard, MvpsList, PreScreenerList, StudyCenter } from "./pages/AdminPages";
+import {
+  AddPrescreener,
+  Dashboard,
+  MvpsList,
+  PreScreenerList,
+  StudyCenter,
+} from "./pages/AdminPages";
 import { Login, ForgotPassword, ChangePassword } from "./pages/AuthPages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,9 +20,10 @@ import Reports from "./pages/Reports";
 import PreScreeningReport from "./pages/Reports/PreScreeningReport";
 import Settings from "./pages/Settings";
 import PrivacyPolicy from "./pages/Privacypolicy/PrivacyPolicy";
-import Notifications from "./pages/Notifications/Index"
+import Notifications from "./pages/Notifications/Index";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import DesignatedUsers from "./pages/AdminPages/DesignatedUsers";
 
 const ProtectedRoute = ({ children }) => {
   // Use Redux selector to get auth status
@@ -26,7 +33,11 @@ const ProtectedRoute = ({ children }) => {
   // Check if user is authenticated
   const isUserAuthenticated = isAuthenticated && token;
 
-  return isUserAuthenticated ? children : <Navigate to="/admin/login" replace />;
+  return isUserAuthenticated ? (
+    children
+  ) : (
+    <Navigate to="/admin/login" replace />
+  );
 };
 function App() {
   // Define router with createBrowserRouter
@@ -37,18 +48,17 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home />
+          element: <Home />,
         },
         {
           path: "/privacy-policy",
-          element: <PrivacyPolicy />
+          element: <PrivacyPolicy />,
         },
-      ]
+      ],
     },
     {
       path: "/prescreen",
-      element: <SampleScreener />
-
+      element: <SampleScreener />,
     },
     // {
     //   path: "/prescreen/:id",
@@ -57,75 +67,83 @@ function App() {
     // },
     {
       path: "/contact",
-      element: <ContactForm />
+      element: <ContactForm />,
     },
 
     {
       path: "/admin/login",
-      element: <Login />
+      element: <Login />,
     },
     {
       path: "/admin/forgot-password",
-      element: <ForgotPassword />
+      element: <ForgotPassword />,
     },
     {
       path: "/admin/change-password",
-      element: <ChangePassword />
+      element: <ChangePassword />,
     },
     {
       path: "/admin",
-      element: <ProtectedRoute><AdminLayout /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           index: true, // This handles "/admin" path
-          element: <Navigate to="/admin/dashboard" replace />
+          element: <Navigate to="/admin/dashboard" replace />,
         },
         {
           path: "dashboard",
-          element: <Dashboard />
+          element: <Dashboard />,
         },
         {
           path: "study-center",
-          element: <StudyCenter />
+          element: <StudyCenter />,
         },
         {
           path: "prescreener",
-          element: <PreScreenerList />
+          element: <PreScreenerList />,
         },
         {
           path: "add-prescreener",
-          element: <AddPreScreenerQuestions />
+          element: <AddPreScreenerQuestions />,
         },
         {
           path: "mvps",
-          element: <MvpsList />
+          element: <MvpsList />,
         },
         {
           path: "mvp/detail",
-          element: <MvpDetail />
+          element: <MvpDetail />,
         },
         {
           path: "referral-emails",
-          element: <Emails />
+          element: <Emails />,
         },
         {
           path: "reports",
-          element: <Reports />
+          element: <Reports />,
         },
         {
           path: "pre-screening-report",
-          element: <PreScreeningReport />
+          element: <PreScreeningReport />,
+        },
+        {
+          path: "designated-users",
+          element: <DesignatedUsers />,
         },
         {
           path: "settings",
-          element: <Settings />
+          element: <Settings />,
         },
         {
           path: "notifications",
-          element: <Notifications />
-        }
-      ]
-    }
+          element: <Notifications />,
+        },
+      ],
+    },
   ]);
 
   return (
