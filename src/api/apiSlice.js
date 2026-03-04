@@ -5,6 +5,8 @@ export const api = createApi({
     baseUrl: "https://regel-medical-be.vercel.app/api",
     // baseUrl: "https://regel-medical-be.duckdns.org/api",
 
+    // console.log("isseue fix")
+
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
