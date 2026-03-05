@@ -348,6 +348,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["DesignatedUsers"],
     }),
+    addDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/add-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -385,4 +393,5 @@ export const {
   useFetchDesignatedUsersQuery,
   useRemoveDesignatedUserMutation,
   useUpdateDesignatedUserMutation,
+  useAddDesignatedUserMutation,
 } = api;
