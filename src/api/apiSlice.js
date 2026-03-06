@@ -107,6 +107,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["studyCenter"],
     }),
+    editStudyCenter: builder.mutation({
+      query: (payload) => ({
+        url: `/studyCenter/update-values`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["studyCenter"],
+    }),
 
     //////////////////////////// pre screener
 
@@ -348,6 +356,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["DesignatedUsers"],
     }),
+    addDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/add-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -376,6 +392,7 @@ export const {
   useDeleteEmailByIdMutation,
   useLazyGeneratePreScreeningExcelReportQuery,
   useUpdateStudyCenterStatusMutation,
+  useEditStudyCenterMutation,
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
   useExportMvpPdfReportMutation,
@@ -385,4 +402,5 @@ export const {
   useFetchDesignatedUsersQuery,
   useRemoveDesignatedUserMutation,
   useUpdateDesignatedUserMutation,
+  useAddDesignatedUserMutation,
 } = api;
