@@ -54,7 +54,10 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
       <div className="bg-white rounded-xl w-full max-w-4xl p-6 shadow-lg max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Edit Study Center</h2>
-          <button onClick={onClose} className="text-gray-500 text-xl font-bold">
+          <button
+            onClick={onClose}
+            className="text-gray-500 text-xl font-bold cursor-pointer"
+          >
             &times;
           </button>
         </div>
@@ -75,8 +78,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="name"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
+                    className="w-full border rounded-md px-3 py-2"
                   />
                 </div>
 
@@ -87,8 +89,8 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="phone"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
+                    className="w-full border rounded-md px-3 py-2"
+                    // className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
                   />
                 </div>
 
@@ -217,7 +219,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                                     input.value = "";
                                   }
                                 }}
-                                className="px-4 py-2 bg-[#00B4F1] text-white rounded-md hover:bg-blue-600 transition-colors"
+                                className="px-4 py-2 bg-[#00B4F1] text-white rounded-md hover:bg-blue-600 transition-colors cursor-pointer"
                               >
                                 + Add
                               </button>
@@ -267,8 +269,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="address"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
+                    className="w-full border rounded-md px-3 py-2"
                   />
                 </div>
 
@@ -279,8 +280,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="city"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
+                    className="w-full border rounded-md px-3 py-2"
                     // className="w-full border rounded-md px-3 py-2"
                   />
                 </div>
@@ -292,9 +292,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="state"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
-                    // className="w-full border rounded-md px-3 py-2"
+                    className="w-full border rounded-md px-3 py-2"
                   />
                 </div>
 
@@ -305,8 +303,7 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                   <Field
                     name="zipCode"
                     type="text"
-                    disabled
-                    className="w-full border rounded-md px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-500"
+                    className="w-full border rounded-md px-3 py-2"
                   />
                 </div>
               </div>
@@ -315,13 +312,13 @@ const EditStudyCenterModal = ({ open, onClose, studyCenter }) => {
                 <button
                   onClick={onClose}
                   type="button"
-                  className="px-6 py-2 border rounded-md text-gray-700"
+                  className="px-6 py-2 border rounded-md text-gray-700 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-[#00B4F1] text-white rounded-md"
+                  className="px-6 py-2 bg-[#00B4F1] text-white rounded-md cursor-pointer"
                 >
                   {isLoading ? <Loader /> : "Save Changes"}
                 </button>
