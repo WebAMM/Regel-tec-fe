@@ -7,11 +7,17 @@ import ReusableTable from "../../../components/ReusableTable";
 import Pagination from "../../../components/Pagination";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import { LoaderCenter } from "../../../utilities/Loader";
+import DeleteDesignatedModal from "./DeleteDesignatedModal";
+import EditDesignatedModal from "./EditDesignatedModal";
+import AddDesignatedModal from "./AddDesignatedModal";
 
 const DesignatedUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [deleteEmail, setDeleteEmail] = useState(null);
+  const [editEmail, setEditEmail] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   const { data, isLoading } = useFetchDesignatedUsersQuery({
@@ -35,10 +41,16 @@ const DesignatedUsers = () => {
       header: "Action",
       render: (row) => (
         <div className="flex items-center gap-3">
-          <button className="text-gray-500 hover:text-blue-500">
+          <button
+            className="text-gray-500 hover:text-blue-500"
+            onClick={() => setEditEmail(row.email)}
+          >
             <LuPencil size={16} />
           </button>
-          <button className="text-gray-500 hover:text-red-500">
+          <button
+            className="text-gray-500 hover:text-red-500"
+            onClick={() => setDeleteEmail(row.email)}
+          >
             <LuTrash2 size={16} />
           </button>
         </div>
@@ -50,6 +62,21 @@ const DesignatedUsers = () => {
 
   return (
     <>
+      {deleteEmail && (
+        <DeleteDesignatedModal
+          email={deleteEmail}
+          onClose={() => setDeleteEmail(null)}
+        />
+      )}
+      {editEmail && (
+        <EditDesignatedModal
+          email={editEmail}
+          onClose={() => setEditEmail(null)}
+        />
+      )}
+      {showAddModal && (
+        <AddDesignatedModal onClose={() => setShowAddModal(false)} />
+      )}
       <div className="flex items-center justify-between mb-5">
         <div className="relative min-w-[300px]">
           <input
@@ -61,7 +88,10 @@ const DesignatedUsers = () => {
           />
           <LuSearch className="absolute top-[18px] left-[8px]" />
         </div>
-        <Button className="bg-[#00B4F1] h-[50px] text-white rounded-[12px] flex items-center gap-2">
+        <Button
+          onClick={() => setShowAddModal(true)}
+          className="bg-[#00B4F1] h-[50px] text-white rounded-[12px] flex items-center gap-2"
+        >
           <GoPlusCircle />
           Add New Email
         </Button>
