@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://regel-medical-be.vercel.app/api",
-    // baseUrl: "https://regel-medical-be.duckdns.org/api",
+    // baseUrl: "https://regel-medical-be.vercel.app/api",
+    baseUrl: "https://regel-medical-be.duckdns.org/api",
 
     // console.log("isseue fix")
 
@@ -104,6 +104,14 @@ export const api = createApi({
     addStudyCenter: builder.mutation({
       query: (payload) => ({
         url: "/studyCenter",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["studyCenter"],
+    }),
+    editStudyCenter: builder.mutation({
+      query: (payload) => ({
+        url: `/studyCenter/update-values`,
         method: "POST",
         body: payload,
       }),
@@ -334,6 +342,30 @@ export const api = createApi({
       }),
       providesTags: ["DesignatedUsers"],
     }),
+    removeDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/remove-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
+    updateDesignatedUser: builder.mutation({
+      query: ({ email, updatedEmail }) => ({
+        url: "/designated-users/update-user",
+        method: "POST",
+        body: { email, updatedEmail },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
+    addDesignatedUser: builder.mutation({
+      query: (email) => ({
+        url: "/designated-users/add-user",
+        method: "POST",
+        body: { email },
+      }),
+      invalidatesTags: ["DesignatedUsers"],
+    }),
   }),
 });
 export const {
@@ -362,6 +394,7 @@ export const {
   useDeleteEmailByIdMutation,
   useLazyGeneratePreScreeningExcelReportQuery,
   useUpdateStudyCenterStatusMutation,
+  useEditStudyCenterMutation,
   useUpdateQuestionStatusMutation,
   useDeleteQuestionMutation,
   useExportMvpPdfReportMutation,
@@ -369,4 +402,7 @@ export const {
   useMarkNotificationAsReadMutation,
   useLazyGetStateCityByZipcodeQuery,
   useFetchDesignatedUsersQuery,
+  useRemoveDesignatedUserMutation,
+  useUpdateDesignatedUserMutation,
+  useAddDesignatedUserMutation,
 } = api;
