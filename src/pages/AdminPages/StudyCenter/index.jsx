@@ -10,16 +10,21 @@ import filterIcon from "../../../assets/images/filter.png";
 import Pagination from "../../../components/Pagination";
 import ReusableTable from "../../../components/ReusableTable";
 import AddStudyCenterModal from "./AddStudyCenterModal";
+import EditStudyCenterModal from "./EditStudyCenterModal";
 import { toast } from "react-toastify";
 import { useDebounce } from "../../../components/hooks/useDebounce";
 import StudyCenterFilterModal from "./StudyCenterFilterModal";
 import { LoaderCenter } from "../../../utilities/Loader";
+import { FiEdit2 } from "react-icons/fi";
 const StudyCenter = () => {
   const [pageSize, setPageSize] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [selectedStudyCenter, setSelectedStudyCenter] = useState(null);
+  console.log("selectedStudyCenter", selectedStudyCenter);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { data: studyCenter, isLoading } = useGetAllStudyCenterQuery({
@@ -101,6 +106,21 @@ const StudyCenter = () => {
           </div>
         );
       },
+    },
+    {
+      accessor: "action",
+      header: "Action",
+      render: (row) => (
+        <button
+          onClick={() => {
+            setSelectedStudyCenter(row);
+            setIsEditOpen(true);
+          }}
+          className="flex items-center justify-center w-8 h-8 rounded-md border border-gray-300 hover:bg-gray-100"
+        >
+          <FiEdit2 size={15} />
+        </button>
+      ),
     },
   ];
   if (isLoading) {
@@ -203,6 +223,14 @@ const StudyCenter = () => {
         onPageSizeChange={handlePageSizeChange}
       />
       <AddStudyCenterModal open={isOpen} onClose={() => setIsOpen(false)} />
+      <EditStudyCenterModal
+        open={isEditOpen}
+        onClose={() => {
+          setIsEditOpen(false);
+          setSelectedStudyCenter(null);
+        }}
+        studyCenter={selectedStudyCenter}
+      />
       <StudyCenterFilterModal
         open={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
